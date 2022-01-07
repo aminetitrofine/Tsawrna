@@ -1,8 +1,11 @@
-package com.moroccanpixels.moroccanpixels.User;
+package com.moroccanpixels.moroccanpixels.user;
 
+import com.moroccanpixels.moroccanpixels.image.Image;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name="MOROCCAN_PIXELS_USER")
@@ -21,6 +24,7 @@ public class User {
     private Long id;
     private String username;
     private String email;
+    private LocalDate birthdate;
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -31,6 +35,16 @@ public class User {
 
     //private Plan plan;
 
+    @OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
+    private Set<Image> images;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "SAVE",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "IMAGE_ID")}
+    )
+    private Set<Image> savedImages;
 
     public User() {
     }
@@ -89,5 +103,13 @@ public class User {
 
     public void setStatus(StatusType status) {
         this.status = status;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 }

@@ -1,4 +1,4 @@
-package com.moroccanpixels.moroccanpixels.User;
+package com.moroccanpixels.moroccanpixels.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

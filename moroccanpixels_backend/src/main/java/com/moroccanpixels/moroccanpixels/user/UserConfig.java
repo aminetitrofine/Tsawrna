@@ -1,4 +1,4 @@
-package com.moroccanpixels.moroccanpixels.User;
+package com.moroccanpixels.moroccanpixels.user;
 
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 import org.springframework.boot.CommandLineRunner;
