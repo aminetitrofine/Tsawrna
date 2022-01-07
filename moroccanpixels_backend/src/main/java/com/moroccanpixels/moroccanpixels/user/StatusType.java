@@ -5,4 +5,5 @@ public enum StatusType {
     UNCONFIRMED,
     FORCE_CHANGE_PASSWORD,
     ARCHIVED,
+    BANNED
 }

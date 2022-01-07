@@ -1,5 +1,7 @@
 package com.moroccanpixels.moroccanpixels.User;
 
+import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,7 +24,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private ApplicationUserRole role;
 
     @Enumerated(EnumType.STRING)
     private StatusType status;
@@ -33,7 +35,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, RoleType role, StatusType status) {
+    public User(String username, String email, String password, ApplicationUserRole role, StatusType status) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -57,7 +59,7 @@ public class User {
         return password;
     }
 
-    public RoleType getRole() {
+    public ApplicationUserRole getRole() {
         return role;
     }
 
@@ -81,7 +83,7 @@ public class User {
         this.password = password;
     }
 
-    public void setRole(RoleType role) {
+    public void setRole(ApplicationUserRole role) {
         this.role = role;
     }
 

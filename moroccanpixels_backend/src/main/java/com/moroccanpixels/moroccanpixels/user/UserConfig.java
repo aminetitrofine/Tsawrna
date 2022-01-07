@@ -1,5 +1,6 @@
 package com.moroccanpixels.moroccanpixels.User;
 
+import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +17,14 @@ public class UserConfig {
                     "benyazidhamza",
                     "benyazidhamza969@gmail.com",
                     "15032000",
-                    RoleType.ADMIN,
+                    ApplicationUserRole.ADMIN,
                     StatusType.CONFIRMED
             );
             User amine = new User(
                     "amine",
                     "aminetitro@gmail.com",
                     "password",
-                    RoleType.CONTRIBUTOR,
+                    ApplicationUserRole.CONTRIBUTOR,
                     StatusType.ARCHIVED
             );
             userRepository.saveAll(List.of(hamza,amine));
