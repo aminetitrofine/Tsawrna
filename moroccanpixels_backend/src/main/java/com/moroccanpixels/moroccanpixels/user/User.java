@@ -1,5 +1,6 @@
 package com.moroccanpixels.moroccanpixels.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.moroccanpixels.moroccanpixels.image.Image;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 
@@ -34,7 +35,7 @@ public class User {
     private StatusType status;
 
     //private Plan plan;
-
+    @JsonManagedReference
     @OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
     private Set<Image> images;
 
