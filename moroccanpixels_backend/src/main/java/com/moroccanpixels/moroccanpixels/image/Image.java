@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.image;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moroccanpixels.moroccanpixels.keyword.Keyword;
 import com.moroccanpixels.moroccanpixels.user.User;
 import com.sun.istack.NotNull;
@@ -8,13 +9,14 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
 public class Image {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonBackReference
@@ -29,13 +31,16 @@ public class Image {
     private Instant uploadedAt;
     private Instant lastModified;
     private String description;
-    private Long downloadCount;
-    private Long viewCount;
-    private Long saveCount;
+    private int downloadCount;
+    private int viewCount;
+
+    @Transient
+    private int saveCount;
 
     @Enumerated(EnumType.STRING)
     private ImageType type;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "SAVE",
@@ -43,12 +48,21 @@ public class Image {
             inverseJoinColumns = {@JoinColumn(name = "USER_ID")}
     )
     private Set<User> savedBy;
+
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "IMAGE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "KEYWORD_ID")}
     )
     private Set<Keyword> keywords;
+
+    public Image() {
+        this.downloadCount=0;
+        this.viewCount=0;
+        this.savedBy=new HashSet<User>();
+        this.keywords=new HashSet<Keyword>();
+    }
 
     public Long getId() {
         return id;
@@ -67,6 +81,10 @@ public class Image {
     }
 
     public String getPath() {
+        return "/image/"+this.id;
+    }
+
+    public String getLocalPath() {
         return "/uploads/images/"+this.owner.getUsername()+"/"+this.id+"."+this.type.value();
     }
 
@@ -98,27 +116,28 @@ public class Image {
         this.description = description;
     }
 
-    public Long getDownloadCount() {
+    public int getDownloadCount() {
         return downloadCount;
     }
 
-    public void setDownloadCount(Long downloadCount) {
+    public void setDownloadCount(int downloadCount) {
         this.downloadCount = downloadCount;
     }
 
-    public Long getViewCount() {
+    public int getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(Long viewCount) {
+    public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }
 
-    public Long getSaveCount() {
-        return saveCount;
+    public int getSaveCount() {
+
+        return this.savedBy.size();
     }
 
-    public void setSaveCount(Long saveCount) {
+    public void setSaveCount(int saveCount) {
         this.saveCount = saveCount;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/keyword")
+@RequestMapping("keyword")
 public class KeywordController {
     private final KeywordService keywordService;
 

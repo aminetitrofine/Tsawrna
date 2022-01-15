@@ -3,22 +3,27 @@ package com.moroccanpixels.moroccanpixels.keyword;
 import com.moroccanpixels.moroccanpixels.image.Image;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
 public class Keyword {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     private String name;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "KEYWORD_ID")},
             inverseJoinColumns = {@JoinColumn(name = "IMAGE_ID")}
     )
     private Set<Image> images;
+
+    public Keyword() {
+    }
 
     public Keyword(String name) {
         this.name = name;
@@ -46,5 +51,10 @@ public class Keyword {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+
+    public void addImage(Image image){
+        if (this.images==null) this.images=new HashSet<Image>();
+        this.images.add(image);
     }
 }

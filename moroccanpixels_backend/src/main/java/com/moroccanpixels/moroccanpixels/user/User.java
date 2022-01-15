@@ -13,11 +13,14 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String email;
     private LocalDate birthdate;
+
+
+
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -104,5 +107,20 @@ public class User {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public Set<Image> getSavedImages() {
+        return savedImages;
+    }
+
+    public void setSavedImages(Set<Image> savedImages) {
+        this.savedImages = savedImages;
     }
 }

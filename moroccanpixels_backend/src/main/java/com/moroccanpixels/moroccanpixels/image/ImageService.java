@@ -1,7 +1,9 @@
 package com.moroccanpixels.moroccanpixels.image;
 
+import com.moroccanpixels.moroccanpixels.dto.ImageDto;
 import com.moroccanpixels.moroccanpixels.keyword.Keyword;
 import com.moroccanpixels.moroccanpixels.keyword.KeywordRepository;
+import com.moroccanpixels.moroccanpixels.mapper.EntityToDto;
 import com.moroccanpixels.moroccanpixels.user.User;
 import com.moroccanpixels.moroccanpixels.user.UserRepository;
 import com.moroccanpixels.moroccanpixels.utils.ImageUtils;
@@ -36,8 +38,7 @@ public class ImageService {
         this.keywordRepository = keywordRepository;
         this.request = request;
     }
-    @Transactional
-    public Image uploadImage(ImageRequest imageRequest) {
+    public ImageDto uploadImage(ImageRequest imageRequest) {
         Instant instant = Instant.now();
         MultipartFile file = imageRequest.getFile();
         if(!Objects.requireNonNull(file.getContentType()).startsWith("image")){
@@ -52,9 +53,11 @@ public class ImageService {
         //setting owner
         User owner = userRepository.findByUsername(imageRequest.getUsername()).orElseThrow(()-> new IllegalStateException("User doesnt exist"));
         image.setOwner(owner);
-        //setting uploadedAt and lastModified
+        //setting other parameters
         image.setUploadedAt(instant);
         image.setLastModified(instant);
+        image.setDownloadCount(0);
+        image.setViewCount(0);
         //saving image
         imageRepository.save(image);
         String fileName = image.getId()+"."+image.getType().value();
@@ -62,18 +65,19 @@ public class ImageService {
         String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
         System.out.println(realPathToUploads);
         ImageUtils.saveImage(file,realPathToUploads,fileName);
-        return  image;
+        return EntityToDto.ImageEntityToDto(image);
     }
 
-    public List<Image> listImages() {
-        return imageRepository.findAll();
+    public Set<ImageDto> listImages() {
+        return EntityToDto.ImageEntityToDto(imageRepository.findAll());
     }
 
+    @Transactional
     public byte[] getImage(Long imageId) throws IOException {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found."));
-        System.out.println(request.getServletContext().getRealPath(image.getPath()));
-        InputStream in = new FileInputStream(request.getServletContext().getRealPath(image.getPath()));
+        image.setViewCount(image.getViewCount()+1);
+        InputStream in = new FileInputStream(request.getServletContext().getRealPath(image.getLocalPath()));
         return IOUtils.toByteArray(in);
     }
 
@@ -81,7 +85,7 @@ public class ImageService {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("image not found"));
         //delete file
-        File file = new File(request.getServletContext().getRealPath(image.getPath()));
+        File file = new File(request.getServletContext().getRealPath(image.getLocalPath()));
         if(file.delete()){
             System.out.println("image "+imageId+" deleted");
         }else{
@@ -91,7 +95,8 @@ public class ImageService {
         imageRepository.delete(image);
     }
 
-    public Image updateImage(Long imageId,ImageRequest imageRequest) {
+    @Transactional
+    public ImageDto updateImage(Long imageId,ImageRequest imageRequest) {
         Instant instant = Instant.now();
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found"));
@@ -106,7 +111,7 @@ public class ImageService {
 
         //updating file
         MultipartFile file = imageRequest.getFile();
-        if(file==null) return image;
+        if(file==null) return EntityToDto.ImageEntityToDto(image);
 
         //updating image type
         if(!Objects.requireNonNull(file.getContentType()).startsWith("image")){
@@ -118,19 +123,21 @@ public class ImageService {
         image.setLastModified(instant);
 
         //saving image
-        imageRepository.save(image);
         String file2Name = imageId+"."+image.getType().value();
         String uploadsDir = "/uploads/images/"+image.getOwner().getUsername()+"/";
         String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
         System.out.println(realPathToUploads);
         ImageUtils.replaceImage(file,realPathToUploads,file1Name,file2Name);
-        return  image;
+        return  EntityToDto.ImageEntityToDto(image);
     }
 
+    @Transactional
     public void mapKeywordToImage(Long imageId,String kw) {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("Image with id "+imageId+" not found"));
         Keyword keyword = keywordRepository.findByName(kw).orElse(new Keyword(kw));
+        keyword.addImage(image);
+        keywordRepository.save(keyword);
         image.addKeyword(keyword);
         imageRepository.save(image);
     }

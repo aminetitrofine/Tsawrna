@@ -1,14 +1,16 @@
 package com.moroccanpixels.moroccanpixels.image;
 
+import com.moroccanpixels.moroccanpixels.dto.ImageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
-@RequestMapping("api/v1/image")
+@RequestMapping("image")
 public class ImageController {
 
     private final ImageService imageService;
@@ -19,12 +21,12 @@ public class ImageController {
     }
 
     @PostMapping
-    public Image uploadImage(@ModelAttribute ImageRequest imageRequest){
+    public ImageDto uploadImage(@ModelAttribute ImageRequest imageRequest){
         return imageService.uploadImage(imageRequest);
     }
 
     @GetMapping
-    public List<Image> listImages(){
+    public Set<ImageDto> listImages(){
         return imageService.listImages();
     }
 
@@ -42,7 +44,7 @@ public class ImageController {
     }
 
     @PutMapping("{imageId}")
-    public Image updateImage(@PathVariable Long imageId,@ModelAttribute ImageRequest imageRequest){
+    public ImageDto updateImage(@PathVariable Long imageId,@ModelAttribute ImageRequest imageRequest){
         return imageService.updateImage(imageId,imageRequest);
     }
     @PostMapping("{imageId}/keyword")
