@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.image;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.moroccanpixels.moroccanpixels.keyword.Keyword;
 import com.moroccanpixels.moroccanpixels.user.User;
 import com.sun.istack.NotNull;
 
@@ -13,15 +14,7 @@ import java.util.Set;
 @Table
 public class Image {
     @Id
-    @SequenceGenerator(
-            name="image_sequence",
-            sequenceName="image_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy=GenerationType.SEQUENCE,
-            generator="image_sequence"
-    )
+    @GeneratedValue
     private Long id;
 
     @JsonBackReference
@@ -50,6 +43,12 @@ public class Image {
             inverseJoinColumns = {@JoinColumn(name = "USER_ID")}
     )
     private Set<User> savedBy;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            joinColumns = {@JoinColumn(name = "IMAGE_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "KEYWORD_ID")}
+    )
+    private Set<Keyword> keywords;
 
     public Long getId() {
         return id;
@@ -139,5 +138,15 @@ public class Image {
         this.type = type;
     }
 
+    public Set<Keyword> getKeywords() {
+        return keywords;
+    }
 
+    public void setKeywords(Set<Keyword> keywords) {
+        this.keywords = keywords;
+    }
+
+    public void addKeyword(Keyword keyword) {
+        this.keywords.add(keyword);
+    }
 }

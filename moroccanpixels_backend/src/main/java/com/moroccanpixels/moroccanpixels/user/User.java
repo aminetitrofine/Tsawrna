@@ -13,15 +13,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @SequenceGenerator(
-            name="user_sequence",
-            sequenceName="user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy=GenerationType.SEQUENCE,
-            generator="user_sequence"
-    )
+    @GeneratedValue
     private Long id;
     private String username;
     private String email;

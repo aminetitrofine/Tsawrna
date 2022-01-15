@@ -45,4 +45,8 @@ public class ImageController {
     public Image updateImage(@PathVariable Long imageId,@ModelAttribute ImageRequest imageRequest){
         return imageService.updateImage(imageId,imageRequest);
     }
+    @PostMapping("{imageId}/keyword")
+    public void mapKeywordToImage(@PathVariable Long imageId,@RequestBody String keyword){
+        imageService.mapKeywordToImage(imageId,keyword);
+    }
 }
