@@ -6,6 +6,7 @@ import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -122,5 +123,13 @@ public class User {
 
     public void setSavedImages(Set<Image> savedImages) {
         this.savedImages = savedImages;
+    }
+    public void addSavedImage(Image image) {
+        if(this.savedImages==null) this.savedImages = new HashSet<Image>();
+        this.savedImages.add(image);
+    }
+    public void removeSavedImage(Image image) {
+        if(this.savedImages==null) return;
+        this.savedImages.remove(image);
     }
 }

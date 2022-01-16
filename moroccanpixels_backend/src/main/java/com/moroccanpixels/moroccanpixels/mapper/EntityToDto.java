@@ -24,13 +24,14 @@ public class EntityToDto {
         ImageDto dto = new ImageDto();
         dto.setId(image.getId());
         dto.setDescription(image.getDescription());
-        dto.setDownloadCount(image.getDownloadCount());
         dto.setLastModified(image.getLastModified());
         dto.setUploadedAt(image.getUploadedAt());
         dto.setType(image.getType());
         dto.setOwner(image.getOwner().getUsername());
         dto.setPath(image.getPath());
+        dto.setDownloadCount(image.getDownloadCount());
         dto.setSaveCount(image.getSaveCount());
+        dto.setViewCount(image.getViewCount());
         dto.setSavedBy(image.getSavedBy().stream().map(User::getUsername).collect(Collectors.toSet()));
         dto.setKeywords(image.getKeywords().stream().map(Keyword::getName).collect(Collectors.toSet()));
         return dto;

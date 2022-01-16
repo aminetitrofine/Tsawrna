@@ -51,4 +51,13 @@ public class ImageController {
     public void mapKeywordToImage(@PathVariable Long imageId,@RequestBody String keyword){
         imageService.mapKeywordToImage(imageId,keyword);
     }
+
+    @PostMapping("{imageId}/save")
+    public void saveImage(@PathVariable Long imageId,@RequestBody String username){
+        imageService.saveImage(imageId,username);
+    }
+    @PostMapping("{imageId}/unsave")
+    public void unsaveImage(@PathVariable Long imageId,@RequestBody String username){
+        imageService.unsaveImage(imageId,username);
+    }
 }

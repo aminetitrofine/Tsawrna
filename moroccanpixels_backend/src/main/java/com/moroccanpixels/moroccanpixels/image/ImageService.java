@@ -141,4 +141,21 @@ public class ImageService {
         image.addKeyword(keyword);
         imageRepository.save(image);
     }
+    @Transactional
+    public void saveImage(Long imageId, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(()->new IllegalStateException("user "+username+" not found"));
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(()->new IllegalStateException("image with id "+imageId+"not found"));
+        user.addSavedImage(image);
+    }
+
+    @Transactional
+    public void unsaveImage(Long imageId, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(()->new IllegalStateException("user "+username+" not found"));
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(()->new IllegalStateException("image with id "+imageId+"not found"));
+        user.removeSavedImage(image);
+    }
 }
