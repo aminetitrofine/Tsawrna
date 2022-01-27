@@ -54,11 +54,11 @@ public class ImageController {
     }
 
     @PostMapping("{imageId}/save")
-    public void saveImage(@PathVariable Long imageId,@RequestBody String username){
-        imageService.saveImage(imageId,username);
+    public void saveImage(@PathVariable Long imageId){
+        imageService.saveImage(imageId);
     }
     @PostMapping("{imageId}/unsave")
-    public void unsaveImage(@PathVariable Long imageId,@RequestBody String username){
-        imageService.unsaveImage(imageId,username);
+    public void unsaveImage(@PathVariable Long imageId){
+        imageService.unsaveImage(imageId);
     }
 }

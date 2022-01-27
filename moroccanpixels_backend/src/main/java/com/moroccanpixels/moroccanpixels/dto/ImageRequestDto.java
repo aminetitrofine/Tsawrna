@@ -6,17 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageRequestDto {
     @JsonProperty("file")
     private MultipartFile file;
-    @JsonProperty("username")
-    private String username;
     @JsonProperty("description")
     private String description;
 
     public ImageRequestDto() {
     }
 
-    public ImageRequestDto(MultipartFile file, String username, String description) {
+    public ImageRequestDto(MultipartFile file , String description) {
         this.file = file;
-        this.username = username;
         this.description = description;
     }
 
@@ -26,14 +23,6 @@ public class ImageRequestDto {
 
     public void setFile(MultipartFile file) {
         this.file = file;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getDescription() {

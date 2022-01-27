@@ -1,5 +1,6 @@
 package com.moroccanpixels.moroccanpixels.service;
 
+import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
 import com.moroccanpixels.moroccanpixels.entity.Keyword;
 import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
@@ -33,13 +34,15 @@ public class ImageService {
     private final UserRepository userRepository;
     private final KeywordRepository keywordRepository;
     private final HttpServletRequest request;
+    private final IAuthenticationFacade authenticationFacade;
 
     @Autowired
-    public ImageService(ImageRepository imageRepository, UserRepository userRepository, KeywordRepository keywordRepository, HttpServletRequest request) {
+    public ImageService(ImageRepository imageRepository, UserRepository userRepository, KeywordRepository keywordRepository, HttpServletRequest request, IAuthenticationFacade authenticationFacade) {
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
         this.keywordRepository = keywordRepository;
         this.request = request;
+        this.authenticationFacade = authenticationFacade;
     }
     public ImageResponseDto uploadImage(ImageRequestDto imageRequestDto) {
         Instant instant = Instant.now();
@@ -54,7 +57,8 @@ public class ImageService {
         //setting image type
         image.setType(ImageType.fromContentType(file.getContentType()));
         //setting owner
-        User owner = userRepository.findByUsername(imageRequestDto.getUsername()).orElseThrow(()-> new IllegalStateException("User doesnt exist"));
+        String username = authenticationFacade.getAuthentication().getName();
+        User owner = userRepository.findByUsername(username).orElseThrow(()-> new IllegalStateException("User doesnt exist"));
         image.setOwner(owner);
         //setting other parameters
         image.setUploadedAt(instant);
@@ -105,7 +109,8 @@ public class ImageService {
                 .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found"));
         String file1Name = imageId+"."+image.getType().value();
         //verifying ownership
-        if(!imageRequestDto.getUsername().equals(image.getOwner().getUsername()))
+        String username = authenticationFacade.getAuthentication().getName();
+        if(!username.equals(image.getOwner().getUsername()))
             throw new IllegalStateException("You can't update this image, you are not the owner");
 
         //updating description
@@ -145,7 +150,8 @@ public class ImageService {
         imageRepository.save(image);
     }
     @Transactional
-    public void saveImage(Long imageId, String username) {
+    public void saveImage(Long imageId) {
+        String username = authenticationFacade.getAuthentication().getName();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()->new IllegalStateException("user "+username+" not found"));
         Image image = imageRepository.findById(imageId)
@@ -154,7 +160,8 @@ public class ImageService {
     }
 
     @Transactional
-    public void unsaveImage(Long imageId, String username) {
+    public void unsaveImage(Long imageId) {
+        String username = authenticationFacade.getAuthentication().getName();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()->new IllegalStateException("user "+username+" not found"));
         Image image = imageRepository.findById(imageId)
