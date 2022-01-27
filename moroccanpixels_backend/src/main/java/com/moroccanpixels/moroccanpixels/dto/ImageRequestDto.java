@@ -1,9 +1,9 @@
-package com.moroccanpixels.moroccanpixels.image;
+package com.moroccanpixels.moroccanpixels.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.web.multipart.MultipartFile;
 
-public class ImageRequest {
+public class ImageRequestDto {
     @JsonProperty("file")
     private MultipartFile file;
     @JsonProperty("username")
@@ -11,10 +11,10 @@ public class ImageRequest {
     @JsonProperty("description")
     private String description;
 
-    public ImageRequest() {
+    public ImageRequestDto() {
     }
 
-    public ImageRequest(MultipartFile file, String username, String description) {
+    public ImageRequestDto(MultipartFile file, String username, String description) {
         this.file = file;
         this.username = username;
         this.description = description;

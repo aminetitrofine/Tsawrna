@@ -1,4 +1,4 @@
-package com.moroccanpixels.moroccanpixels.user;
+package com.moroccanpixels.moroccanpixels.entity;
 
 public enum StatusType {
     CONFIRMED,

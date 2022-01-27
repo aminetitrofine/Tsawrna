@@ -1,7 +1,6 @@
-package com.moroccanpixels.moroccanpixels.user;
+package com.moroccanpixels.moroccanpixels.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.moroccanpixels.moroccanpixels.image.Image;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 
 import javax.persistence.*;

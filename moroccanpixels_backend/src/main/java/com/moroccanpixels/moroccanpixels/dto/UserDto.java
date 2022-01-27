@@ -1,7 +1,7 @@
 package com.moroccanpixels.moroccanpixels.dto;
 
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
-import com.moroccanpixels.moroccanpixels.user.StatusType;
+import com.moroccanpixels.moroccanpixels.entity.StatusType;
 
 import java.time.LocalDate;
 import java.util.Set;

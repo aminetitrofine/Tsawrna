@@ -1,13 +1,9 @@
-package com.moroccanpixels.moroccanpixels.image;
+package com.moroccanpixels.moroccanpixels.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.moroccanpixels.moroccanpixels.keyword.Keyword;
-import com.moroccanpixels.moroccanpixels.user.User;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;

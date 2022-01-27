@@ -1,5 +1,6 @@
-package com.moroccanpixels.moroccanpixels.user;
+package com.moroccanpixels.moroccanpixels.repository;
 
+import com.moroccanpixels.moroccanpixels.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

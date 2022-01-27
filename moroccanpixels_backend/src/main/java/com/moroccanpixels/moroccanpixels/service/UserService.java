@@ -1,5 +1,7 @@
-package com.moroccanpixels.moroccanpixels.user;
+package com.moroccanpixels.moroccanpixels.service;
 
+import com.moroccanpixels.moroccanpixels.repository.UserRepository;
+import com.moroccanpixels.moroccanpixels.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

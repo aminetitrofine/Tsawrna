@@ -1,56 +1,50 @@
-//package com.moroccanpixels.moroccanpixels.security;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-//
-//import static com.moroccanpixels.moroccanpixels.security.ApplicationUserRole.*;
-//
-//@Configuration
-////@EnableWebSecurity
-//public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    private final PasswordEncoder passwordEncoder;
-//
-//    @Autowired
-//    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
-//        this.passwordEncoder = passwordEncoder;
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/api/**").hasRole(ADMIN.name())
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic();
-//
-//    }
-//
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails adminUser = User.builder()
-//                .username("hamza")
-//                .password(passwordEncoder.encode("hamza"))
-//                .roles(ADMIN.name())
-//                .build();
-//        UserDetails clientUser = User.builder()
-//                .username("mohamed")
-//                .password(passwordEncoder.encode("password"))
-//                .roles(CLIENT.name())
-//                .build();
-//        return new InMemoryUserDetailsManager(adminUser,clientUser);
-//    }
-//}
+package com.moroccanpixels.moroccanpixels.security;
+
+import com.moroccanpixels.moroccanpixels.auth.ApplicationUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final PasswordEncoder passwordEncoder;
+    private final ApplicationUserService applicationUserService;
+
+    @Autowired
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder, ApplicationUserService applicationUserService) {
+        this.passwordEncoder = passwordEncoder;
+        this.applicationUserService = applicationUserService;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(applicationUserService);
+        return provider;
+    }
+}

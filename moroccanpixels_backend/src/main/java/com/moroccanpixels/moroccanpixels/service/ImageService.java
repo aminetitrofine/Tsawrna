@@ -1,11 +1,15 @@
-package com.moroccanpixels.moroccanpixels.image;
+package com.moroccanpixels.moroccanpixels.service;
 
-import com.moroccanpixels.moroccanpixels.dto.ImageDto;
-import com.moroccanpixels.moroccanpixels.keyword.Keyword;
-import com.moroccanpixels.moroccanpixels.keyword.KeywordRepository;
+import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
+import com.moroccanpixels.moroccanpixels.entity.Keyword;
+import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
+import com.moroccanpixels.moroccanpixels.dto.ImageRequestDto;
+import com.moroccanpixels.moroccanpixels.entity.ImageType;
+import com.moroccanpixels.moroccanpixels.entity.Image;
+import com.moroccanpixels.moroccanpixels.repository.KeywordRepository;
 import com.moroccanpixels.moroccanpixels.mapper.EntityToDto;
-import com.moroccanpixels.moroccanpixels.user.User;
-import com.moroccanpixels.moroccanpixels.user.UserRepository;
+import com.moroccanpixels.moroccanpixels.entity.User;
+import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import com.moroccanpixels.moroccanpixels.utils.ImageUtils;
 
 import org.apache.commons.io.IOUtils;
@@ -20,7 +24,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -38,20 +41,20 @@ public class ImageService {
         this.keywordRepository = keywordRepository;
         this.request = request;
     }
-    public ImageDto uploadImage(ImageRequest imageRequest) {
+    public ImageResponseDto uploadImage(ImageRequestDto imageRequestDto) {
         Instant instant = Instant.now();
-        MultipartFile file = imageRequest.getFile();
+        MultipartFile file = imageRequestDto.getFile();
         if(!Objects.requireNonNull(file.getContentType()).startsWith("image")){
             throw new IllegalStateException("This not an image");
         }
         Image image = new Image();
 
         //setting description
-        image.setDescription(imageRequest.getDescription());
+        image.setDescription(imageRequestDto.getDescription());
         //setting image type
         image.setType(ImageType.fromContentType(file.getContentType()));
         //setting owner
-        User owner = userRepository.findByUsername(imageRequest.getUsername()).orElseThrow(()-> new IllegalStateException("User doesnt exist"));
+        User owner = userRepository.findByUsername(imageRequestDto.getUsername()).orElseThrow(()-> new IllegalStateException("User doesnt exist"));
         image.setOwner(owner);
         //setting other parameters
         image.setUploadedAt(instant);
@@ -68,7 +71,7 @@ public class ImageService {
         return EntityToDto.ImageEntityToDto(image);
     }
 
-    public Set<ImageDto> listImages() {
+    public Set<ImageResponseDto> listImages() {
         return EntityToDto.ImageEntityToDto(imageRepository.findAll());
     }
 
@@ -96,21 +99,21 @@ public class ImageService {
     }
 
     @Transactional
-    public ImageDto updateImage(Long imageId,ImageRequest imageRequest) {
+    public ImageResponseDto updateImage(Long imageId, ImageRequestDto imageRequestDto) {
         Instant instant = Instant.now();
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found"));
         String file1Name = imageId+"."+image.getType().value();
         //verifying ownership
-        if(!imageRequest.getUsername().equals(image.getOwner().getUsername()))
+        if(!imageRequestDto.getUsername().equals(image.getOwner().getUsername()))
             throw new IllegalStateException("You can't update this image, you are not the owner");
 
         //updating description
-        if (imageRequest.getDescription()!=null)
-            image.setDescription(imageRequest.getDescription());
+        if (imageRequestDto.getDescription()!=null)
+            image.setDescription(imageRequestDto.getDescription());
 
         //updating file
-        MultipartFile file = imageRequest.getFile();
+        MultipartFile file = imageRequestDto.getFile();
         if(file==null) return EntityToDto.ImageEntityToDto(image);
 
         //updating image type

@@ -1,6 +1,4 @@
-package com.moroccanpixels.moroccanpixels.keyword;
-
-import com.moroccanpixels.moroccanpixels.image.Image;
+package com.moroccanpixels.moroccanpixels.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;

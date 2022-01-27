@@ -1,9 +1,9 @@
 package com.moroccanpixels.moroccanpixels.mapper;
 
 import com.moroccanpixels.moroccanpixels.dto.*;
-import com.moroccanpixels.moroccanpixels.image.Image;
-import com.moroccanpixels.moroccanpixels.keyword.Keyword;
-import com.moroccanpixels.moroccanpixels.user.User;
+import com.moroccanpixels.moroccanpixels.entity.Image;
+import com.moroccanpixels.moroccanpixels.entity.Keyword;
+import com.moroccanpixels.moroccanpixels.entity.User;
 
 import java.util.Collection;
 import java.util.Set;
@@ -20,8 +20,8 @@ public class EntityToDto {
     public static Set<KeywordDto> keywordEntityToDto(Collection<Keyword> keywords){
         return keywords.stream().map(EntityToDto::keywordEntityToDto).collect(Collectors.toSet());
     }
-    public static ImageDto ImageEntityToDto(Image image){
-        ImageDto dto = new ImageDto();
+    public static ImageResponseDto ImageEntityToDto(Image image){
+        ImageResponseDto dto = new ImageResponseDto();
         dto.setId(image.getId());
         dto.setDescription(image.getDescription());
         dto.setLastModified(image.getLastModified());
@@ -36,7 +36,7 @@ public class EntityToDto {
         dto.setKeywords(image.getKeywords().stream().map(Keyword::getName).collect(Collectors.toSet()));
         return dto;
     }
-    public static Set<ImageDto> ImageEntityToDto(Collection<Image> images){
+    public static Set<ImageResponseDto> ImageEntityToDto(Collection<Image> images){
         return images.stream().map(EntityToDto::ImageEntityToDto).collect(Collectors.toSet());
     }
 

@@ -1,6 +1,10 @@
 package com.moroccanpixels.moroccanpixels.security;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.moroccanpixels.moroccanpixels.security.ApplicationUserPermission.*;
 
@@ -17,5 +21,13 @@ public enum ApplicationUserRole {
 
     public Set<ApplicationUserPermission> getPermissions() {
         return permissions;
+    }
+
+    public Set<SimpleGrantedAuthority> getGrantedAuthorities(){
+        Set<SimpleGrantedAuthority> grantedAuthorities = getPermissions().stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                .collect(Collectors.toSet());
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+this.name()));
+        return grantedAuthorities;
     }
 }

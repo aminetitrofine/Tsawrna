@@ -1,13 +1,13 @@
 package com.moroccanpixels.moroccanpixels.dto;
 
-import com.moroccanpixels.moroccanpixels.image.ImageType;
+import com.moroccanpixels.moroccanpixels.entity.ImageType;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Set;
 
 @Component
-public class ImageDto {
+public class ImageResponseDto {
     private Long id;
     private String owner;
     private String path;

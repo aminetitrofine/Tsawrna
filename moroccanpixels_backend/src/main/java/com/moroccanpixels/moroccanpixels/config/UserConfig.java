@@ -1,6 +1,9 @@
-package com.moroccanpixels.moroccanpixels.user;
+package com.moroccanpixels.moroccanpixels.config;
 
+import com.moroccanpixels.moroccanpixels.entity.User;
+import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
+import com.moroccanpixels.moroccanpixels.entity.StatusType;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

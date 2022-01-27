@@ -1,5 +1,7 @@
-package com.moroccanpixels.moroccanpixels.user;
+package com.moroccanpixels.moroccanpixels.controller;
 
+import com.moroccanpixels.moroccanpixels.entity.User;
+import com.moroccanpixels.moroccanpixels.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

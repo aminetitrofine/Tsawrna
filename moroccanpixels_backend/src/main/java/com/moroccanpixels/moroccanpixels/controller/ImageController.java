@@ -1,12 +1,13 @@
-package com.moroccanpixels.moroccanpixels.image;
+package com.moroccanpixels.moroccanpixels.controller;
 
-import com.moroccanpixels.moroccanpixels.dto.ImageDto;
+import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
+import com.moroccanpixels.moroccanpixels.dto.ImageRequestDto;
+import com.moroccanpixels.moroccanpixels.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -21,12 +22,12 @@ public class ImageController {
     }
 
     @PostMapping
-    public ImageDto uploadImage(@ModelAttribute ImageRequest imageRequest){
-        return imageService.uploadImage(imageRequest);
+    public ImageResponseDto uploadImage(@ModelAttribute ImageRequestDto imageRequestDto){
+        return imageService.uploadImage(imageRequestDto);
     }
 
     @GetMapping
-    public Set<ImageDto> listImages(){
+    public Set<ImageResponseDto> listImages(){
         return imageService.listImages();
     }
 
@@ -44,8 +45,8 @@ public class ImageController {
     }
 
     @PutMapping("{imageId}")
-    public ImageDto updateImage(@PathVariable Long imageId,@ModelAttribute ImageRequest imageRequest){
-        return imageService.updateImage(imageId,imageRequest);
+    public ImageResponseDto updateImage(@PathVariable Long imageId, @ModelAttribute ImageRequestDto imageRequestDto){
+        return imageService.updateImage(imageId, imageRequestDto);
     }
     @PostMapping("{imageId}/keyword")
     public void mapKeywordToImage(@PathVariable Long imageId,@RequestBody String keyword){

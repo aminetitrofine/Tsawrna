@@ -1,4 +1,4 @@
-package com.moroccanpixels.moroccanpixels.image;
+package com.moroccanpixels.moroccanpixels.entity;
 
 public enum ImageType {
     PNG("png"),
