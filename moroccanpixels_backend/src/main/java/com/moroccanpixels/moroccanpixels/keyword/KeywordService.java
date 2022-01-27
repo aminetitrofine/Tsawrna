@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KeywordService {
@@ -16,6 +17,6 @@ public class KeywordService {
     }
 
     public List<String> getKeywords() {
-        return keywordRepository.findAll().stream().map(Keyword::getName).toList();
+        return keywordRepository.findAll().stream().map(Keyword::getName).collect(Collectors.toList());
     }
 }
