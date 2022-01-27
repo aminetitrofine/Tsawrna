@@ -20,7 +20,7 @@ public class EntityToDto {
     public static Set<KeywordDto> keywordEntityToDto(Collection<Keyword> keywords){
         return keywords.stream().map(EntityToDto::keywordEntityToDto).collect(Collectors.toSet());
     }
-    public static ImageResponseDto ImageEntityToDto(Image image){
+    public static ImageResponseDto imageEntityToDto(Image image){
         ImageResponseDto dto = new ImageResponseDto();
         dto.setId(image.getId());
         dto.setDescription(image.getDescription());
@@ -36,11 +36,11 @@ public class EntityToDto {
         dto.setKeywords(image.getKeywords().stream().map(Keyword::getName).collect(Collectors.toSet()));
         return dto;
     }
-    public static Set<ImageResponseDto> ImageEntityToDto(Collection<Image> images){
-        return images.stream().map(EntityToDto::ImageEntityToDto).collect(Collectors.toSet());
+    public static Set<ImageResponseDto> imageEntityToDto(Collection<Image> images){
+        return images.stream().map(EntityToDto::imageEntityToDto).collect(Collectors.toSet());
     }
 
-    public static UserDto UserEntityToDto(User user){
+    public static UserDto userEntityToDto(User user){
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());

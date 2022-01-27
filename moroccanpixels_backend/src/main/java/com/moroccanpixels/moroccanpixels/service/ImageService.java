@@ -68,11 +68,11 @@ public class ImageService {
         String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
         System.out.println(realPathToUploads);
         ImageUtils.saveImage(file,realPathToUploads,fileName);
-        return EntityToDto.ImageEntityToDto(image);
+        return EntityToDto.imageEntityToDto(image);
     }
 
     public Set<ImageResponseDto> listImages() {
-        return EntityToDto.ImageEntityToDto(imageRepository.findAll());
+        return EntityToDto.imageEntityToDto(imageRepository.findAll());
     }
 
     @Transactional
@@ -114,7 +114,7 @@ public class ImageService {
 
         //updating file
         MultipartFile file = imageRequestDto.getFile();
-        if(file==null) return EntityToDto.ImageEntityToDto(image);
+        if(file==null) return EntityToDto.imageEntityToDto(image);
 
         //updating image type
         if(!Objects.requireNonNull(file.getContentType()).startsWith("image")){
@@ -131,7 +131,7 @@ public class ImageService {
         String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
         System.out.println(realPathToUploads);
         ImageUtils.replaceImage(file,realPathToUploads,file1Name,file2Name);
-        return  EntityToDto.ImageEntityToDto(image);
+        return  EntityToDto.imageEntityToDto(image);
     }
 
     @Transactional
