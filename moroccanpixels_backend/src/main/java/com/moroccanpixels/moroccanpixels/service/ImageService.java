@@ -2,14 +2,14 @@ package com.moroccanpixels.moroccanpixels.service;
 
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
-import com.moroccanpixels.moroccanpixels.entity.Keyword;
+import com.moroccanpixels.moroccanpixels.model.entity.Keyword;
 import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
 import com.moroccanpixels.moroccanpixels.dto.ImageRequestDto;
-import com.moroccanpixels.moroccanpixels.entity.ImageType;
-import com.moroccanpixels.moroccanpixels.entity.Image;
+import com.moroccanpixels.moroccanpixels.model.ImageType;
+import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.repository.KeywordRepository;
 import com.moroccanpixels.moroccanpixels.mapper.EntityToDto;
-import com.moroccanpixels.moroccanpixels.entity.User;
+import com.moroccanpixels.moroccanpixels.model.entity.User;
 import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import com.moroccanpixels.moroccanpixels.utils.ImageUtils;
 

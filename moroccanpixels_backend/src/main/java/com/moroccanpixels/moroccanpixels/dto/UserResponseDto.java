@@ -1,12 +1,22 @@
 package com.moroccanpixels.moroccanpixels.dto;
 
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
-import com.moroccanpixels.moroccanpixels.entity.StatusType;
+import com.moroccanpixels.moroccanpixels.model.StatusType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Set;
 
-public class UserDto {
+@Component
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserResponseDto {
     private Long id;
     private String username;
     private String email;
