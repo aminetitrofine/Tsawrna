@@ -1,6 +1,6 @@
 package com.moroccanpixels.moroccanpixels.auth;
 
-import com.moroccanpixels.moroccanpixels.entity.User;
+import com.moroccanpixels.moroccanpixels.model.entity.User;
 import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -1,11 +1,12 @@
 package com.moroccanpixels.moroccanpixels.mapper;
 
 import com.moroccanpixels.moroccanpixels.dto.*;
-import com.moroccanpixels.moroccanpixels.entity.Image;
-import com.moroccanpixels.moroccanpixels.entity.Keyword;
-import com.moroccanpixels.moroccanpixels.entity.User;
+import com.moroccanpixels.moroccanpixels.model.entity.Image;
+import com.moroccanpixels.moroccanpixels.model.entity.Keyword;
+import com.moroccanpixels.moroccanpixels.model.entity.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,8 +41,8 @@ public class EntityToDto {
         return images.stream().map(EntityToDto::imageEntityToDto).collect(Collectors.toSet());
     }
 
-    public static UserDto userEntityToDto(User user){
-        UserDto dto = new UserDto();
+    public static UserResponseDto userToUserResponseDto(User user){
+        UserResponseDto dto = new UserResponseDto();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setBirthdate(user.getBirthdate());
@@ -51,5 +52,8 @@ public class EntityToDto {
         dto.setImages(user.getImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         dto.setSavedImages(user.getSavedImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         return dto;
+    }
+    public static List<UserResponseDto> userToUserResponseDto(Collection<User> users){
+        return users.stream().map(EntityToDto::userToUserResponseDto).collect(Collectors.toList());
     }
 }

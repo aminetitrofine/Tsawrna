@@ -1,7 +1,13 @@
-package com.moroccanpixels.moroccanpixels.entity;
+package com.moroccanpixels.moroccanpixels.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.moroccanpixels.moroccanpixels.model.StatusType;
+import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +16,10 @@ import java.util.Set;
 
 @Entity
 @Table(name="MOROCCAN_PIXELS_USER")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -18,9 +28,6 @@ public class User {
     private String username;
     private String email;
     private LocalDate birthdate;
-
-
-
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -42,86 +49,12 @@ public class User {
     )
     private Set<Image> savedImages;
 
-    public User() {
-    }
-
     public User(String username, String email, String password, ApplicationUserRole role, StatusType status) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.status = status;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public ApplicationUserRole getRole() {
-        return role;
-    }
-
-    public StatusType getStatus() {
-        return status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(ApplicationUserRole role) {
-        this.role = role;
-    }
-
-    public void setStatus(StatusType status) {
-        this.status = status;
-    }
-
-    public Set<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<Image> images) {
-        this.images = images;
-    }
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public Set<Image> getSavedImages() {
-        return savedImages;
-    }
-
-    public void setSavedImages(Set<Image> savedImages) {
-        this.savedImages = savedImages;
     }
     public void addSavedImage(Image image) {
         if(this.savedImages==null) this.savedImages = new HashSet<Image>();

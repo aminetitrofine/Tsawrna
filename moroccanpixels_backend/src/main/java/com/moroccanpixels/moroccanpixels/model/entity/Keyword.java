@@ -1,4 +1,10 @@
-package com.moroccanpixels.moroccanpixels.entity;
+package com.moroccanpixels.moroccanpixels.model.entity;
+
+import com.moroccanpixels.moroccanpixels.model.entity.Image;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -6,6 +12,10 @@ import java.util.Set;
 
 @Entity
 @Table
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Keyword {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,35 +30,8 @@ public class Keyword {
     )
     private Set<Image> images;
 
-    public Keyword() {
-    }
-
     public Keyword(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<Image> images) {
-        this.images = images;
     }
 
     public void addImage(Image image){
