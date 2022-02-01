@@ -15,6 +15,8 @@ public enum ApplicationUserRole {
     private final String value;
     private final Set<ApplicationUserPermission> permissions;
 
+
+
     ApplicationUserRole(String value, Set<ApplicationUserPermission> permissions) {
         this.value = value;
         this.permissions = permissions;
@@ -22,6 +24,15 @@ public enum ApplicationUserRole {
 
     public String getValue() {
         return value;
+    }
+
+    public static ApplicationUserRole fromValue(String value){
+        switch(value){
+            case "admin": return ADMIN;
+            case "contributor":return CONTRIBUTOR;
+            case "client" : return CLIENT;
+        }
+        return null;
     }
 
     public Set<ApplicationUserPermission> getPermissions() {

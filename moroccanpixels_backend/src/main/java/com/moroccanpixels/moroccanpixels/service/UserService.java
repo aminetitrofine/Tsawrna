@@ -60,8 +60,7 @@ public class UserService {
         //TODO: add email validation
         user.setEmail(signUpForm.getEmail());
         user.setStatus(CONFIRMED);
-        //TODO: CHANGE
-        user.setRole(ApplicationUserRole.ADMIN);
+        user.setRole(ApplicationUserRole.fromValue(signUpForm.getRole()));
 
         return EntityToDto.userToUserResponseDto(userRepository.save(user));
     }

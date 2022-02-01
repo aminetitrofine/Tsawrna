@@ -23,8 +23,8 @@ public class UserResponseDto {
     private String username;
     private String email;
     private LocalDate birthdate;
-    private ApplicationUserRole role;
-    private StatusType status;
+    private String role;
+    private String status;
     private Set<String> images; //Set of image's paths
     private Set<String> savedImages; //Set of saved image's paths
 }

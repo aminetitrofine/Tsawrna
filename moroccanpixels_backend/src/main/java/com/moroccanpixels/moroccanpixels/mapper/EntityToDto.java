@@ -48,8 +48,8 @@ public class EntityToDto {
         dto.setLastName(user.getLastName());
         dto.setBirthdate(user.getBirthdate());
         dto.setEmail(user.getEmail());
-        dto.setRole(user.getRole());
-        dto.setStatus(user.getStatus());
+        dto.setRole(user.getRole().getValue());
+        dto.setStatus(user.getStatus().name());
         dto.setImages(user.getImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         dto.setSavedImages(user.getSavedImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         return dto;
