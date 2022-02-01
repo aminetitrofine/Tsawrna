@@ -1,33 +1,18 @@
 import { Injectable } from '@angular/core';
+import {User} from "../models/user";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private users=[
-    {username:'admin',password:'admin',roles:['ADMIN','CONTRIBUTOR','USER']},
-    {username:'user1',password:'1234',roles:['CONTRIBUTOR','USER']},
-    {username:'user2',password:'1234',roles:['USER']},
-  ];
+  private url="http://localhost:8080/login"
+  constructor(private httpClient: HttpClient) { }
 
-  public isAuthenticated!:boolean;
-  public userAuthenticated!:any;
+  public login(user:User):Observable<object>{
+    console.log(user)
+    return this.httpClient.post(`${this.url}`,user);
 
-  constructor() { }
-
-  public login(username:string,password:string){
-    let user;
-    this.users.forEach(u=>{
-      if(u.username == username && u.password == password){
-        user = u;
-      }
-    });
-    if (user) {
-      this.isAuthenticated = true;
-      this.userAuthenticated = user;
-    } else {
-      this.isAuthenticated = false;
-      this.userAuthenticated = undefined;
-    }
   }
 }

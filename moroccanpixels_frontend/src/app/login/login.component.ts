@@ -15,9 +15,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(dataForm: any) {
-    this.authService.login(dataForm.username, dataForm.password)
-    if (this.authService.isAuthenticated){
-      this.router.navigateByUrl('');
-    }
+    this.authService.login(dataForm).subscribe(data =>{
+      alert("Login successfully")
+    },error => alert("there is a problem"))
+
   }
 }
