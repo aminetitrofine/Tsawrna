@@ -12,4 +12,9 @@ public class PasswordConfig{
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
+
+    public static boolean isValid(String password){
+        //TODO: define password pattern here
+        return true;
+    }
 }

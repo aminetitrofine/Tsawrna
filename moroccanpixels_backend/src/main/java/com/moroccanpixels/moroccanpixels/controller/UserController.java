@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.controller;
 
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
+import com.moroccanpixels.moroccanpixels.dto.SignUpFormDto;
 import com.moroccanpixels.moroccanpixels.dto.UpdatePasswordRequestDto;
 import com.moroccanpixels.moroccanpixels.dto.UserResponseDto;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
@@ -32,13 +33,15 @@ public class UserController {
     }
 
     @PostMapping(path = {"signup"})
-    public UserResponseDto signup(@RequestBody User user){
-        return userService.singup(user);
+    public UserResponseDto signUp(@RequestBody SignUpFormDto signupForm){
+        return userService.singUp(signupForm);
     }
 
     @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateName"})
-    public void updateName(@PathVariable Long userId,@RequestBody String name){
-        userService.updateName(userId, name);
+    public void updateName(@PathVariable Long userId,
+                           @RequestBody(required = false) String firstName,
+                           @RequestBody(required = false) String lastName) {
+        userService.updateName(userId, firstName,lastName);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path="user/{userId}",headers={"target=updateEmail"})
