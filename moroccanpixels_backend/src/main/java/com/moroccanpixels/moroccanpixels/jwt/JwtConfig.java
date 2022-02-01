@@ -6,7 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 
 
 @Data
-@PropertySource("application.properties")
 @ConfigurationProperties(prefix ="jwt")
 public class JwtConfig {
     private String secretKey;
