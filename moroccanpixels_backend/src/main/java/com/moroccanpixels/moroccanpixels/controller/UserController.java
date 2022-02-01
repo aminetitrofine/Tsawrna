@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.controller;
 
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
+import com.moroccanpixels.moroccanpixels.dto.SignUpFormDto;
 import com.moroccanpixels.moroccanpixels.dto.UpdatePasswordRequestDto;
 import com.moroccanpixels.moroccanpixels.dto.UserResponseDto;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
@@ -12,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
-@CrossOrigin("*")
 public class UserController {
 
     private final UserService userService;
@@ -33,17 +33,15 @@ public class UserController {
     }
 
     @PostMapping(path = {"signup"})
-    public UserResponseDto signup(@RequestBody User user){
-        return userService.singup(user);
+    public UserResponseDto signUp(@RequestBody SignUpFormDto signupForm){
+        return userService.singUp(signupForm);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateFirstName"})
-    public void updateFirstName(@PathVariable Long userId,@RequestBody String firstName){
-        userService.updateFirstName(userId, firstName);
-    }
-    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateLastName"})
-    public void updateLastName(@PathVariable Long userId,@RequestBody String lastName){
-        userService.updateFirstName(userId, lastName);
+    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateName"})
+    public void updateName(@PathVariable Long userId,
+                           @RequestBody(required = false) String firstName,
+                           @RequestBody(required = false) String lastName) {
+        userService.updateName(userId, firstName,lastName);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path="user/{userId}",headers={"target=updateEmail"})
