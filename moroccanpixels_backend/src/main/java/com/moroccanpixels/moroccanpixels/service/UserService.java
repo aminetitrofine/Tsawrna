@@ -55,11 +55,12 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password));
         user.setFirstName(signUpForm.getFirstName());
         user.setLastName(signUpForm.getLastName());
-        user.setBirthdate(signUpForm.getBirthDate());
+        user.setUsername(signUpForm.getFirstName());
+//        user.setBirthdate(signUpForm.getBirthDate());
         //TODO: add email validation
         user.setEmail(signUpForm.getEmail());
         user.setStatus(CONFIRMED);
-        user.setRole(ApplicationUserRole.valueOf(signUpForm.getRole()));
+        //user.setRole(ApplicationUserRole.valueOf(signUpForm.getRole()));
 
         return EntityToDto.userToUserResponseDto(userRepository.save(user));
     }
