@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.checkerframework.common.aliasing.qual.Unique;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,7 +28,10 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Unique
     private String username;
+
     private String email;
     private LocalDate birthdate;
     private String password;
