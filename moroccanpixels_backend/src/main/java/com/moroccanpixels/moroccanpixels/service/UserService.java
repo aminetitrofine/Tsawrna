@@ -55,12 +55,13 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password));
         user.setFirstName(signUpForm.getFirstName());
         user.setLastName(signUpForm.getLastName());
-        user.setUsername(signUpForm.getFirstName());
+        user.setUsername(signUpForm.getUsername());
         user.setBirthdate(signUpForm.getBirthDate());
         //TODO: add email validation
         user.setEmail(signUpForm.getEmail());
         user.setStatus(CONFIRMED);
-        //user.setRole(ApplicationUserRole.valueOf(signUpForm.getRole()));
+        //TODO: CHANGE
+        user.setRole(ApplicationUserRole.ADMIN);
 
         return EntityToDto.userToUserResponseDto(userRepository.save(user));
     }

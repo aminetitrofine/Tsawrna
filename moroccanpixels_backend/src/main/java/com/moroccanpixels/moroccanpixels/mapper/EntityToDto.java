@@ -44,8 +44,8 @@ public class EntityToDto {
         UserResponseDto dto = new UserResponseDto();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
-        dto.setName(user.getFirstName());
-        dto.setName(user.getLastName());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
         dto.setBirthdate(user.getBirthdate());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
