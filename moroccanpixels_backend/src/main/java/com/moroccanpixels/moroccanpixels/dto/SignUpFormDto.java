@@ -10,7 +10,7 @@ public class SignUpFormDto {
     private String lastName;
     private String username;
     private String email;
-//    private LocalDate birthDate;
+    private LocalDate birthDate;
     private String role;
     private String password;
     private String passwordConfirmation;

@@ -56,7 +56,7 @@ public class UserService {
         user.setFirstName(signUpForm.getFirstName());
         user.setLastName(signUpForm.getLastName());
         user.setUsername(signUpForm.getFirstName());
-//        user.setBirthdate(signUpForm.getBirthDate());
+        user.setBirthdate(signUpForm.getBirthDate());
         //TODO: add email validation
         user.setEmail(signUpForm.getEmail());
         user.setStatus(CONFIRMED);
