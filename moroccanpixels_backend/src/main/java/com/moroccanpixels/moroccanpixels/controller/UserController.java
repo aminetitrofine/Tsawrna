@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "user")
+@RequestMapping(path = "/")
 public class UserController {
 
     private final UserService userService;
@@ -21,31 +21,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping(path ="user")
     public List<UserResponseDto> getUsers(){
         return userService.getUsers();
     }
 
-    @PostMapping(headers={"target=adminCreateUser"})
+    @PostMapping(path = {"user"},headers={"target=adminCreateUser"})
     public UserResponseDto adminCreateUser(@RequestBody User user){
         return userService.adminCreateUser(user);
     }
 
-    @PostMapping(headers={"target=signup"})
+    @PostMapping(path = {"signup"})
     public UserResponseDto signup(@RequestBody User user){
         return userService.singup(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,path="{userId}",headers={"target=updateName"})
+    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateName"})
     public void updateName(@PathVariable Long userId,@RequestBody String name){
         userService.updateName(userId, name);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path="{userId}",headers={"target=updateEmail"})
+    @RequestMapping(method = RequestMethod.PUT, path="user/{userId}",headers={"target=updateEmail"})
     public void updateEmail(@PathVariable Long userId,@RequestBody String email){
         userService.updateEmail(userId, email);
     }
-    @RequestMapping(method = RequestMethod.PUT, path="{userId}",headers={"target=updatePassword"})
+    @RequestMapping(method = RequestMethod.PUT, path="user/{userId}",headers={"target=updatePassword"})
     public void updatePassword(@PathVariable Long userId,@RequestBody UpdatePasswordRequestDto updatePasswordRequestDto){
         userService.updatePassword(userId, updatePasswordRequestDto);
     }

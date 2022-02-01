@@ -24,7 +24,6 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="OWNER_ID")
     @NotNull
@@ -45,7 +44,6 @@ public class Image {
     @Enumerated(EnumType.STRING)
     private ImageType type;
 
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "SAVE",
@@ -54,7 +52,6 @@ public class Image {
     )
     private Set<User> savedBy= new HashSet<>();
 
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "IMAGE_ID")},
