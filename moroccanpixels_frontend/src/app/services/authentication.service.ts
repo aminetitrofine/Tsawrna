@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../models/user";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {UserInfos} from "../models/user-infos";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthenticationService {
     return this.httpClient.post(`${this.url}`+'/login',user);
 
   }
-  public signup(user:User):Observable<object>{
+  public signup(user:UserInfos):Observable<object>{
     console.log(user)
     return this.httpClient.post(`${this.url}`+'/signup',user);
 

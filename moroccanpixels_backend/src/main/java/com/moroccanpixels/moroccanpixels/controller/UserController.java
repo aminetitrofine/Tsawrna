@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
+@CrossOrigin("*")
 public class UserController {
 
     private final UserService userService;
