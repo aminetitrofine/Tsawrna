@@ -39,10 +39,16 @@ public class UserService {
     }
 
     @Transactional
-    public void updateName(Long userId, String name) {
+    public void updateFirstName(Long userId, String firstName) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()->new IllegalStateException(String.format("user with id %d not found",userId)));
-        user.setName(name);
+        user.setFirstName(firstName);
+    }
+    @Transactional
+    public void updateLastName(Long userId, String name) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new IllegalStateException(String.format("user with id %d not found",userId)));
+        user.setLastName(name);
     }
     @Transactional
     public void updateEmail(Long userId, String email) {

@@ -25,7 +25,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String username;
     private String email;
     private LocalDate birthdate;
@@ -49,9 +50,11 @@ public class User {
     )
     private Set<Image> savedImages=new HashSet<>();
 
-    public User(String username, String email, String password, ApplicationUserRole role, StatusType status) {
+    public User(String username, String email,String firstName,String lastName, String password, ApplicationUserRole role, StatusType status) {
         this.username = username;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
         this.role = role;
         this.status = status;

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
+@CrossOrigin("*")
 public class UserController {
 
     private final UserService userService;
@@ -36,9 +37,13 @@ public class UserController {
         return userService.singup(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateName"})
-    public void updateName(@PathVariable Long userId,@RequestBody String name){
-        userService.updateName(userId, name);
+    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateFirstName"})
+    public void updateFirstName(@PathVariable Long userId,@RequestBody String firstName){
+        userService.updateFirstName(userId, firstName);
+    }
+    @RequestMapping(method = RequestMethod.PUT,path="user/{userId}",headers={"target=updateLastName"})
+    public void updateLastName(@PathVariable Long userId,@RequestBody String lastName){
+        userService.updateFirstName(userId, lastName);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path="user/{userId}",headers={"target=updateEmail"})

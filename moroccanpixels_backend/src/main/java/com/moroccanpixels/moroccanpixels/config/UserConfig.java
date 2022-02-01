@@ -27,6 +27,8 @@ public class UserConfig {
             User hamza = new User(
                     "benyazidhamza",
                     "benyazidhamza969@gmail.com",
+                    "Hamza",
+                    "Benyazid",
                     passwordEncoder.encode("12345678"),
                     ApplicationUserRole.ADMIN,
                     StatusType.CONFIRMED
@@ -34,6 +36,8 @@ public class UserConfig {
             User amine = new User(
                     "amine",
                     "aminetitro@gmail.com",
+                    "Amine",
+                    "Titrofine",
                     passwordEncoder.encode("password"),
                     ApplicationUserRole.CONTRIBUTOR,
                     StatusType.ARCHIVED

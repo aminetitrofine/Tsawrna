@@ -7,12 +7,17 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private url="http://localhost:8080/login"
+  private url="http://localhost:8080"
   constructor(private httpClient: HttpClient) { }
 
   public login(user:User):Observable<object>{
     console.log(user)
-    return this.httpClient.post(`${this.url}`,user);
+    return this.httpClient.post(`${this.url}`+'/login',user);
+
+  }
+  public signup(user:User):Observable<object>{
+    console.log(user)
+    return this.httpClient.post(`${this.url}`+'/signup',user);
 
   }
 }
