@@ -34,6 +34,7 @@ public class UserService {
     }
 
     public UserResponseDto singup(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return EntityToDto.userToUserResponseDto(userRepository.save(user));
     }
 

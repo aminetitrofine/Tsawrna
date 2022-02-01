@@ -38,9 +38,8 @@ public class User {
     private StatusType status;
 
     //private Plan plan;
-    @JsonManagedReference
     @OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
-    private Set<Image> images;
+    private Set<Image> images=new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -48,7 +47,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "IMAGE_ID")}
     )
-    private Set<Image> savedImages;
+    private Set<Image> savedImages=new HashSet<>();
 
     public User(String username, String email, String password, ApplicationUserRole role, StatusType status) {
         this.username = username;
