@@ -52,7 +52,7 @@ public class Image {
             joinColumns = {@JoinColumn(name = "IMAGE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "USER_ID")}
     )
-    private Set<User> savedBy;
+    private Set<User> savedBy= new HashSet<>();
 
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
@@ -60,7 +60,7 @@ public class Image {
             joinColumns = {@JoinColumn(name = "IMAGE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "KEYWORD_ID")}
     )
-    private Set<Keyword> keywords;
+    private Set<Keyword> keywords =new HashSet<>();
 
     public String getPath() {
         return "/image/"+this.id;

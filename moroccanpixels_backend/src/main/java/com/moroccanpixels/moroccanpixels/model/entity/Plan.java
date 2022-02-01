@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -27,5 +28,5 @@ public class Plan {
 
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
-    private PlanParameters planParameters;
+    private List<PlanParameters> parameters;
 }

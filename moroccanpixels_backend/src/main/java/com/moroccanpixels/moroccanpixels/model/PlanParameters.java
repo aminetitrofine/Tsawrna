@@ -13,4 +13,5 @@ public class PlanParameters implements Serializable {
     private int numberOfImages;
     private String type;
     private int pricePerMonth;
+    private int freeTrialDuration;
 }

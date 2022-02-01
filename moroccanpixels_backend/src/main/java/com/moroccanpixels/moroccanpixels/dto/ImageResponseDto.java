@@ -26,6 +26,5 @@ public class ImageResponseDto {
     private int viewCount;
     private int saveCount;
     private ImageType type;
-    private Set<String> savedBy;
     private Set<String> keywords;
 }
