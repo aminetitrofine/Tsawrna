@@ -8,6 +8,8 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
+import { PricingComponent } from './pricing/pricing.component';
+import { ContributorComponent } from './contributor/contributor.component';
 
 
 
@@ -16,7 +18,9 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    PricingComponent,
+    ContributorComponent
 
   ],
   imports: [
