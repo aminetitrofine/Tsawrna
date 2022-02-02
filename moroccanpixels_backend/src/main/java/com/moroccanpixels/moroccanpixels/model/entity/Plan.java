@@ -1,16 +1,12 @@
 package com.moroccanpixels.moroccanpixels.model.entity;
 
-import com.moroccanpixels.moroccanpixels.model.PlanParameters;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.moroccanpixels.moroccanpixels.model.PlanType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table
@@ -18,15 +14,16 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@TypeDef(name = "json", typeClass = JsonBinaryType.class)
 public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
+    private Integer numberOfImages;
 
-    @Type(type = "json")
-    @Column(columnDefinition = "jsonb")
-    private List<PlanParameters> parameters;
+    @Enumerated(EnumType.STRING)
+    private PlanType type;
+
+    private int pricePerMonth;
 }

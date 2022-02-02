@@ -8,29 +8,21 @@ import java.util.stream.Collectors;
 import static com.moroccanpixels.moroccanpixels.security.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
-    ADMIN("admin", Set.of(IMAGE_WRITE,IMAGE_READ,USER_READ,USER_WRITE)),
-    CONTRIBUTOR("contributor", Set.of(IMAGE_WRITE,IMAGE_READ,USER_READ,USER_WRITE)),
-    CLIENT("client", Set.of(IMAGE_READ,USER_WRITE,USER_READ));
+    ADMIN(Set.of(IMAGE_WRITE,IMAGE_READ,USER_READ,USER_WRITE)),
+    CONTRIBUTOR(Set.of(IMAGE_WRITE,IMAGE_READ,USER_READ,USER_WRITE)),
+    CLIENT(Set.of(IMAGE_READ,USER_WRITE,USER_READ));
 
-    private final String value;
     private final Set<ApplicationUserPermission> permissions;
 
-
-
-    ApplicationUserRole(String value, Set<ApplicationUserPermission> permissions) {
-        this.value = value;
+    ApplicationUserRole(Set<ApplicationUserPermission> permissions) {
         this.permissions = permissions;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public static ApplicationUserRole fromValue(String value){
-        switch(value){
-            case "admin": return ADMIN;
-            case "contributor":return CONTRIBUTOR;
-            case "client" : return CLIENT;
+    public static ApplicationUserRole fromName(String value){
+        for(ApplicationUserRole role : ApplicationUserRole.values()){
+            if(role.name().equals(value)){
+                return role;
+            }
         }
         return null;
     }
