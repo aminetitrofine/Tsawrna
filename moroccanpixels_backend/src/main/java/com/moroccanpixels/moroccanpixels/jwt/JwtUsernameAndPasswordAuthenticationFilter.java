@@ -3,7 +3,6 @@ package com.moroccanpixels.moroccanpixels.jwt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,9 +11,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -59,6 +61,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
                 .signWith(Keys.hmacShaKeyFor(key.getBytes()))
                 .compact();
-        response.addHeader("Authorization",jwtConfig.getTokenPrefix()+token);
+        Cookie cookie = new Cookie("authorization", URLEncoder.encode(jwtConfig.getTokenPrefix()+token, StandardCharsets.UTF_8));
+        cookie.setMaxAge(jwtConfig.getTokenExpirationAfterDays()* 24 * 60 * 60); // expires in 7 days
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
     }
 }

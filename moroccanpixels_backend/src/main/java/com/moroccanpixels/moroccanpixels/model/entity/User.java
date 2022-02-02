@@ -1,8 +1,6 @@
 package com.moroccanpixels.moroccanpixels.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.moroccanpixels.moroccanpixels.model.StatusType;
-import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +51,9 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "IMAGE_ID")}
     )
     private Set<Image> savedImages=new HashSet<>();
+
+    @OneToOne
+    private Subscription subscription;
 
     public User(String username, String email,String firstName,String lastName, String password, ApplicationUserRole role, StatusType status) {
         this.username = username;

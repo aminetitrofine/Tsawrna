@@ -11,14 +11,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class JwtTokenVerifier extends OncePerRequestFilter {
@@ -36,7 +42,10 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String key = jwtConfig.getSecretKey();
         String tokenPrefix = jwtConfig.getTokenPrefix();
-        String authorizationHeader = request.getHeader("Authorization");
+        Cookie cookie = WebUtils.getCookie(request, "authorization");
+        String authorizationHeader=null;
+        if(cookie != null)
+            authorizationHeader = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
         if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(tokenPrefix)){
             filterChain.doFilter(request,response);
             return;

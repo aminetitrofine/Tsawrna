@@ -1,8 +1,7 @@
 package com.moroccanpixels.moroccanpixels.jwt;
 
-import lombok.*;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 
 @Data
