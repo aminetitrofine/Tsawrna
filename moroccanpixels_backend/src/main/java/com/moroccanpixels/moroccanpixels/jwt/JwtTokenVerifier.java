@@ -42,10 +42,11 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String key = jwtConfig.getSecretKey();
         String tokenPrefix = jwtConfig.getTokenPrefix();
-        Cookie cookie = WebUtils.getCookie(request, "authorization");
-        String authorizationHeader=null;
-        if(cookie != null)
-            authorizationHeader = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+//        Cookie cookie = WebUtils.getCookie(request, "authorization");
+//        String authorizationHeader=null;
+//        if(cookie != null)
+//            authorizationHeader = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+        String authorizationHeader=request.getHeader("Authorization");
         if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(tokenPrefix)){
             filterChain.doFilter(request,response);
             return;

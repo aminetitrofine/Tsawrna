@@ -31,12 +31,16 @@ public class ImageController {
         return imageService.listImages();
     }
 
+    @GetMapping(path="{imageId}")
+    public @ResponseBody ImageResponseDto getImage(@PathVariable("imageId") Long imageId) throws IOException {
+        return imageService.getImage(imageId);
+    }
     @GetMapping(
-            path="{imageId}",
+            path="{imageId}/view",
             produces = {MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE}
     )
-    public @ResponseBody byte[] getImage(@PathVariable("imageId") Long imageId) throws IOException {
-        return imageService.getImage(imageId);
+    public @ResponseBody byte[] viewImage(@PathVariable("imageId") Long imageId) throws IOException {
+        return imageService.viewImage(imageId);
     }
     
     @DeleteMapping("{imageId}")

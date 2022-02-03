@@ -36,6 +36,9 @@ public class Image {
     private Instant lastModified;
     private String description;
     private int downloadCount;
+
+
+    @Transient
     private int viewCount;
 
     @Transient
@@ -54,13 +57,21 @@ public class Image {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
+            name = "VIEW",
+            joinColumns = {@JoinColumn(name = "IMAGE_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "USER_ID")}
+    )
+    private Set<User> viewedBy= new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
             joinColumns = {@JoinColumn(name = "IMAGE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "KEYWORD_ID")}
     )
     private Set<Keyword> keywords =new HashSet<>();
 
     public String getPath() {
-        return "/image/"+this.id;
+        return "/image/"+this.id+"/view";
     }
 
     public String getLocalPath() {
@@ -70,11 +81,16 @@ public class Image {
         return this.savedBy.size();
     }
     public void addSavedByUser(User user){
-        if(this.savedBy==null) this.savedBy=new HashSet<User>();
         this.savedBy.add(user);
     }
+    public void addViewedByUser(User user){
+        this.viewedBy.add(user);
+    }
     public void addKeyword(Keyword keyword) {
-        if(this.keywords==null) this.keywords=new HashSet<Keyword>();
         this.keywords.add(keyword);
     }
+    public int getViewCount() {
+        return this.viewedBy.size();
+    }
+
 }

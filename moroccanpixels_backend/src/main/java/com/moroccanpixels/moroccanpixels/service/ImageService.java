@@ -80,10 +80,19 @@ public class ImageService {
     }
 
     @Transactional
-    public byte[] getImage(Long imageId) throws IOException {
+    public ImageResponseDto getImage(Long imageId) {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found."));
-        image.setViewCount(image.getViewCount()+1);
+        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
+        User user = userRepository.findByUsername(authenticatedUsername)
+                .orElseThrow(()-> new IllegalStateException("user with username %s doesn't exist."));
+        image.addViewedByUser(user);
+        return EntityToDto.imageEntityToDto(image);
+    }
+    @Transactional
+    public byte[] viewImage(Long imageId) throws IOException {
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found."));
         InputStream in = new FileInputStream(request.getServletContext().getRealPath(image.getLocalPath()));
         return IOUtils.toByteArray(in);
     }

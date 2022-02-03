@@ -61,10 +61,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
                 .signWith(Keys.hmacShaKeyFor(key.getBytes()))
                 .compact();
-        Cookie cookie = new Cookie("authorization", URLEncoder.encode(jwtConfig.getTokenPrefix()+token, StandardCharsets.UTF_8));
-        cookie.setMaxAge(jwtConfig.getTokenExpirationAfterDays()* 24 * 60 * 60); // expires in 7 days
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
+        response.addHeader("Authorization",jwtConfig.getTokenPrefix()+token);
     }
 }

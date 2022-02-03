@@ -18,7 +18,7 @@ import java.util.Set;
 public class ImageResponseDto {
     private Long id;
     private String owner;
-    private String path;
+    private String filePath;
     private Instant uploadedAt;
     private Instant lastModified;
     private String description;

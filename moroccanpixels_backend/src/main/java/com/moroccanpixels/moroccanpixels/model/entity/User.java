@@ -52,6 +52,14 @@ public class User {
     )
     private Set<Image> savedImages=new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "VIEW",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "IMAGE_ID")}
+    )
+    private Set<Image> viewedImages=new HashSet<>();
+
     @OneToOne
     private Subscription subscription;
 
@@ -65,11 +73,12 @@ public class User {
         this.status = status;
     }
     public void addSavedImage(Image image) {
-        if(this.savedImages==null) this.savedImages = new HashSet<Image>();
         this.savedImages.add(image);
     }
+    public void addViewedImage(Image image) {
+        this.viewedImages.add(image);
+    }
     public void removeSavedImage(Image image) {
-        if(this.savedImages==null) return;
         this.savedImages.remove(image);
     }
 }

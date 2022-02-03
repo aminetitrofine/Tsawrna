@@ -29,7 +29,7 @@ public class EntityToDto {
         dto.setUploadedAt(image.getUploadedAt());
         dto.setType(image.getType());
         dto.setOwner(image.getOwner().getUsername());
-        dto.setPath(image.getPath());
+        dto.setFilePath(image.getPath());
         dto.setDownloadCount(image.getDownloadCount());
         dto.setSaveCount(image.getSaveCount());
         dto.setViewCount(image.getViewCount());
