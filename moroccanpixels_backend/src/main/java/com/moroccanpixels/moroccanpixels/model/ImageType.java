@@ -3,6 +3,7 @@ package com.moroccanpixels.moroccanpixels.model;
 public enum ImageType {
     PNG("png"),
     JPEG("jpeg"),
+    JPG("jpg"),
     GIF("gif"),
     TIFF("tiff");
 
@@ -17,15 +18,14 @@ public enum ImageType {
     }
 
     public static ImageType fromContentType(String contentType) {
-        if(contentType.endsWith("png")){
-            return PNG;
-        }else if(contentType.endsWith("jpeg")){
-            return JPEG;
-        }else if(contentType.endsWith("gif")){
-            return GIF;
-        }else if(contentType.endsWith("tiff")){
-            return TIFF;
-        }
-        return null;
+       for (ImageType imageType : ImageType.values()){
+           if(contentType.endsWith(imageType.value()))
+               return imageType;
+       }
+       return null;
+    }
+
+    public static ImageType fromValue(String value){
+        return valueOf(value.toUpperCase());
     }
 }

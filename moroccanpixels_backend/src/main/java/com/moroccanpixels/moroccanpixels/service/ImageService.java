@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.service;
 
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
+import com.moroccanpixels.moroccanpixels.config.ImageConfig;
 import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
 import com.moroccanpixels.moroccanpixels.model.entity.Keyword;
 import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
@@ -35,14 +36,16 @@ public class ImageService {
     private final KeywordRepository keywordRepository;
     private final HttpServletRequest request;
     private final IAuthenticationFacade authenticationFacade;
+    private final ImageConfig imageConfig;
 
     @Autowired
-    public ImageService(ImageRepository imageRepository, UserRepository userRepository, KeywordRepository keywordRepository, HttpServletRequest request, IAuthenticationFacade authenticationFacade) {
+    public ImageService(ImageRepository imageRepository, UserRepository userRepository, KeywordRepository keywordRepository, HttpServletRequest request, IAuthenticationFacade authenticationFacade, ImageConfig imageConfig) {
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
         this.keywordRepository = keywordRepository;
         this.request = request;
         this.authenticationFacade = authenticationFacade;
+        this.imageConfig = imageConfig;
     }
     public ImageResponseDto uploadImage(ImageRequestDto imageRequestDto) {
         Instant instant = Instant.now();
@@ -69,7 +72,7 @@ public class ImageService {
         imageRepository.save(image);
         String fileName = image.getId()+"."+image.getType().value();
         String uploadsDir = "/uploads/images/"+image.getOwner().getUsername()+"/";
-        String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
+        String realPathToUploads =  imageConfig.getDirectory()+uploadsDir;
         System.out.println(realPathToUploads);
         ImageUtils.saveImage(file,realPathToUploads,fileName);
         return EntityToDto.imageEntityToDto(image);
@@ -142,7 +145,7 @@ public class ImageService {
         //saving image
         String file2Name = imageId+"."+image.getType().value();
         String uploadsDir = "/uploads/images/"+image.getOwner().getUsername()+"/";
-        String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
+        String realPathToUploads =  imageConfig.getDirectory()+uploadsDir;
         System.out.println(realPathToUploads);
         ImageUtils.replaceImage(file,realPathToUploads,file1Name,file2Name);
         return  EntityToDto.imageEntityToDto(image);
