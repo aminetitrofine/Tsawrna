@@ -9,16 +9,16 @@ import {UserInfos} from "../models/user-infos";
 })
 export class AuthenticationService {
   private url="http://localhost:8080"
-  constructor(private httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) { }
 
   public login(user:User):Observable<HttpResponse<any>>{
     console.log(user)
-    return this.httpClient.post(`${this.url}`+'/login',user,{observe: "response"});
+    return this._httpClient.post(`${this.url}`+'/login',user,{observe: "response"});
 
   }
   public signup(user:UserInfos):Observable<object>{
     console.log(user)
-    return this.httpClient.post(`${this.url}`+'/signup',user);
+    return this._httpClient.post(`${this.url}`+'/signup',user);
 
   }
 }
