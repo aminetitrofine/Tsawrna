@@ -22,6 +22,9 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping()
+    public void isAuthenticated(){
+    }
     @GetMapping(path ="user")
     public List<UserResponseDto> getUsers(){
         return userService.getUsers();
