@@ -8,18 +8,12 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  authenticated = false;
   constructor(private _authService: AuthenticationService) { }
 
-  ngOnInit(): void {
-    this._authService.isAuthenticated().subscribe({
-      next: () => {
-        this.authenticated = true;
-      },
-      error: () => {
-        this.authenticated = false;
-      }
-    });
+  ngOnInit(){
+  }
+  authenticated(): any {
+    return this._authService.authenticated();
   }
 
 }

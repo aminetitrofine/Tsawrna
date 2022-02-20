@@ -10,6 +10,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ContributorComponent } from './contributor/contributor.component';
+import { UsermenuComponent } from './usermenu/usermenu.component';
 
 
 
@@ -20,7 +21,8 @@ import { ContributorComponent } from './contributor/contributor.component';
     SignupComponent,
     HomeComponent,
     PricingComponent,
-    ContributorComponent
+    ContributorComponent,
+    UsermenuComponent
 
   ],
   imports: [

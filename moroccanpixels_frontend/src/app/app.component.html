@@ -46,9 +46,14 @@
           </nav>
 
         </li>
-        <nav *ngIf="!authenticated">
+        <nav>
+          <div *ngIf="!(authenticated()| async);else signOutBtn" >
           <button class="btn btn-outline-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/signup">Sign Up</button>
           <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/login">Log In</button>
+        </div>
+          <ng-template #signOutBtn>
+            <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" (click)="onSignOut()">Sign Out</button>
+          </ng-template>
         </nav>
       </ul>
 
