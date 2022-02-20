@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthenticationService {
   authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  _authenticatedUsername="";
   private url = "http://localhost:8080"
   constructor(private _httpClient: HttpClient, private _cookieService: CookieService) { }
 
@@ -19,21 +20,26 @@ export class AuthenticationService {
 
   public login(user: User): void {
     console.log(user)
-    this._httpClient.post(`${this.url}` + '/login', user, { observe: "response" }).subscribe({
+    this._httpClient.post(`${this.url}` + '/login', user, { observe: "response" , responseType:'text'}).subscribe({
       next: (resp) => {
         let authToken = resp.headers.get('Authorization')
         if (authToken != null) {
           this._cookieService.set('Authorization', authToken, 15, "/", undefined, true, "Strict");
         }
-        this.authenticated$.next(true);
+        this.setAuthenticated();
       },
       error: (error) => { alert("there is a problem") }
     })
   }
 
-  public signup(user: UserInfos): Observable<object> {
+  public signup(user: UserInfos) {
     console.log(user);
-    return this._httpClient.post(`${this.url}` + '/signup', user);
+    this._httpClient.post(`${this.url}` + '/signup', user).subscribe({
+      next: () => {
+        alert("signup successful")
+      },
+      error: () => alert("there is a problem")
+    });
   }
   public signOut(): void {
     this._cookieService.delete('Authorization');
@@ -42,12 +48,18 @@ export class AuthenticationService {
   public authenticated() {
     return this.authenticated$;
   }
+  public authenticatedUsername() {
+    return this._authenticatedUsername;
+  }
   public setAuthenticated() {
     let headers = new HttpHeaders({ 'Authorization': this.authToken() });
-    let httpOptions = { headers: headers }
+    let httpOptions:Object = { headers: headers, responseType: 'text', observe: "body"}
     this._httpClient.get(this.url, httpOptions).subscribe({
-      next: () => this.authenticated$.next(true),
-      error : ()=>this.authenticated$.next(false)
+      next: (resp:Object) => {
+        this.authenticated$.next(true)
+        this._authenticatedUsername = (resp)?resp.toString():"";
+      },
+      error: () => this.authenticated$.next(false)
     });
   }
 }

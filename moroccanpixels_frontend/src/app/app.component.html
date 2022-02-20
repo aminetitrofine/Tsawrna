@@ -51,8 +51,23 @@
           <button class="btn btn-outline-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/signup">Sign Up</button>
           <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/login">Log In</button>
         </div>
-          <ng-template #signOutBtn>
-            <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" (click)="onSignOut()">Sign Out</button>
+            <ng-template #signOutBtn>
+              <button #clickMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+                <span><mat-icon>person_pin</mat-icon>
+                <p>{{authenticatedUsername()}}</p></span>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <span>Account Settings</span>
+                </button>
+                <button mat-menu-item>
+                  <span>Personnalize My Portfolio</span>
+                </button>
+                <button mat-menu-item (click)="onSignOut()">
+                  <span>Sign Out</span>
+                </button>
+              </mat-menu>
+            <!-- <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" ">Sign Out</button> -->
           </ng-template>
         </nav>
       </ul>

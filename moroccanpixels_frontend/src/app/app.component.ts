@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
+import { MatMenuTrigger } from '@angular/material/menu'
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,6 @@ import { AuthenticationService } from './services/authentication.service';
 })
 export class AppComponent implements OnInit {
   title = 'moroccanpixels_frontend';
-
   constructor(private _authService:AuthenticationService,private _router:Router,private _route:ActivatedRoute){
   }
 
@@ -22,5 +21,8 @@ export class AppComponent implements OnInit {
   }
   authenticated(): any {
     return this._authService.authenticated();
+  }
+  authenticatedUsername(): string {
+    return this._authService.authenticatedUsername();
   }
 }

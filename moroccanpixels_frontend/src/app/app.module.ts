@@ -10,7 +10,9 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ContributorComponent } from './contributor/contributor.component';
-import { UsermenuComponent } from './usermenu/usermenu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -22,14 +24,15 @@ import { UsermenuComponent } from './usermenu/usermenu.component';
     HomeComponent,
     PricingComponent,
     ContributorComponent,
-    UsermenuComponent
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

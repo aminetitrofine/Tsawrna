@@ -14,8 +14,6 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup(dataForm: any) {
-    this.authService.signup(dataForm).subscribe(data =>{
-      alert("Login successfully")
-    },error => alert("there is a problem"))
+    this.authService.signup(dataForm);
   }
 }
