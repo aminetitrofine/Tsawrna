@@ -2,10 +2,11 @@
   <div class="panel panel-primary ">
     <div class="panel-heading">Sign Up</div>
     <div class="panel-body">
-      <form #f="ngForm" (ngSubmit)="onSignup(f.value)">
+      <form  #f="ngForm" (ngSubmit)="onSignup(f.value)">
         <div class="form-group">
           <label class="control-label">First Name</label>
-          <input type="text" name="firstName" ngModel class="form-control">
+          <input type="text" name="firstName" #firstName="ngModel" ngModel class="form-control" [class.is-invalid]="firstName.invalid && firstName.touched">
+          <small class="text-danger" [class.d-none]="firstName.valid || firstName.untouched" >First name is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Last Name</label>

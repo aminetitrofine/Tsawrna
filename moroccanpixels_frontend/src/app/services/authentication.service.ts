@@ -28,7 +28,8 @@ export class AuthenticationService {
         }
         this.setAuthenticated();
       },
-      error: (error) => { alert("there is a problem") }
+      error: (error) => {
+      }
     })
   }
 
