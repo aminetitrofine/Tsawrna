@@ -13,7 +13,7 @@ import { ContributorComponent } from './contributor/contributor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
-
+import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -33,11 +33,12 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule{
-  
+
 }

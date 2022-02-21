@@ -7,6 +7,7 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  tiles: any;
 
   constructor(private _authService: AuthenticationService) { }
 
@@ -15,5 +16,6 @@ export class HomeComponent implements OnInit {
   authenticated(): any {
     return this._authService.authenticated();
   }
+
 
 }
