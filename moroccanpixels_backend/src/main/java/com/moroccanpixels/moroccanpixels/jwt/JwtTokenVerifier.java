@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.jwt;
 
 import com.google.common.base.Strings;
+import com.moroccanpixels.moroccanpixels.exceptions.JwtTokenNotValidException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -73,7 +74,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch(JwtException e){
-            throw new IllegalStateException(String.format("Token %s cannot be trusted",token));
+            throw new JwtTokenNotValidException();
         }
         filterChain.doFilter(request,response);
     }

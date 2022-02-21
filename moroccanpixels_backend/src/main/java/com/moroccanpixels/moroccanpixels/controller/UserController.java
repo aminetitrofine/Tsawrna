@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/")
@@ -23,8 +24,8 @@ public class UserController {
     }
 
     @GetMapping()
-    public String isAuthenticated(){
-        return userService.getAuthenticatedUsername();
+    public Map<String,String> authenticatedUser(){
+        return userService.getAuthenticatedUser();
     }
     @GetMapping(path ="user")
     public List<UserResponseDto> getUsers(){

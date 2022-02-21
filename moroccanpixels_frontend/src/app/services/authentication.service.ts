@@ -5,13 +5,14 @@ import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { UserInfos } from "../models/user-infos";
 import { CookieService } from 'ngx-cookie-service';
 import { FormGroup } from '@angular/forms';
+import { AuthenticatedUser } from '../models/authenticated-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  _authenticatedUsername="";
+  _authenticatedUser:AuthenticatedUser | undefined;
   private url = "http://localhost:8080"
   constructor(private _httpClient: HttpClient, private _cookieService: CookieService) { }
 
@@ -34,7 +35,11 @@ export class AuthenticationService {
     })
   }
 
+<<<<<<< Updated upstream
   public signup(userForm: any) {
+=======
+  public signup(userForm:any) {
+>>>>>>> Stashed changes
     console.log(userForm);
     this._httpClient.post(`${this.url}` + '/signup', userForm).subscribe({
       next: () => {
@@ -51,15 +56,18 @@ export class AuthenticationService {
     return this.authenticated$;
   }
   public authenticatedUsername() {
-    return this._authenticatedUsername;
+    return this._authenticatedUser?.username;
+  }
+  public authenticatedUserRole() {
+    return this._authenticatedUser?.role;
   }
   public setAuthenticated() {
     let headers = new HttpHeaders({ 'Authorization': this.authToken() });
-    let httpOptions:Object = { headers: headers, responseType: 'text', observe: "body"}
-    this._httpClient.get(this.url, httpOptions).subscribe({
-      next: (resp:Object) => {
-        this.authenticated$.next(true)
-        this._authenticatedUsername = (resp)?resp.toString():"";
+    let httpOptions:Object = { headers: headers, responseType: 'json'}
+    this._httpClient.get<AuthenticatedUser>(this.url, httpOptions).subscribe({
+      next: (data) => {
+        this.authenticated$.next(true);
+        this._authenticatedUser = data ;
       },
       error: () => this.authenticated$.next(false)
     });

@@ -4,6 +4,7 @@ import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.config.ImageConfig;
 import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
+import com.moroccanpixels.moroccanpixels.exceptions.ResourceNotFoundException;
 import com.moroccanpixels.moroccanpixels.model.entity.Keyword;
 import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
 import com.moroccanpixels.moroccanpixels.dto.ImageRequestDto;
@@ -86,7 +87,7 @@ public class ImageService {
     @Transactional
     public ImageResponseDto getImage(Long imageId) {
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found."));
+                .orElseThrow(()->new ResourceNotFoundException("image with id "+imageId+" not found."));
         String authenticatedUsername = authenticationFacade.getAuthentication().getName();
         User user = userRepository.findByUsername(authenticatedUsername)
                 .orElseThrow(()-> new IllegalStateException("user with username %s doesn't exist."));
@@ -96,7 +97,7 @@ public class ImageService {
     @Transactional
     public byte[] viewImage(Long imageId) throws IOException {
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found."));
+                .orElseThrow(()->new ResourceNotFoundException("image with id "+imageId+" not found."));
         InputStream in = new FileInputStream(request.getServletContext().getRealPath(image.getLocalPath()));
         return IOUtils.toByteArray(in);
     }
@@ -119,7 +120,7 @@ public class ImageService {
     public ImageResponseDto updateImage(Long imageId, ImageRequestDto imageRequestDto) {
         Instant instant = Instant.now();
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(()->new IllegalStateException("image with id "+imageId+" not found"));
+                .orElseThrow(()->new ResourceNotFoundException("image with id "+imageId+" not found"));
         String file1Name = imageId+"."+image.getType().value();
         //verifying ownership
         String username = authenticationFacade.getAuthentication().getName();
@@ -155,7 +156,7 @@ public class ImageService {
     @Transactional
     public void mapKeywordToImage(Long imageId,String kw) {
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(()->new IllegalStateException("Image with id "+imageId+" not found"));
+                .orElseThrow(()->new ResourceNotFoundException("Image with id "+imageId+" not found"));
         Keyword keyword = keywordRepository.findByName(kw).orElse(new Keyword(kw));
         keyword.addImage(image);
         keywordRepository.save(keyword);
@@ -178,7 +179,7 @@ public class ImageService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()->new IllegalStateException("user "+username+" not found"));
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(()->new IllegalStateException("image with id "+imageId+"not found"));
+                .orElseThrow(()->new ResourceNotFoundException("image with id "+imageId+"not found"));
         user.removeSavedImage(image);
     }
 }

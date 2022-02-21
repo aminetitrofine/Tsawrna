@@ -32,7 +32,7 @@ public class ImageController {
     }
 
     @GetMapping(path="{imageId}")
-    public @ResponseBody ImageResponseDto getImage(@PathVariable("imageId") Long imageId) throws IOException {
+    public @ResponseBody ImageResponseDto getImage(@PathVariable("imageId") Long imageId){
         return imageService.getImage(imageId);
     }
     @GetMapping(

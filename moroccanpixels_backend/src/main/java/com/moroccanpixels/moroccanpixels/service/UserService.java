@@ -4,6 +4,8 @@ import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.dto.SignUpFormDto;
 import com.moroccanpixels.moroccanpixels.dto.UpdatePasswordRequestDto;
 import com.moroccanpixels.moroccanpixels.dto.UserResponseDto;
+import com.moroccanpixels.moroccanpixels.exceptions.InvalidEmailException;
+import com.moroccanpixels.moroccanpixels.exceptions.InvalidUsernameException;
 import com.moroccanpixels.moroccanpixels.mapper.EntityToDto;
 import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 import static com.moroccanpixels.moroccanpixels.model.StatusType.CONFIRMED;
 
@@ -45,7 +48,12 @@ public class UserService {
         userRepository.findByUsername(signUpForm.getUsername())
                 .ifPresent(
                         (u)-> {
-                            throw new IllegalStateException(String.format("username %s is already taken.",u.getUsername()));
+                            throw new InvalidUsernameException(String.format("username %s is already taken.",u.getUsername()));
+                        });
+        userRepository.findByEmail(signUpForm.getEmail())
+                .ifPresent(
+                        (u)-> {
+                            throw new InvalidEmailException(String.format("email %s is already taken.",u.getEmail()));
                         });
         String password = signUpForm.getPassword();
         String passwordConfirmation = signUpForm.getPasswordConfirmation();
@@ -98,7 +106,10 @@ public class UserService {
         }
     }
 
-    public String getAuthenticatedUsername() {
-        return authenticationFacade.getAuthenticatedUsername();
+    public Map<String,String> getAuthenticatedUser() {
+        return Map.of(
+                "username",authenticationFacade.getAuthenticatedUsername(),
+                "role",authenticationFacade.getAuthenticatedUserRole()
+        );
     }
 }

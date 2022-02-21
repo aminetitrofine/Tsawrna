@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.auth;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -13,5 +14,13 @@ public class AuthenticationFacade implements IAuthenticationFacade{
 
     public String getAuthenticatedUsername(){
         return this.getAuthentication().getName();
+    }
+    public String getAuthenticatedUserRole(){
+        return this.getAuthentication().getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .filter(auth->auth.startsWith("ROLE_"))
+                .map(auth->auth.substring(5))
+                .findFirst()
+                .get();
     }
 }

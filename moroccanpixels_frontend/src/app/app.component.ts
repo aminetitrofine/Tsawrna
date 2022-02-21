@@ -22,7 +22,10 @@ export class AppComponent implements OnInit {
   authenticated(): any {
     return this._authService.authenticated();
   }
-  authenticatedUsername(): string {
+  authenticatedUsername() {
     return this._authService.authenticatedUsername();
+  }
+  authenticatedUserRole() {
+    return this._authService.authenticatedUserRole();
   }
 }
