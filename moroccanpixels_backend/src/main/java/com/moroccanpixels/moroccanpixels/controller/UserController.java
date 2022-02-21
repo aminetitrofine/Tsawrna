@@ -23,7 +23,8 @@ public class UserController {
     }
 
     @GetMapping()
-    public void isAuthenticated(){
+    public String isAuthenticated(){
+        return userService.getAuthenticatedUsername();
     }
     @GetMapping(path ="user")
     public List<UserResponseDto> getUsers(){

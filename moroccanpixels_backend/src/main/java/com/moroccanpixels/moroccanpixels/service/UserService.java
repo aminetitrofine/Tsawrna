@@ -1,5 +1,6 @@
 package com.moroccanpixels.moroccanpixels.service;
 
+import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.dto.SignUpFormDto;
 import com.moroccanpixels.moroccanpixels.dto.UpdatePasswordRequestDto;
 import com.moroccanpixels.moroccanpixels.dto.UserResponseDto;
@@ -22,11 +23,13 @@ import static com.moroccanpixels.moroccanpixels.model.StatusType.CONFIRMED;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationFacade authenticationFacade;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationFacade authenticationFacade) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationFacade = authenticationFacade;
     }
 
     public List<UserResponseDto> getUsers() {
@@ -93,5 +96,9 @@ public class UserService {
         }else{
             throw new IllegalStateException("Password and Password Confirmation aren't the same.");
         }
+    }
+
+    public String getAuthenticatedUsername() {
+        return authenticationFacade.getAuthenticatedUsername();
     }
 }

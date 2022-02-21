@@ -10,4 +10,8 @@ public class AuthenticationFacade implements IAuthenticationFacade{
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
+
+    public String getAuthenticatedUsername(){
+        return this.getAuthentication().getName();
+    }
 }

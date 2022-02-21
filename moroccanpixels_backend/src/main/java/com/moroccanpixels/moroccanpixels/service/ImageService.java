@@ -1,5 +1,6 @@
 package com.moroccanpixels.moroccanpixels.service;
 
+import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.config.ImageConfig;
 import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
@@ -35,11 +36,11 @@ public class ImageService {
     private final UserRepository userRepository;
     private final KeywordRepository keywordRepository;
     private final HttpServletRequest request;
-    private final IAuthenticationFacade authenticationFacade;
+    private final AuthenticationFacade authenticationFacade;
     private final ImageConfig imageConfig;
 
     @Autowired
-    public ImageService(ImageRepository imageRepository, UserRepository userRepository, KeywordRepository keywordRepository, HttpServletRequest request, IAuthenticationFacade authenticationFacade, ImageConfig imageConfig) {
+    public ImageService(ImageRepository imageRepository, UserRepository userRepository, KeywordRepository keywordRepository, HttpServletRequest request, AuthenticationFacade authenticationFacade, ImageConfig imageConfig) {
         this.imageRepository = imageRepository;
         this.userRepository = userRepository;
         this.keywordRepository = keywordRepository;
@@ -60,7 +61,7 @@ public class ImageService {
         //setting image type
         image.setType(ImageType.fromContentType(file.getContentType()));
         //setting owner
-        String username = authenticationFacade.getAuthentication().getName();
+        String username = authenticationFacade.getAuthenticatedUsername();
         User owner = userRepository.findByUsername(username).orElseThrow(()-> new IllegalStateException("User doesnt exist"));
         image.setOwner(owner);
         //setting other parameters
