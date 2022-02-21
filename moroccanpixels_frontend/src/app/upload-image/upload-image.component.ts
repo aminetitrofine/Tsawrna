@@ -9,7 +9,7 @@ import {HttpEventType, HttpResponse} from "@angular/common/http";
   styleUrls: ['./upload-image.component.css']
 })
 export class UploadImageComponent implements OnInit {
-  selectedFile!:File
+  selectedFile!:any
   private currentFileUpload!: File;
   private progress!: number ;
   timestamp:number=0;
@@ -20,12 +20,12 @@ export class UploadImageComponent implements OnInit {
 
   onSelected(event:any) {
     console.log(event)
-    this.selectedFile = event.target.files
+    this.selectedFile = event.target.files;
   }
 
   onUpload() : void {
     this.progress=0
-    this.currentFileUpload = this.selectedFile
+    this.currentFileUpload = this.selectedFile.item(0)
     this.imageService.upload(this.currentFileUpload).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         // @ts-ignore
