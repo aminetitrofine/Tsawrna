@@ -35,11 +35,8 @@ export class AuthenticationService {
     })
   }
 
-<<<<<<< Updated upstream
+
   public signup(userForm: any) {
-=======
-  public signup(userForm:any) {
->>>>>>> Stashed changes
     console.log(userForm);
     this._httpClient.post(`${this.url}` + '/signup', userForm).subscribe({
       next: () => {
