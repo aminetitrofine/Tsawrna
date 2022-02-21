@@ -54,7 +54,7 @@
             <ng-template #signOutBtn>
               <button class="btn my-3 my-sm-0 mr-2 ml-2" #clickMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
                 <span><mat-icon>person_pin</mat-icon>
-                <p>{{authenticatedUsername()}}</p></span>
+                <p>{{authenticatedUsername()}}</p><p>{{authenticatedUserRole()}}</p></span>
               </button>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item>
