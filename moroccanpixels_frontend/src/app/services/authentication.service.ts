@@ -34,7 +34,7 @@ export class AuthenticationService {
     })
   }
 
-  public signup(userForm: FormGroup) {
+  public signup(userForm: any) {
     console.log(userForm);
     this._httpClient.post(`${this.url}` + '/signup', userForm).subscribe({
       next: () => {

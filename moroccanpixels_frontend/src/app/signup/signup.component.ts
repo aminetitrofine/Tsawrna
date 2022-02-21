@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
     lastName : ['',Validators.required],
     username : ['',Validators.required],
     email : ['',Validators.required],
-    birthDate : ['',Validators.required],
+    birthDate : ['', Validators.required],
     role : ['',Validators.required],
     password : ['',Validators.required],
     passwordConfirmation : ['',Validators.required]
@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup(){
-    this.authService.signup(this.signUpForm);
+    this.authService.signup(this.signUpForm.value);
   }
 
   firstName(){

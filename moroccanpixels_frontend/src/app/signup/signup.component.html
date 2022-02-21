@@ -1,6 +1,8 @@
 <div class="col-md-3 align-items-center">
   <div class="panel panel-primary ">
-    <div class="panel-heading">Sign Up</div>
+    <div class="panel-heading">
+      <h1>Sign Up</h1>
+    </div>
     <div class="panel-body">
       <form [formGroup]="signUpForm" #f="ngForm" (ngSubmit)="onSignup()">
         <div class="form-group">
@@ -26,7 +28,7 @@
         <div class="form-group">
           <label class="control-label">Birthdate :</label>
           <input formControlName="birthDate" type="date" class="form-control" [class.is-invalid]="birthDate()?.invalid && birthDate()?.touched">
-          <small class="text-danger" [class.d-none]="birthDate()?.untouched||birthDate()?.valid" >Birthdate is required</small>
+          <small class="text-danger" [class.d-none]="birthDate()?.untouched||birthDate()?.invalid" >Birthdate is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Role</label>
