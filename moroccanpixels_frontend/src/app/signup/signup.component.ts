@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder,FormControl,Validators } from '@angular/forms';
 import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
@@ -9,23 +9,48 @@ import {AuthenticationService} from "../services/authentication.service";
 })
 export class SignupComponent implements OnInit {
 
-  signUpForm = new FormGroup({
-    firstName : new FormControl(),
-    lastName : new FormControl(),
-    username : new FormControl(),
-    email : new FormControl(),
-    birthDate : new FormControl(),
-    role : new FormControl(),
-    password : new FormControl(),
-    passwordConfirmation : new FormControl()
-  });
+  constructor(private authService: AuthenticationService,private fb :FormBuilder ) { }
 
-  constructor(private authService: AuthenticationService) { }
+  signUpForm = this.fb.group({
+    firstName : ['',Validators.required],
+    lastName : ['',Validators.required],
+    username : ['',Validators.required],
+    email : ['',Validators.required],
+    birthDate : ['',Validators.required],
+    role : ['',Validators.required],
+    password : ['',Validators.required],
+    passwordConfirmation : ['',Validators.required]
+  })
 
   ngOnInit(): void {
   }
 
-  onSignup(dataForm: any) {
-    this.authService.signup(dataForm);
+  onSignup(){
+    this.authService.signup(this.signUpForm);
+  }
+
+  firstName(){
+    return  this.signUpForm.get('firstName');
+  }
+  lastName(){
+    return this.signUpForm.get('lastName');
+  }
+  username(){
+    return this.signUpForm.get('username');
+  }
+  email(){
+    return this.signUpForm.get('email');
+  }
+  role(){
+    return this.signUpForm.get('role');
+  }
+  birthDate(){
+    return this.signUpForm.get('birthdate');
+  }
+  password(){
+    return this.signUpForm.get('password');
+  }
+  passwordConfirmation(){
+    return this.signUpForm.get('passwordConfirmation');
   }
 }

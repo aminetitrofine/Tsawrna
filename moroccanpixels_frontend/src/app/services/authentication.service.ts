@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { UserInfos } from "../models/user-infos";
 import { CookieService } from 'ngx-cookie-service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +34,9 @@ export class AuthenticationService {
     })
   }
 
-  public signup(user: UserInfos) {
-    console.log(user);
-    this._httpClient.post(`${this.url}` + '/signup', user).subscribe({
+  public signup(userForm: FormGroup) {
+    console.log(userForm);
+    this._httpClient.post(`${this.url}` + '/signup', userForm).subscribe({
       next: () => {
         alert("signup successful")
       },

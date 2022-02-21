@@ -2,42 +2,50 @@
   <div class="panel panel-primary ">
     <div class="panel-heading">Sign Up</div>
     <div class="panel-body">
-      <form  #f="ngForm" (ngSubmit)="onSignup(f.value)">
+      <form [formGroup]="signUpForm" #f="ngForm" (ngSubmit)="onSignup()">
         <div class="form-group">
           <label class="control-label">First Name</label>
-          <input type="text" name="firstName" #firstName="ngModel" ngModel class="form-control" [class.is-invalid]="firstName.invalid && firstName.touched">
-          <small class="text-danger" [class.d-none]="firstName.valid || firstName.untouched" >First name is required</small>
+          <input formControlName="firstName" type="text" class="form-control" [class.is-invalid]="firstName()?.invalid && firstName()?.touched">
+          <small class="text-danger" [class.d-none]="firstName()?.untouched||firstName()?.valid" >First name is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Last Name</label>
-          <input type="text" name="lastName" ngModel class="form-control">
+          <input  formControlName="lastName" type="text" class="form-control" [class.is-invalid]="lastName()?.invalid && lastName()?.touched">
+          <small class="text-danger" [class.d-none]="lastName()?.untouched||lastName()?.valid" >Last name is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Username</label>
-          <input type="text" name="username" ngModel class="form-control">
+          <input formControlName="username" type="text" class="form-control" [class.is-invalid]="username()?.invalid && username()?.touched">
+          <small class="text-danger" [class.d-none]="username()?.untouched||username()?.valid" >Username is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Email</label>
-          <input type="email" name="email" ngModel class="form-control">
+          <input formControlName="email" type="email" class="form-control" [class.is-invalid]="email()?.invalid && email()?.touched">
+          <small class="text-danger" [class.d-none]="email()?.untouched||email()?.valid" >Email is required</small>
         </div>
         <div class="form-group">
-          <label class="control-label">Birthday :</label>
-          <input type="date" name="birthDate" ngModel class="form-control">
+          <label class="control-label">Birthdate :</label>
+          <input formControlName="birthDate" type="date" class="form-control" [class.is-invalid]="birthDate()?.invalid && birthDate()?.touched">
+          <small class="text-danger" [class.d-none]="birthDate()?.untouched||birthDate()?.valid" >Birthdate is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Role</label>
-          <select name="role" id="role" ngModel class="form-control">
+          <select formControlName="role"  id="role" class="form-control" [class.is-invalid]="role()?.invalid && role()?.touched">
             <option value="CLIENT">client</option>
             <option value="CONTRIBUTOR">contributor</option>
           </select>
+          <small class="text-danger" [class.d-none]="role()?.untouched||role()?.valid" >Role is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Password</label>
-          <input type="password" name="password" ngModel class="form-control">
+          <input formControlName="password" type="password" class="form-control" [class.is-invalid]="password()?.invalid && password()?.touched">
+          <small class="text-danger" [class.d-none]="password()?.untouched||password()?.valid" >Password is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Password confirmation</label>
-          <input type="password" name="passwordConfirmation" ngModel class="form-control">
+          <input  formControlName="passwordConfirmation" type="password" class="form-control" [class.is-invalid]="passwordConfirmation()?.invalid && passwordConfirmation()?.touched">
+          <small class="text-danger" [class.d-none]="passwordConfirmation()?.untouched||passwordConfirmation()?.valid" >Password confirmation is required</small>
+
         </div>
         <button class="btn btn-primary" type="submit">Login</button>
       </form>
