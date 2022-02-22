@@ -16,6 +16,9 @@ export class AuthenticationService {
   private url = "http://localhost:8080"
   constructor(private _httpClient: HttpClient, private _cookieService: CookieService) { }
 
+  serverUrl(){
+    return this.url;
+  }
   authToken() {
     return this._cookieService.get("Authorization");
   }

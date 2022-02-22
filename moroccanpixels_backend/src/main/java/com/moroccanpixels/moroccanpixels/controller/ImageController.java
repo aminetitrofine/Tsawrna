@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Set;
 
+import static org.springframework.http.MediaType.*;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
+
 @RestController
 @RequestMapping("image")
 public class ImageController {
@@ -37,7 +40,7 @@ public class ImageController {
     }
     @GetMapping(
             path="{imageId}/view",
-            produces = {MediaType.IMAGE_GIF_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE}
+            produces = {IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE}
     )
     public @ResponseBody byte[] viewImage(@PathVariable("imageId") Long imageId) throws IOException {
         return imageService.viewImage(imageId);

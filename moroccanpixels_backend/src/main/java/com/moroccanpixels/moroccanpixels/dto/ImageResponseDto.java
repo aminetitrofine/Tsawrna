@@ -1,20 +1,14 @@
 package com.moroccanpixels.moroccanpixels.dto;
 
 import com.moroccanpixels.moroccanpixels.model.ImageType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Set;
 
 @Component
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class ImageResponseDto {
     private Long id;
     private String owner;

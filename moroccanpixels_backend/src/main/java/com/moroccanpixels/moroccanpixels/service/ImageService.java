@@ -53,6 +53,7 @@ public class ImageService {
         Instant instant = Instant.now();
         MultipartFile file = imageRequestDto.getFile();
         if(!Objects.requireNonNull(file.getContentType()).startsWith("image")){
+            //TODO
             throw new IllegalStateException("This not an image");
         }
         Image image = new Image();
@@ -98,7 +99,7 @@ public class ImageService {
     public byte[] viewImage(Long imageId) throws IOException {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new ResourceNotFoundException("image with id "+imageId+" not found."));
-        InputStream in = new FileInputStream(request.getServletContext().getRealPath(image.getLocalPath()));
+        InputStream in = new FileInputStream(imageConfig.getDirectory()+image.getLocalPath());
         return IOUtils.toByteArray(in);
     }
 
@@ -106,7 +107,7 @@ public class ImageService {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new IllegalStateException("image not found"));
         //delete file
-        File file = new File(request.getServletContext().getRealPath(image.getLocalPath()));
+        File file = new File(imageConfig.getDirectory()+image.getLocalPath());
         if(file.delete()){
             System.out.println("image "+imageId+" deleted");
         }else{

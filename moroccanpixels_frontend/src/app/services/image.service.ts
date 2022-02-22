@@ -3,13 +3,14 @@ import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/h
 import {Observable} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {AuthenticationService} from "./authentication.service";
+import {Image} from "../models/image"
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
   public host: string = "http://localhost:8080"
 
-  constructor(private http: HttpClient, private _cookieService: CookieService, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private authService: AuthenticationService) {
   }
 
   upload(file: File): Observable<HttpEvent<{}>> {
@@ -19,6 +20,12 @@ export class ImageService {
       headers : new HttpHeaders({ 'Authorization': this.authService.authToken() }),
       reportProgress: true,
       observe: 'events'
+    });
+  }
+
+  trendImages(){
+    return this.http.get<Image[]>(`${this.host}/image`,{
+      headers : new HttpHeaders({ 'Authorization': this.authService.authToken()})
     });
   }
 
