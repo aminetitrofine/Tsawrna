@@ -14,7 +14,7 @@ import static org.springframework.http.MediaType.*;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
-@RequestMapping("image")
+@RequestMapping("")
 public class ImageController {
 
     private final ImageService imageService;
@@ -24,48 +24,60 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping
+    @PostMapping("image")
     public ImageResponseDto uploadImage(@ModelAttribute ImageRequestDto imageRequestDto){
         return imageService.uploadImage(imageRequestDto);
     }
 
-    @GetMapping
+    @GetMapping("image")
     public Set<ImageResponseDto> listImages(){
         return imageService.listImages();
     }
 
-    @GetMapping(path="{imageId}")
+
+
+    @GetMapping(path="image/{imageId}")
     public @ResponseBody ImageResponseDto getImage(@PathVariable("imageId") Long imageId){
         return imageService.getImage(imageId);
     }
     @GetMapping(
-            path="{imageId}/view",
+            path="image/{imageId}/view",
             produces = {IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE}
     )
     public @ResponseBody byte[] viewImage(@PathVariable("imageId") Long imageId) throws IOException {
         return imageService.viewImage(imageId);
     }
     
-    @DeleteMapping("{imageId}")
+    @DeleteMapping("image/{imageId}")
     public void deleteImage(@PathVariable(name="imageId") Long imageId){
         imageService.deleteImage(imageId);
     }
 
-    @PutMapping("{imageId}")
+    @PutMapping("image/{imageId}")
     public ImageResponseDto updateImage(@PathVariable Long imageId, @ModelAttribute ImageRequestDto imageRequestDto){
         return imageService.updateImage(imageId, imageRequestDto);
     }
-    @PostMapping("{imageId}/keyword")
+    @PostMapping("image/{imageId}/keyword")
     public void mapKeywordToImage(@PathVariable Long imageId,@RequestBody String keyword){
         imageService.mapKeywordToImage(imageId,keyword);
     }
 
-    @PostMapping("{imageId}/save")
+    @PostMapping("image/{imageId}/save")
     public void saveImage(@PathVariable Long imageId){
         imageService.saveImage(imageId);
     }
-    @PostMapping("{imageId}/unsave")
+    @PostMapping("image/{imageId}/unsave")
     public void unsaveImage(@PathVariable Long imageId){
         imageService.unsaveImage(imageId);
+    }
+
+    @GetMapping("{username}/gallery")
+    public Set<ImageResponseDto> getUserImages(@PathVariable String username){
+        return imageService.getUserImages(username);
+    }
+
+    @GetMapping("search")
+    public Set<ImageResponseDto> searchImages(@RequestParam("q") String q){
+        return imageService.searchImages(q);
     }
 }

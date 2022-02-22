@@ -52,9 +52,9 @@
           <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/login">Log In</button>
         </div>
             <ng-template #signOutBtn>
-              <button class="btn my-3 my-sm-0 mr-2 ml-2" #clickMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
-                <span><mat-icon>person_pin</mat-icon>
-                <p>{{authenticatedUsername()}}</p><p>{{authenticatedUserRole()}}</p></span>
+              <button class="btn my-3 my-sm-0 mr-2 ml-2" #clickMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" style="display: flex;">
+                <span><mat-icon style="margin:0px 4px;">person_pin</mat-icon></span>
+                <span><p>{{authenticatedUsername()}}</p></span>
               </button>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item>
