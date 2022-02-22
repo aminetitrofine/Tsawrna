@@ -1,38 +1,42 @@
-<div class="col-md-3 align-items-center">
+<div class="col-md-8 offset-md-8" xmlns="http://www.w3.org/1999/html">
   <div class="panel panel-primary ">
+    <body>
     <div class="panel-heading">
-      <h1>Sign Up</h1>
+
+      Create an account
+      <div class="panel-text" >Already have an account? <span style="color:#9E0921" routerLink="/signin">Sign in</span></div>
     </div>
+
     <div class="panel-body">
       <form [formGroup]="signUpForm"  (ngSubmit)="onSignup()">
         <div class="form-group">
           <label class="control-label">First Name</label>
-          <input formControlName="firstName" type="text" class="form-control" [class.is-invalid]="firstName()?.invalid && firstName()?.touched">
+          <input formControlName="firstName" type="text" class="form-control" style="width:35%" [class.is-invalid]="firstName()?.invalid && firstName()?.touched">
           <small class="text-danger" [class.d-none]="firstName()?.untouched||firstName()?.valid" >First name is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Last Name</label>
-          <input  formControlName="lastName" type="text" class="form-control" [class.is-invalid]="lastName()?.invalid && lastName()?.touched">
+          <input  formControlName="lastName" type="text" class="form-control" style="width:35%" [class.is-invalid]="lastName()?.invalid && lastName()?.touched">
           <small class="text-danger" [class.d-none]="lastName()?.untouched||lastName()?.valid" >Last name is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Username</label>
-          <input formControlName="username" type="text" class="form-control" [class.is-invalid]="username()?.invalid && username()?.touched">
+          <input formControlName="username" type="text" class="form-control" style="width:35%" [class.is-invalid]="username()?.invalid && username()?.touched">
           <small class="text-danger" [class.d-none]="username()?.untouched||username()?.valid" >Username is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Email</label>
-          <input formControlName="email" type="email" class="form-control" [class.is-invalid]="email()?.invalid && email()?.touched">
+          <input formControlName="email" type="email" class="form-control" style="width:35%" [class.is-invalid]="email()?.invalid && email()?.touched">
           <small class="text-danger" [class.d-none]="email()?.untouched||email()?.valid" >Email is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Birthdate :</label>
-          <input formControlName="birthDate" type="date" class="form-control" [class.is-invalid]="birthDate()?.invalid && birthDate()?.touched">
+          <input formControlName="birthDate" type="date" class="form-control" style="width:35%" [class.is-invalid]="birthDate()?.invalid && birthDate()?.touched">
           <small class="text-danger" [class.d-none]="birthDate()?.untouched||birthDate()?.invalid" >Birthdate is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Role</label>
-          <select formControlName="role"  id="role" class="form-control" [class.is-invalid]="role()?.invalid && role()?.touched">
+          <select formControlName="role"  id="role" class="form-control" style="width:35%" [class.is-invalid]="role()?.invalid && role()?.touched">
             <option value="CLIENT">client</option>
             <option value="CONTRIBUTOR">contributor</option>
           </select>
@@ -40,20 +44,25 @@
         </div>
         <div class="form-group">
           <label class="control-label">Password</label>
-          <input formControlName="password" type="password" class="form-control" [class.is-invalid]="password()?.invalid && password()?.touched">
+          <input formControlName="password" type="password" class="form-control" style="width:35%" [class.is-invalid]="password()?.invalid && password()?.touched">
           <small class="text-danger" [class.d-none]="password()?.untouched||password()?.valid" >Password is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Password confirmation</label>
-          <input  formControlName="passwordConfirmation" type="password" class="form-control" [class.is-invalid]="passwordConfirmation()?.invalid && passwordConfirmation()?.touched">
+          <input  formControlName="passwordConfirmation" type="password" class="form-control" style="width:35%" [class.is-invalid]="passwordConfirmation()?.invalid && passwordConfirmation()?.touched">
           <small class="text-danger" [class.d-none]="passwordConfirmation()?.untouched||passwordConfirmation()?.valid" >Password confirmation is required</small>
-
+          <div class="form-group" style="margin-top: 10px">
+            <p>By clicking Create account, I agree that I have read <br>and accepted the <span style="color: #9E0921;font-weight: bold">Terms of Use and
+              Privacy Policy.</span></p>
+          </div>
         </div>
         <button class="btn btn-primary" type="submit">Login</button>
       </form>
 
     </div>
+    </body>
   </div>
+
 </div>
 
 

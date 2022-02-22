@@ -1,0 +1,44 @@
+.btn-primary {
+
+  background-color: #9E0921;
+  border-color: #9E0921;
+  width: 35%;
+}
+.panel-heading{
+  font-family: Roboto;
+  font-weight: bolder;
+  font-size: x-large;
+
+}
+
+.panel-text{
+  font-family: Roboto;
+  font-weight: normal;
+  font-size: medium;
+  margin-top: 10px;
+
+}
+
+
+.panel{
+  margin-top: 70px;
+  background-color: rgba(0,0,0,0);
+
+}
+.panel-body{
+  margin-top:60px;
+}
+
+
+span:hover{
+  cursor:pointer;
+  font-size: 101%;
+  text-decoration: underline;
+}
+
+label{
+  color: #404040
+}
+
+
+
