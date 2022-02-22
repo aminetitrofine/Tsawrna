@@ -63,7 +63,7 @@ public class AppConfig {
         };
     }
     public void saveSomeImages(User owner){
-        File imageDirectory = new File("../moroccanpixels_frontend/src/assets/images");
+        File imageDirectory = new File(imageConfig.getInitDirectory());
         if(!imageDirectory.exists()) return;
         if(imageDirectory.list()==null) return;
         List<File> images = List.of(Objects.requireNonNull(imageDirectory.listFiles()));

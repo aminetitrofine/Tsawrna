@@ -8,4 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix ="image")
 public class ImageConfig {
     private String directory;
+    private String initDirectory;
 }

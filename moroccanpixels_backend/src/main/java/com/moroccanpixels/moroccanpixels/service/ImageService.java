@@ -89,10 +89,12 @@ public class ImageService {
     public ImageResponseDto getImage(Long imageId) {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(()->new ResourceNotFoundException("image with id "+imageId+" not found."));
-        String authenticatedUsername = authenticationFacade.getAuthentication().getName();
-        User user = userRepository.findByUsername(authenticatedUsername)
-                .orElseThrow(()-> new IllegalStateException("user with username %s doesn't exist."));
-        image.addViewedByUser(user);
+        String authenticatedUsername = authenticationFacade.getAuthenticatedUsername();
+        if(!authenticatedUsername.equals("anonymousUser")) {
+            User user = userRepository.findByUsername(authenticatedUsername)
+                    .orElseThrow(() -> new IllegalStateException(String.format("user with username %s doesn't exist.",authenticatedUsername)));
+            image.addViewedByUser(user);
+        }
         return EntityToDto.imageEntityToDto(image);
     }
     @Transactional
