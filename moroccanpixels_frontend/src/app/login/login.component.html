@@ -1,15 +1,23 @@
-  <div class="col-md-3">
-    <div class="panel panel-primary align-items-center">
-      <div class="panel-heading">Authentification</div>
+<div class="row">
+ <div class="col-md-8 offset-md-8">
+    <div class="panel panel-primary" >
+      <div class="panel-heading">Sign in
+        <div class="panel-text" >New user? <span style="color:#9E0921" routerLink="/signup">Create an account</span></div>
+      </div>
+
+
       <div class="panel-body">
         <form #f="ngForm" (ngSubmit)="onLogin(f.value)">
           <div class="form-group">
             <label class="control-label">Username</label>
-            <input type="text" name="username" ngModel class="form-control">
+            <input type="text" name="username" ngModel class="form-control" style="width:35%">
           </div>
           <div class="form-group">
             <label class="control-label">Password</label>
-            <input type="password" name="password" ngModel class="form-control">
+            <input type="password" name="password" ngModel class="form-control" style="width:35%">
+          </div>
+          <div class="form-group">
+            <p style="color: #9E0921;font-weight: bold"><span>Forgot password?</span></p>
           </div>
           <button class="btn btn-primary" type="submit">Login</button>
         </form>
@@ -17,6 +25,4 @@
       </div>
     </div>
   </div>
-
-
-
+</div>
