@@ -9,6 +9,7 @@ import {ContributorComponent} from "./contributor/contributor.component";
 import {UploadImageComponent} from "./upload-image/upload-image.component";
 import {GalleryComponent} from "./gallery/gallery.component";
 import { SearchComponent } from './search/search.component';
+import {InsightsComponent} from "./insights/insights.component";
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path:'contributor', component: ContributorComponent},
   {path:'uploadImage', component: UploadImageComponent},
   {path:'gallery', component: GalleryComponent},
-  {path:'search', component: SearchComponent}
+  {path:'search', component: SearchComponent},
+  {path:'insights', component: InsightsComponent}
 ];
 
 @NgModule({

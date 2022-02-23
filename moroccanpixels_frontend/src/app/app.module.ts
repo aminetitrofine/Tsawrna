@@ -22,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GalleryComponent } from './gallery/gallery.component';
 import { SearchComponent } from './search/search.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
+import { InsightsComponent } from './insights/insights.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -74,6 +75,7 @@ const customNotifierOptions: NotifierOptions = {
     UploadImageComponent,
     GalleryComponent,
     SearchComponent,
+    InsightsComponent,
   ],
   imports: [
     BrowserModule,
