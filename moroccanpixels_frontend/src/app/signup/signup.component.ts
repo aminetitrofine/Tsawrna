@@ -19,7 +19,9 @@ export class SignupComponent implements OnInit {
     birthDate : ['', Validators.required],
     role : ['',Validators.required],
     password : ['',Validators.required],
-    passwordConfirmation : ['',Validators.required]
+    passwordConfirmation : ['',Validators.required],
+    country:['',Validators.required],
+    city:['',Validators.required]
   })
 
   ngOnInit(): void {
@@ -52,5 +54,11 @@ export class SignupComponent implements OnInit {
   }
   passwordConfirmation(){
     return this.signUpForm.get('passwordConfirmation');
+  }
+  country(){
+    return this.signUpForm.get('country');
+  }
+  city(){
+    return this.signUpForm.get('city');
   }
 }

@@ -1,28 +1,33 @@
+<html>
 <div class="row">
- <div class="col-md-8 offset-md-8">
+ <div class="col-md-5 offset-md-6">
     <div class="panel panel-primary" >
-      <div class="panel-heading">Sign in
+      <div class="loginform">
+        <div class="content">
+      <div class="panel-heading" style="margin-top: 10%">Sign in
         <div class="panel-text" >New user? <span style="color:#9E0921" routerLink="/login">Create an account</span></div>
       </div>
-
 
       <div class="panel-body">
         <form #f="ngForm" (ngSubmit)="onLogin(f.value)">
           <div class="form-group">
             <label class="control-label">Username</label>
-            <input type="text" name="username" ngModel class="form-control" style="width:35%">
+            <input type="text" name="username" ngModel class="form-control" >
           </div>
           <div class="form-group">
             <label class="control-label">Password</label>
-            <input type="password" name="password" ngModel class="form-control" style="width:35%">
+            <input type="password" name="password" ngModel class="form-control" >
           </div>
           <div class="form-group">
             <p style="color: #9E0921;font-weight: bold"><span>Forgot password?</span></p>
           </div>
-          <button class="btn btn-primary" type="submit">Login</button>
+          <button class="btn btn-primary" type="submit" style="margin-bottom: 10%">Login</button>
         </form>
 
       </div>
     </div>
   </div>
+    </div>
+ </div>
 </div>
+</html>

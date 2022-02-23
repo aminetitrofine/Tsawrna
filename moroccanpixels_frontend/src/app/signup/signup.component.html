@@ -1,70 +1,96 @@
-<div class="col-md-8 offset-md-8" xmlns="http://www.w3.org/1999/html">
+<html>
+<div class="col-md-5 offset-md-6" xmlns="http://www.w3.org/1999/html">
+
   <div class="panel panel-primary ">
-    <body>
+<div class="signupform">
+  <div class="content">
     <div class="panel-heading">
 
       Create an account
       <div class="panel-text" >Already have an account? <span style="color:#9E0921" routerLink="/signin">Sign in</span></div>
     </div>
 
-    <div class="panel-body">
+    <div class="panel-body" >
       <form [formGroup]="signUpForm"  (ngSubmit)="onSignup()">
-        <div class="form-group">
+        <div class="form-row">
+        <div class="form-group col-md-6" >
+
           <label class="control-label">First Name</label>
-          <input formControlName="firstName" type="text" class="form-control" style="width:35%" [class.is-invalid]="firstName()?.invalid && firstName()?.touched">
+          <input formControlName="firstName" type="text" class="form-control" [class.is-invalid]="firstName()?.invalid && firstName()?.touched">
           <small class="text-danger" [class.d-none]="firstName()?.untouched||firstName()?.valid" >First name is required</small>
+
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
           <label class="control-label">Last Name</label>
-          <input  formControlName="lastName" type="text" class="form-control" style="width:35%" [class.is-invalid]="lastName()?.invalid && lastName()?.touched">
+          <input  formControlName="lastName" type="text" class="form-control"  [class.is-invalid]="lastName()?.invalid && lastName()?.touched">
           <small class="text-danger" [class.d-none]="lastName()?.untouched||lastName()?.valid" >Last name is required</small>
+        </div>
         </div>
         <div class="form-group">
           <label class="control-label">Username</label>
-          <input formControlName="username" type="text" class="form-control" style="width:35%" [class.is-invalid]="username()?.invalid && username()?.touched">
+          <input formControlName="username" type="text" class="form-control"  [class.is-invalid]="username()?.invalid && username()?.touched">
           <small class="text-danger" [class.d-none]="username()?.untouched||username()?.valid" >Username is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Email</label>
-          <input formControlName="email" type="email" class="form-control" style="width:35%" [class.is-invalid]="email()?.invalid && email()?.touched">
+          <input formControlName="email" type="email" class="form-control" [class.is-invalid]="email()?.invalid && email()?.touched">
           <small class="text-danger" [class.d-none]="email()?.untouched||email()?.valid" >Email is required</small>
         </div>
-        <div class="form-group">
+        <div class="form-row">
+        <div class="form-group col-md-6">
           <label class="control-label">Birthdate :</label>
-          <input formControlName="birthDate" type="date" class="form-control" style="width:35%" [class.is-invalid]="birthDate()?.invalid && birthDate()?.touched">
+          <input formControlName="birthDate" type="date" class="form-control"  [class.is-invalid]="birthDate()?.invalid && birthDate()?.touched">
           <small class="text-danger" [class.d-none]="birthDate()?.untouched||birthDate()?.invalid" >Birthdate is required</small>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
           <label class="control-label">Role</label>
-          <select formControlName="role"  id="role" class="form-control" style="width:35%" [class.is-invalid]="role()?.invalid && role()?.touched">
+          <select formControlName="role"  id="role" class="form-control"  [class.is-invalid]="role()?.invalid && role()?.touched">
             <option value="CLIENT">client</option>
             <option value="CONTRIBUTOR">contributor</option>
           </select>
           <small class="text-danger" [class.d-none]="role()?.untouched||role()?.valid" >Role is required</small>
         </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6" >
+
+            <label class="control-label">Country</label>
+            <input formControlName="country" type="text" class="form-control" [class.is-invalid]="country()?.invalid && country()?.touched">
+            <small class="text-danger" [class.d-none]="country()?.untouched||country()?.valid" >Country is required</small>
+
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">City</label>
+            <input  formControlName="city" type="text" class="form-control"  [class.is-invalid]="city()?.invalid && city()?.touched">
+            <small class="text-danger" [class.d-none]="city()?.untouched||city()?.valid" >City is required</small>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="control-label">Password</label>
-          <input formControlName="password" type="password" class="form-control" style="width:35%" [class.is-invalid]="password()?.invalid && password()?.touched">
+          <input formControlName="password" type="password" class="form-control"  [class.is-invalid]="password()?.invalid && password()?.touched">
           <small class="text-danger" [class.d-none]="password()?.untouched||password()?.valid" >Password is required</small>
         </div>
         <div class="form-group">
           <label class="control-label">Password confirmation</label>
-          <input  formControlName="passwordConfirmation" type="password" class="form-control" style="width:35%" [class.is-invalid]="passwordConfirmation()?.invalid && passwordConfirmation()?.touched">
+          <input  formControlName="passwordConfirmation" type="password" class="form-control"  [class.is-invalid]="passwordConfirmation()?.invalid && passwordConfirmation()?.touched">
           <small class="text-danger" [class.d-none]="passwordConfirmation()?.untouched||passwordConfirmation()?.valid" >Password confirmation is required</small>
           <div class="form-group" style="margin-top: 10px">
-            <p>By clicking Create account, I agree that I have read <br>and accepted the <span style="color: #9E0921;font-weight: bold">Terms of Use and
+            <p>By clicking Create account, I agree that I have read and accepted the <span style="color: #9E0921;font-weight: bold">Terms of Use and
               Privacy Policy.</span></p>
           </div>
         </div>
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit" style="margin-bottom: 10%">Login</button>
       </form>
 
     </div>
-    </body>
+
+  </div>
+    </div>
   </div>
 
 </div>
-
+</html>
 
 
 
