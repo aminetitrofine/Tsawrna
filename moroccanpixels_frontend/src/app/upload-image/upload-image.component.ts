@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ImageService} from "../services/image.service";
 import {AuthenticationService} from "../services/authentication.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-upload-image',
@@ -13,7 +14,7 @@ export class UploadImageComponent implements OnInit {
   private currentFileUpload!: File;
   private progress!: number ;
   timestamp:number=0;
-  constructor(private imageService: ImageService) { }
+  constructor(private imageService: ImageService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -33,6 +34,7 @@ export class UploadImageComponent implements OnInit {
         console.log(this.progress)
       } else if (event instanceof HttpResponse) {
         this.timestamp=Date.now();
+        this.router.navigate(['/gallery',{successUrl: this.route.url}])
 
       }
     },err=>{

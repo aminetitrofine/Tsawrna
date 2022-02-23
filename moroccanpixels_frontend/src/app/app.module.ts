@@ -19,6 +19,7 @@ import {MatButtonModule} from "@angular/material/button";
 import { UploadImageComponent } from './upload-image/upload-image.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 
@@ -31,6 +32,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     PricingComponent,
     ContributorComponent,
     UploadImageComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,

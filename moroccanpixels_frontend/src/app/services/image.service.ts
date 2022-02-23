@@ -28,5 +28,11 @@ export class ImageService {
       headers : new HttpHeaders({ 'Authorization': this.authService.authToken()})
     });
   }
+  userGallery(){
+
+    return this.http.get<Image[]>(`${this.host}/${this.authService.authenticatedUsername()}/gallery`,{
+      headers : new HttpHeaders({ 'Authorization': this.authService.authToken()})
+    });
+  }
 
 }
