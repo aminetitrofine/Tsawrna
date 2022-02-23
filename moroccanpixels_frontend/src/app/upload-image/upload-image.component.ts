@@ -44,7 +44,7 @@ export class UploadImageComponent implements OnInit {
 
       }
     },err=>{
-      this.notifier.notify('error', 'Problemes de chargement!');
+      this.notifier.notify('error', 'image size exceeds maximum allowable size!');
     })
 
     }
