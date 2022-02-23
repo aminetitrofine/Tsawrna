@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from "../models/user";
 import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
-import { UserInfos } from "../models/user-infos";
 import { CookieService } from 'ngx-cookie-service';
-import { FormGroup } from '@angular/forms';
 import { AuthenticatedUser } from '../models/authenticated-user';
 
 @Injectable({
@@ -31,6 +29,7 @@ export class AuthenticationService {
         if (authToken != null) {
           this._cookieService.set('Authorization', authToken, 15, "/", undefined, true, "Strict");
         }
+
         this.setAuthenticated();
       },
       error: (error) => {
@@ -56,20 +55,23 @@ export class AuthenticationService {
     return this.authenticated$;
   }
   public authenticatedUsername() {
-    return this._authenticatedUser?.username;
+    return this._authenticatedUser.username;
   }
   public authenticatedUserRole() {
-    return this._authenticatedUser?.role;
+    return this._authenticatedUser.role;
   }
-  public setAuthenticated() {
-    let headers = new HttpHeaders({ 'Authorization': this.authToken() });
-    let httpOptions:Object = { headers: headers, responseType: 'json'}
-    this._httpClient.get<AuthenticatedUser>(this.url, httpOptions).subscribe({
+  public setAuthenticated(){
+    this.authenticatedUser().subscribe({
       next: (data) => {
         this.authenticated$.next(true);
         this._authenticatedUser = data ;
       },
       error: () => this.authenticated$.next(false)
-    });
+    })
+  }
+  public authenticatedUser() {
+    let headers = new HttpHeaders({ 'Authorization': this.authToken() });
+    let httpOptions:Object = { headers: headers, responseType: 'json'}
+    return this._httpClient.get<AuthenticatedUser>(this.url, httpOptions);
   }
 }
