@@ -12,7 +12,7 @@ import { AuthenticatedUser } from '../models/authenticated-user';
 })
 export class AuthenticationService {
   authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  _authenticatedUser:AuthenticatedUser | undefined;
+  _authenticatedUser!:AuthenticatedUser;
   private url = "http://localhost:8080"
   constructor(private _httpClient: HttpClient, private _cookieService: CookieService) { }
 

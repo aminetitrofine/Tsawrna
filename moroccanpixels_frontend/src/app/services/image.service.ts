@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {AuthenticationService} from "./authentication.service";
@@ -8,6 +8,7 @@ import {Image} from "../models/image"
   providedIn: 'root'
 })
 export class ImageService {
+
   public host: string = "http://localhost:8080"
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {
@@ -35,4 +36,10 @@ export class ImageService {
     });
   }
 
+  search(query: string) {
+    return this.http.get<Image[]>(`${this.host}/search`,{
+      headers : new HttpHeaders({ 'Authorization': this.authService.authToken()}),
+      params : {'q':query}
+    });
+  }
 }

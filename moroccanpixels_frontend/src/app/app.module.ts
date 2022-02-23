@@ -20,6 +20,7 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GalleryComponent } from './gallery/gallery.component';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -33,6 +34,7 @@ import { GalleryComponent } from './gallery/gallery.component';
     ContributorComponent,
     UploadImageComponent,
     GalleryComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import {PricingComponent} from "./pricing/pricing.component";
 import {ContributorComponent} from "./contributor/contributor.component";
 import {UploadImageComponent} from "./upload-image/upload-image.component";
 import {GalleryComponent} from "./gallery/gallery.component";
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -16,7 +17,11 @@ const routes: Routes = [
   {path:'pricing', component: PricingComponent},
   {path:'contributor', component: ContributorComponent},
   {path:'uploadImage', component: UploadImageComponent},
+<<<<<<< HEAD
   {path:'gallery', component: GalleryComponent}
+=======
+  {path:'search', component: SearchComponent}
+>>>>>>> add search component
 ];
 
 @NgModule({

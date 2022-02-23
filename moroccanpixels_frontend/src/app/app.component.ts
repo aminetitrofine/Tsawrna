@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { MatMenuTrigger } from '@angular/material/menu'
+import { ImageService } from './services/image.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { MatMenuTrigger } from '@angular/material/menu'
 })
 export class AppComponent implements OnInit {
   title = 'moroccanpixels_frontend';
-  constructor(private _authService:AuthenticationService,private _router:Router,private _route:ActivatedRoute){
+  constructor(private _authService:AuthenticationService,private _router:Router,private _route:ActivatedRoute,private _imageService : ImageService){
   }
 
   ngOnInit() {
@@ -27,5 +28,9 @@ export class AppComponent implements OnInit {
   }
   authenticatedUserRole() {
     return this._authService.authenticatedUserRole();
+  }
+
+  onSearch(query:string){
+    this._imageService.search(query);
   }
 }
