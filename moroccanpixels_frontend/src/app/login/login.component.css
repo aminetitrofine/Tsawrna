@@ -9,6 +9,7 @@
   font-family: Roboto;
   font-weight: bolder;
   font-size: x-large;
+  padding-top:5% ;
 
 }
 
@@ -41,4 +42,29 @@ label{
 .panel panel-primary{
   background-color: rgba(0,0,0,0.5);
   border-radius: 10px;
+}
+
+html{
+  background-image: url("../../assets/images/test.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  width: 100%;
+  height: 1000px;
+
+}
+
+.loginform{
+  background: rgba(255,255,255, 0.9);
+  border-radius: 25px;
+
+
+}
+
+.content{
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10%;
+  margin-top: 10%;
+
 }
