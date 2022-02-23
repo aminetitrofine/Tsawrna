@@ -3,6 +3,7 @@ import {ImageService} from "../services/image.service";
 import {AuthenticationService} from "../services/authentication.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-upload-image',
@@ -14,7 +15,12 @@ export class UploadImageComponent implements OnInit {
   private currentFileUpload!: File;
   private progress!: number ;
   timestamp:number=0;
-  constructor(private imageService: ImageService, private router: Router, private route: ActivatedRoute) { }
+
+  private readonly notifier: NotifierService;
+
+  constructor(private imageService: ImageService, private router: Router, private route: ActivatedRoute,private notifierService: NotifierService) {
+    this.notifier = notifierService;
+  }
 
   ngOnInit(): void {
   }
@@ -38,7 +44,7 @@ export class UploadImageComponent implements OnInit {
 
       }
     },err=>{
-      alert("Problème de chargement");
+      this.notifier.notify('error', 'Problemes de chargement!');
     })
 
     }
