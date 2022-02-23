@@ -19,8 +19,8 @@ const routes: Routes = [
   {path:'contributor', component: ContributorComponent},
   {path:'uploadImage', component: UploadImageComponent},
   {path:'gallery', component: GalleryComponent},
-  {path:'search', component: SearchComponent},
-  {path:'insights', component: InsightsComponent}
+  {path:'insights', component: InsightsComponent},
+  {path:'search/:q', component: SearchComponent}
 ];
 
 @NgModule({

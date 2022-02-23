@@ -11,6 +11,6 @@ import java.util.Set;
 @Repository
 public interface ImageRepository extends JpaRepository<Image,Long> {
     List<Image> findByOwnerUsername(String username);
-    List<Image> findByDescriptionContaining(String q);
+    List<Image> findByDescriptionContainingIgnoreCase(String q);
     List<Image> findByKeywordsContaining(Keyword keyword);
 }
