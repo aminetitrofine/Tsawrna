@@ -22,7 +22,10 @@ const routes: Routes = [
   {path:'gallery', component: GalleryComponent},
   {path:'search', component: SearchComponent},
   {path:'insights', component: InsightsComponent},
-  {path:'categories', component: CategorieComponent}
+  {path:'categories', component: CategorieComponent},
+  {path:'insights', component: InsightsComponent},
+  {path:'search/:q', component: SearchComponent}
+
 ];
 
 @NgModule({
