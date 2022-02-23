@@ -17,11 +17,8 @@ const routes: Routes = [
   {path:'pricing', component: PricingComponent},
   {path:'contributor', component: ContributorComponent},
   {path:'uploadImage', component: UploadImageComponent},
-<<<<<<< HEAD
-  {path:'gallery', component: GalleryComponent}
-=======
+  {path:'gallery', component: GalleryComponent},
   {path:'search', component: SearchComponent}
->>>>>>> add search component
 ];
 
 @NgModule({
