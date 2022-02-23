@@ -10,6 +10,7 @@ import {UploadImageComponent} from "./upload-image/upload-image.component";
 import {GalleryComponent} from "./gallery/gallery.component";
 import { SearchComponent } from './search/search.component';
 import {InsightsComponent} from "./insights/insights.component";
+import {CategorieComponent} from "./categorie/categorie.component";
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'uploadImage', component: UploadImageComponent},
   {path:'gallery', component: GalleryComponent},
   {path:'search', component: SearchComponent},
-  {path:'insights', component: InsightsComponent}
+  {path:'insights', component: InsightsComponent},
+  {path:'categories', component: CategorieComponent}
 ];
 
 @NgModule({
