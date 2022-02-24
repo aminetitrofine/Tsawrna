@@ -28,6 +28,7 @@ import { CategorieComponent } from './categorie/categorie.component';
 import {NgChartsModule} from "ng2-charts";
 
 import {MatDividerModule} from '@angular/material/divider';
+import { ListImagesComponent } from './list-images/list-images.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -82,6 +83,7 @@ const customNotifierOptions: NotifierOptions = {
     SearchComponent,
     InsightsComponent,
     CategorieComponent,
+    ListImagesComponent,
   ],
   imports: [
     BrowserModule,

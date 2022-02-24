@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   secondeColImages : Image[]=[];
   thirdColImages : Image[]=[];
 
-  constructor(private _authService: AuthenticationService,private _imageService : ImageService, private _renderer:Renderer2,private _router:Router) { }
+  constructor(private _authService: AuthenticationService,private _imageService : ImageService,private _router:Router) { }
 
   ngOnInit(){
     this._imageService.trendImages().subscribe({
@@ -41,30 +41,12 @@ export class HomeComponent implements OnInit {
     return this._authService.authenticated();
   }
 
-  showOwner(event:any){
-    const container = event.srcElement;
-    const element = container.nextSibling;
-    this._renderer.setStyle(element,'display','flex');
-  }
-  hideOwner(event:any){
-    const container = event.srcElement;
-    const element = container.nextSibling;
-    this._renderer.setStyle(element,'display','none');
-  }
-
-  onClick(){
-    alert('clicked');
-  }
+  
 
   search(query:string){
     this._router.navigate(['/search',query]);
   }
-  authenticatedUsername() {
-    return this._authService.authenticatedUsername();
-  }
 
-  url(){
-    return this._authService.serverUrl();
-  }
+
 
 }

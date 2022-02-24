@@ -37,16 +37,4 @@ export class SearchComponent implements OnInit {
       }
     });
   }
-
-  showOwner(event:any){
-    const container = event.srcElement;
-    const element = container.nextSibling;
-    this._renderer.setStyle(element,'display','flex');
-  }
-  hideOwner(event:any){
-    const container = event.srcElement;
-    const element = container.nextSibling;
-    this._renderer.setStyle(element,'display','none');
-  }
-
 }

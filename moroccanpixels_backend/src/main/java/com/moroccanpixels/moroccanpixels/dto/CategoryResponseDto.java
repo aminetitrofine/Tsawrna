@@ -12,7 +12,5 @@ public class CategoryResponseDto {
     private String name;
     private String description;
     private Set<ImageResponseDto> images;
-
-
-
+    private String imageUrl;
 }
