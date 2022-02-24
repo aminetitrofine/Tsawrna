@@ -49,12 +49,12 @@ public class PlanServiceTest {
 
     @Test
     void shouldUpdatePlan() {
-        Plan existantPlan = new Plan(1L,"my plan","this is my first plan",5,
+        Plan existingPlan = new Plan(1L,"my plan","this is my first plan",5,
                 PlanType.MONTHLY_NO_CONTRACT,50);
         Plan newPlan = new Plan(2L,"my plan updated","this is my plan updated",10,
                 PlanType.MONTHLY_NO_CONTRACT,70);
-        when(planRepository.findById(existantPlan.getId())).thenReturn(Optional.of(existantPlan));
-        newPlan.setId(existantPlan.getId());
+        when(planRepository.findById(existingPlan.getId())).thenReturn(Optional.of(existingPlan));
+        newPlan.setId(existingPlan.getId());
         planRepository.save(newPlan);
         ArgumentCaptor<Plan> planArgumentCaptor = ArgumentCaptor.forClass(Plan.class);
         verify(planRepository).save(planArgumentCaptor.capture());
