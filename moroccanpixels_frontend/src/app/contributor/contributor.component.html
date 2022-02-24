@@ -1,9 +1,20 @@
 <h1 class="contributor-title">Moroccan Pixels Contributor</h1>
-<button mat-raised-button color="warn" class="upload-button" routerLink="/uploadImage">Upload images</button>
-<img src="assets/images/upload-img.png" class="upload-img"/>
-<button mat-raised-button color="warn" class="upload-button" routerLink="/gallery">My Gallery</button>
-<img src="assets/images/gallery-img.png" class="upload-img"/>
-<button mat-raised-button color="warn" class="upload-button">Earnings</button>
-<img src="assets/images/earning-img.png" class="upload-img"/>
-<button mat-raised-button color="warn" class="upload-button" routerLink="/insights">Insights</button>
-<img src="assets/images/insights-img.png" class="upload-img"/>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center" style="margin-top:50px;">
+    <div fxFlex="20%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
+        <img src="assets/images/upload-img.png" class="upload-img"/>
+        <button mat-raised-button color="warn" class="upload-button" routerLink="/uploadImage">Upload images</button>
+    </div>
+    <div fxFlex="20%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
+        <img src="assets/images/gallery-img.png" class="upload-img"/>
+        <button mat-raised-button color="warn" class="upload-button" routerLink="/gallery">My Gallery</button>
+    </div>
+    <div fxFlex="20%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
+        <img src="assets/images/earning-img.png" class="upload-img"/>
+        <button mat-raised-button color="warn" class="upload-button">Earnings</button>
+    </div>
+    <div fxFlex="20%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap fxLayoutGap="20px" fxLayoutAlign="center">
+        <img src="assets/images/insights-img.png" class="upload-img"/>
+        <button mat-raised-button color="warn" class="upload-button" routerLink="/insights">Insights</button>
+    </div>
+    
+</div>
