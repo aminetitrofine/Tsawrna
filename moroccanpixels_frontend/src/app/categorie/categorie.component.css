@@ -1,0 +1,17 @@
+.categories-title{
+  font-family: "Courier New";
+  font-weight: normal;
+  font-size: 36px;
+  position: relative;
+  left: 60px;
+  top: 25px;
+}
+
+.card {
+  display:inline-block;
+  left: 35px;
+  top: 10px;
+  margin-right: 20px;
+  margin-top: 20px;
+  width: 17rem;
+}

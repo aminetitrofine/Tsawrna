@@ -1,7 +1,6 @@
 package com.moroccanpixels.moroccanpixels.service;
 
 import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
-import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.config.ImageConfig;
 import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
 import com.moroccanpixels.moroccanpixels.exceptions.ResourceNotFoundException;
@@ -28,8 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -198,9 +195,9 @@ public class ImageService {
     public Set<ImageResponseDto> searchImages(String q) {
 
         //search in image description
-        Set<ImageResponseDto> response = EntityToDto.imageEntityToDto(imageRepository.findByDescriptionContaining(q));
+        Set<ImageResponseDto> response = EntityToDto.imageEntityToDto(imageRepository.findByDescriptionContainingIgnoreCase(q));
         //search in keywords
-        keywordRepository.findByNameContains(q).forEach(
+        keywordRepository.findByNameContainsIgnoreCase(q).forEach(
                 (keyword) -> {
                     response.addAll(EntityToDto.imageEntityToDto(imageRepository.findByKeywordsContaining(keyword)));
                 }

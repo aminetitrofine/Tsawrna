@@ -12,9 +12,14 @@ export class ContributorComponent implements OnInit {
   constructor(private authService:AuthenticationService, private router: Router,private  route: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    if (!this.authService.authenticated().getValue()){
+
+    if (!this.authenticated()){
       this.router.navigate(['/login',{successUrl: this.route.url}])
     }
+  }
+
+  authenticated(){
+    return this.authService.authenticated().value;
   }
 
 }

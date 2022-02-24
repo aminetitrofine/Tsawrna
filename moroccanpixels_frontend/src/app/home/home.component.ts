@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild , Renderer2} from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ImageService } from '../services/image.service';
 import {Image} from '../models/image'
 import {NotifierService} from "angular-notifier";
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,39 +11,54 @@ import {NotifierService} from "angular-notifier";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private readonly notifier: NotifierService;
+  private readonly notifier!: NotifierService;
   tiles: any;
-  trendImages : Image[]=[];
+  trendImages : Image[][]=[[]];
+  firstColImages : Image[]=[];
+  secondeColImages : Image[]=[];
+  thirdColImages : Image[]=[];
+  url = this._authService.serverUrl();
 
-  @ViewChild('one') d1!: ElementRef;
-  @ViewChild('two') d2 !:ElementRef ;
-  @ViewChild('three')d3 !:ElementRef ;
-
-  constructor(private _authService: AuthenticationService,private _imageService : ImageService, private notifierService: NotifierService) {
-    this.notifier = notifierService;
-  }
+  constructor(private _authService: AuthenticationService,private _imageService : ImageService, private _renderer:Renderer2,private _router:Router) { }
 
   ngOnInit(){
-  }
-
-  ngAfterViewInit() {
-    let url = this._authService.serverUrl();
     this._imageService.trendImages().subscribe({
       next :(data:Image[])=> {
 
         for (let i=0;i<data.length;i=i+3){
-          this.d1.nativeElement.insertAdjacentHTML('beforeend', `<img mat-card-image class="img" src="${url+data[i].filePath}">`);
-          this.d2.nativeElement.insertAdjacentHTML('beforeend', `<img mat-card-image class="img" src="${url+data[i+1].filePath}">`);
-          this.d3.nativeElement.insertAdjacentHTML('beforeend', `<img mat-card-image class="img" src="${url+data[i+2].filePath}">`);
-
+          this.firstColImages.push(data[i]);
+          if(i+1<data.length) this.secondeColImages.push(data[i+1]);
+          if(i+2<data.length) this.thirdColImages.push(data[i+2]);
         }
-
+        this.trendImages =[this.firstColImages,this.secondeColImages,this.thirdColImages];
       }
     });
+  }
+
+  ngAfterViewInit() {
+
   }
   authenticated(): any {
     return this._authService.authenticated();
   }
 
+  showOwner(event:any){
+    const container = event.srcElement;
+    const element = container.nextSibling;
+    this._renderer.setStyle(element,'display','flex');
+  }
+  hideOwner(event:any){
+    const container = event.srcElement;
+    const element = container.nextSibling;
+    this._renderer.setStyle(element,'display','none');
+  }
+
+  onClick(){
+    alert('clicked');
+  }
+
+  search(query:string){
+    this._router.navigate(['/search',query]);
+  }
 
 }

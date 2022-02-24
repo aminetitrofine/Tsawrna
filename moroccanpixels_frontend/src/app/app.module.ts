@@ -23,6 +23,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { SearchComponent } from './search/search.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { InsightsComponent } from './insights/insights.component';
+import { CategorieComponent } from './categorie/categorie.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -76,6 +77,7 @@ const customNotifierOptions: NotifierOptions = {
     GalleryComponent,
     SearchComponent,
     InsightsComponent,
+    CategorieComponent,
   ],
   imports: [
     BrowserModule,
