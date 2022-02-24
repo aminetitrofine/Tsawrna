@@ -127,7 +127,7 @@ public class ImageService {
                 .orElseThrow(() -> new ResourceNotFoundException("image with id " + imageId + " not found"));
         String file1Name = imageId + "." + image.getType().value();
         //verifying ownership
-        String username = authenticationFacade.getAuthentication().getName();
+        String username = authenticationFacade.getAuthenticatedUsername();
         if (!username.equals(image.getOwner().getUsername()))
             throw new IllegalStateException("You can't update this image, you are not the owner");
 
