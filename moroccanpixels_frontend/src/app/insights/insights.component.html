@@ -1,5 +1,5 @@
 <p>insights works!</p>
-<div>
+<div class="charts">
   <div style="display: block" class="chart">
     <canvas baseChart
             [datasets]="barChartData"
@@ -8,5 +8,15 @@
             [legend]="barChartLegend"
             >
     </canvas>
+  </div>
+  <div style="display: block" class="chart">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+    >
+    </canvas>
+
   </div>
 </div>
