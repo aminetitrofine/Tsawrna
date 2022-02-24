@@ -1,6 +1,8 @@
 package com.moroccanpixels.moroccanpixels.service;
 
+import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
 import com.moroccanpixels.moroccanpixels.auth.IAuthenticationFacade;
+import com.moroccanpixels.moroccanpixels.config.ImageConfig;
 import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.model.entity.Keyword;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
@@ -24,11 +26,12 @@ public class ImageServiceTest {
     private final UserRepository userRepository = Mockito.mock(UserRepository.class);
     private final KeywordRepository keywordRepository = Mockito.mock(KeywordRepository.class);
     private final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-    private final IAuthenticationFacade authenticationFacade = Mockito.mock(IAuthenticationFacade.class);
+    private final AuthenticationFacade authenticationFacade = Mockito.mock(AuthenticationFacade.class);
+    private final ImageConfig imageConfig = Mockito.mock(ImageConfig.class);
 
     @Test
     void uploadImage() {
-        ImageService imageService = new ImageService(imageRepository,userRepository,keywordRepository,request,authenticationFacade);
+        ImageService imageService = new ImageService(imageRepository,userRepository,keywordRepository,request,authenticationFacade,imageConfig);
 
         /*Assertions.assertThatThrownBy(() -> {
             imageService.uploadImage(new ImageRequestDto("C:\\Users\\User\\Downloads\\assali_affiche.jpg","affiche assali eitc"));
