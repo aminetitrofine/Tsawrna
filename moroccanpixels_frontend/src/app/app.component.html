@@ -18,7 +18,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Photos Home</a>
           <a class="dropdown-item" href="#">Curated Collection</a>
-          <a class="dropdown-item" href="#">Categories</a>
+          <a class="dropdown-item" routerLink="/categories">Categories</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -35,22 +35,47 @@
     <div class="nav-item ml-auto">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Sell</a>
+          <nav>
+            <a class="nav-link" routerLink="/contributor">Sell</a>
+          </nav>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-3" href="#">Pricing</a>
+          <nav>
+            <a class="nav-link mr-3" routerLink="/pricing">Pricing</a>
+          </nav>
+
         </li>
-
-
         <nav>
-          <button class="btn btn-outline-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/login">Sign Up</button>
+          <div *ngIf="!(authenticated()| async);else signOutBtn" >
+          <button class="btn btn-outline-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/signup">Sign Up</button>
           <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/login">Log In</button>
+        </div>
+            <ng-template #signOutBtn>
+              <button class="btn my-3 my-sm-0 mr-2 ml-2" #clickMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" style="display: flex;">
+                <span><mat-icon style="margin:0px 4px;">person_pin</mat-icon></span>
+                <span><p>{{authenticatedUsername()}}</p></span>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <span>Account Settings</span>
+                </button>
+                <button mat-menu-item>
+                  <span>Personnalize My Portfolio</span>
+                </button>
+                <button mat-menu-item (click)="onSignOut()">
+                  <span>Sign Out</span>
+                </button>
+              </mat-menu>
+            <!-- <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" ">Sign Out</button> -->
+          </ng-template>
         </nav>
       </ul>
 
     </div>
   </div>
 </nav>
+<notifier-container></notifier-container>
 
 <router-outlet></router-outlet>
 

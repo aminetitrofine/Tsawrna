@@ -29,11 +29,10 @@ public class EntityToDto {
         dto.setUploadedAt(image.getUploadedAt());
         dto.setType(image.getType());
         dto.setOwner(image.getOwner().getUsername());
-        dto.setPath(image.getPath());
+        dto.setFilePath(image.getPath());
         dto.setDownloadCount(image.getDownloadCount());
         dto.setSaveCount(image.getSaveCount());
         dto.setViewCount(image.getViewCount());
-        dto.setSavedBy(image.getSavedBy().stream().map(User::getUsername).collect(Collectors.toSet()));
         dto.setKeywords(image.getKeywords().stream().map(Keyword::getName).collect(Collectors.toSet()));
         return dto;
     }
@@ -45,10 +44,12 @@ public class EntityToDto {
         UserResponseDto dto = new UserResponseDto();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
         dto.setBirthdate(user.getBirthdate());
         dto.setEmail(user.getEmail());
-        dto.setRole(user.getRole());
-        dto.setStatus(user.getStatus());
+        dto.setRole(user.getRole().name());
+        dto.setStatus(user.getStatus().name());
         dto.setImages(user.getImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         dto.setSavedImages(user.getSavedImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         return dto;

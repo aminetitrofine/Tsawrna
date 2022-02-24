@@ -21,7 +21,7 @@ public class Billing {
     private String billingMethode;
     private String billingAddress;
     private int postalCode;
-    private CountryCode billingCountryCode;
+    private CountryCode billingCountry;
     private String billingCity;
 
     @OneToOne

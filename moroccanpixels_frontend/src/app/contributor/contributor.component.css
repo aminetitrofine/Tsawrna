@@ -1,0 +1,30 @@
+.upload-button{
+  position: relative;
+  top:33%;
+  left:10%;
+  width:16.5%;
+  margin-right:-5%;
+}
+.contributor-title {
+  position: relative;
+  top: 5%;
+  left: 10%;
+  font-size: 36px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #9E0921;
+}
+.upload-img{
+  position: relative;
+  top:11%;
+  right: 1.5%;
+  width: 250px;
+  height: 250px;
+  margin-right:-7%;
+  margin-bottom: 2%;
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

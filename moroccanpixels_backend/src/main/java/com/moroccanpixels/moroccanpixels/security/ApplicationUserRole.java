@@ -1,6 +1,5 @@
 package com.moroccanpixels.moroccanpixels.security;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
@@ -17,6 +16,15 @@ public enum ApplicationUserRole {
 
     ApplicationUserRole(Set<ApplicationUserPermission> permissions) {
         this.permissions = permissions;
+    }
+
+    public static ApplicationUserRole fromName(String value){
+        for(ApplicationUserRole role : ApplicationUserRole.values()){
+            if(role.name().equals(value)){
+                return role;
+            }
+        }
+        return null;
     }
 
     public Set<ApplicationUserPermission> getPermissions() {
