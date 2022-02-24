@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   firstColImages : Image[]=[];
   secondeColImages : Image[]=[];
   thirdColImages : Image[]=[];
-  url = this._authService.serverUrl();
 
   constructor(private _authService: AuthenticationService,private _imageService : ImageService, private _renderer:Renderer2,private _router:Router) { }
 
@@ -59,6 +58,13 @@ export class HomeComponent implements OnInit {
 
   search(query:string){
     this._router.navigate(['/search',query]);
+  }
+  authenticatedUsername() {
+    return this._authService.authenticatedUsername();
+  }
+
+  url(){
+    return this._authService.serverUrl();
   }
 
 }

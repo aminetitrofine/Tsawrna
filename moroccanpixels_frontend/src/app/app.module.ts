@@ -24,6 +24,7 @@ import { SearchComponent } from './search/search.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { InsightsComponent } from './insights/insights.component';
 import { CategorieComponent } from './categorie/categorie.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -91,7 +92,8 @@ const customNotifierOptions: NotifierOptions = {
     MatGridListModule,
     MatButtonModule,
     FlexLayoutModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    MatDividerModule
 
   ],
   providers: [],
