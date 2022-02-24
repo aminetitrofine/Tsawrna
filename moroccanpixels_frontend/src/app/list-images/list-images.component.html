@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="15px" fxLayoutAlign="center" style="margin:50px 0;">
+    <div *ngFor="let colImages of images" fxFlex="31%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap
+      fxLayoutGap="15px" fxLayoutAlign="top">
+      <div *ngFor="let img of colImages;let i=index" [id]="i" style="position: relative;">
+        <img class="img" src="{{url()+img.filePath}}" style="max-width:100%;
+          max-height:100%;" (mouseover)="showOwner($event)" (mouseout)="hideOwner($event)">
+        <div class="owner-badge">
+          <span>
+            <img src="{{url()+'/'+authenticatedUsername()+'/profile-picture/view'}}" class="owner-image icon " style="color:white;">
+          </span>
+          <span class="owner-name">{{img.owner}}</span>
+          <div class="save-download">
+            <span>
+              <mat-icon (click)="onClick()" class="save-icon icon" style="color:white;">favorite_border</mat-icon>
+            </span>
+            <span>
+              <mat-icon class="download-icon icon" style="color:white;">get_app</mat-icon>
+            </span>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

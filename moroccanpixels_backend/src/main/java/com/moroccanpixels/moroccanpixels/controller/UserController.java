@@ -8,9 +8,12 @@ import com.moroccanpixels.moroccanpixels.model.entity.User;
 import com.moroccanpixels.moroccanpixels.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping(path = "/")
@@ -57,5 +60,14 @@ public class UserController {
     public void updatePassword(@PathVariable Long userId,@RequestBody UpdatePasswordRequestDto updatePasswordRequestDto){
         userService.updatePassword(userId, updatePasswordRequestDto);
     }
-
+    @PostMapping("user/profile-picture")
+    public void setProfilePicture(@RequestBody MultipartFile profilePicture){
+        userService.setProfilePicture(profilePicture);
+    }
+    @GetMapping(path="{username}/profile-picture/view",
+            produces = {IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE}
+    )
+    public @ResponseBody byte[] viewProfilePicture(@PathVariable String username){
+        return userService.viewProfilePicture(username);
+    }
 }

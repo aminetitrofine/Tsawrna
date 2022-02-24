@@ -1,8 +1,10 @@
 package com.moroccanpixels.moroccanpixels.config;
 
 import com.moroccanpixels.moroccanpixels.model.ImageType;
+import com.moroccanpixels.moroccanpixels.model.entity.Category;
 import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
+import com.moroccanpixels.moroccanpixels.repository.CategoryRepository;
 import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
 import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
@@ -27,13 +29,15 @@ public class AppConfig {
     private final ImageRepository imageRepository;
     private final ImageConfig imageConfig;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public AppConfig(PasswordEncoder passwordEncoder, ImageRepository imageRepository, ImageConfig imageConfig, UserRepository userRepository) {
+    public AppConfig(PasswordEncoder passwordEncoder, ImageRepository imageRepository, ImageConfig imageConfig, UserRepository userRepository, CategoryRepository categoryRepository) {
         this.passwordEncoder = passwordEncoder;
         this.imageRepository = imageRepository;
         this.imageConfig = imageConfig;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Bean
@@ -57,8 +61,13 @@ public class AppConfig {
                     ApplicationUserRole.CONTRIBUTOR,
                     StatusType.ARCHIVED
             );
+            Category building = new Category(
+            );
+            building.setName("Building");
+            building.setDescription("Test");
             hamza=userRepository.save(hamza);
             amine=userRepository.save(amine);
+            building= categoryRepository.save(building);
             saveSomeImages(hamza);
         };
     }

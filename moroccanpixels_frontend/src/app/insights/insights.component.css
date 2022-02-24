@@ -1,1 +1,14 @@
+.chart{
+  width: 600px;
+  height: 600px;
+  margin-right: 100px;
+  left: 40px;
 
+}
+.charts{
+
+  display:flex;
+  margin-left: 80px;
+
+
+}

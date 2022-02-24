@@ -27,4 +27,5 @@ public class UserResponseDto {
     private String status;
     private Set<String> images; //Set of image's paths
     private Set<String> savedImages; //Set of saved image's paths
+    private String profilePictureUrl;
 }
