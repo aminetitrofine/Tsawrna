@@ -1,13 +1,11 @@
 package com.moroccanpixels.moroccanpixels.controller;
 
 
+import com.moroccanpixels.moroccanpixels.dto.CategoryRequestDto;
 import com.moroccanpixels.moroccanpixels.model.entity.Category;
 import com.moroccanpixels.moroccanpixels.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("category")
@@ -21,7 +19,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public Category addCategory(@RequestBody Category category){
+    public Category addCategory(@ModelAttribute CategoryRequestDto category){
         return categoryService.addCategory(category);
     }
 }
