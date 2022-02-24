@@ -1,6 +1,7 @@
 package com.moroccanpixels.moroccanpixels.config;
 
 import com.moroccanpixels.moroccanpixels.model.ImageType;
+import com.moroccanpixels.moroccanpixels.model.entity.Category;
 import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
 import com.moroccanpixels.moroccanpixels.repository.ImageRepository;
@@ -57,6 +58,7 @@ public class AppConfig {
                     ApplicationUserRole.CONTRIBUTOR,
                     StatusType.ARCHIVED
             );
+
             hamza=userRepository.save(hamza);
             amine=userRepository.save(amine);
             saveSomeImages(hamza);

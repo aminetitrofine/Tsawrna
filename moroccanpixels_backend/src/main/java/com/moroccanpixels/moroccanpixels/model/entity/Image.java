@@ -37,6 +37,8 @@ public class Image {
     private String description;
     private int downloadCount;
 
+    @ManyToOne
+    private Category category;
 
     @Transient
     private int viewCount;
@@ -53,6 +55,7 @@ public class Image {
             joinColumns = {@JoinColumn(name = "IMAGE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "USER_ID")}
     )
+
     private Set<User> savedBy= new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
