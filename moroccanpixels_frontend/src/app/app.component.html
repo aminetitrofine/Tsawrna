@@ -47,14 +47,14 @@
 
         </li>
         <nav>
-          <div *ngIf="!(authenticated()| async);else signOutBtn" >
+          <div *ngIf="!(authenticated()| async);else userMenu" >
           <button class="btn btn-outline-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/signup">Sign Up</button>
           <button class="btn btn-danger my-3 my-sm-0 mr-2 ml-2" type="submit" routerLink="/login">Log In</button>
         </div>
-            <ng-template #signOutBtn>
+            <ng-template #userMenu class="user-menu">
               <button class="btn my-3 my-sm-0 mr-2 ml-2" #clickMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu" style="display: flex;">
-                <span><mat-icon style="margin:0px 4px;">person_pin</mat-icon></span>
-                <span><p>{{authenticatedUsername()}}</p></span>
+                <span><img class="profile-picture" src="{{url()+'/'+authenticatedUsername()+'/profile-picture/view'}}"></span>
+                <span style="margin:auto 10px;">{{authenticatedUsername()}}</span>
               </button>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item>

@@ -1,24 +1,33 @@
 package com.moroccanpixels.moroccanpixels.service;
 
 import com.moroccanpixels.moroccanpixels.auth.AuthenticationFacade;
+import com.moroccanpixels.moroccanpixels.config.ImageConfig;
 import com.moroccanpixels.moroccanpixels.dto.SignUpFormDto;
 import com.moroccanpixels.moroccanpixels.dto.UpdatePasswordRequestDto;
 import com.moroccanpixels.moroccanpixels.dto.UserResponseDto;
 import com.moroccanpixels.moroccanpixels.exceptions.InvalidEmailException;
 import com.moroccanpixels.moroccanpixels.exceptions.InvalidUsernameException;
 import com.moroccanpixels.moroccanpixels.mapper.EntityToDto;
+import com.moroccanpixels.moroccanpixels.model.ImageType;
 import com.moroccanpixels.moroccanpixels.repository.UserRepository;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
 import com.moroccanpixels.moroccanpixels.security.ApplicationUserRole;
 import com.moroccanpixels.moroccanpixels.security.PasswordConfig;
+import com.moroccanpixels.moroccanpixels.utils.ImageUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.transaction.Transactional;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.moroccanpixels.moroccanpixels.model.StatusType.CONFIRMED;
 
@@ -27,12 +36,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationFacade authenticationFacade;
+    private final ImageConfig imageConfig;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationFacade authenticationFacade) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationFacade authenticationFacade, ImageConfig imageConfig) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationFacade = authenticationFacade;
+        this.imageConfig = imageConfig;
     }
 
     public List<UserResponseDto> getUsers() {
@@ -111,5 +122,36 @@ public class UserService {
                 "username",authenticationFacade.getAuthenticatedUsername(),
                 "role",authenticationFacade.getAuthenticatedUserRole()
         );
+    }
+
+    @Transactional
+    public void setProfilePicture(MultipartFile profilePicture) {
+        String username = authenticationFacade.getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("user " + username + " not found"));
+        //saving file
+
+        String directory = String.format("%s/profile-pictures/%s/",imageConfig.getDirectory(),username);
+        String fileName = String.format("%s.%s",username, Objects.requireNonNull(ImageType.fromContentType(profilePicture.getContentType())).value());
+        ImageUtils.saveImage(profilePicture,directory,fileName);
+        user.setProfilePictureUrl(directory+fileName);
+    }
+
+    public byte[] viewProfilePicture(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("user " + username + " not found"));
+        InputStream in;
+        try{
+            in = new FileInputStream(user.getProfilePictureUrl());
+            return IOUtils.toByteArray(in);
+        }catch(IOException e1){
+            try{
+                in = new FileInputStream("src/main/resources/static/user.png");
+                return  IOUtils.toByteArray(in);
+            }catch(IOException e2){
+                e2.printStackTrace();
+            }
+        }
+        return new byte[0];
     }
 }

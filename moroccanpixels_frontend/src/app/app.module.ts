@@ -24,7 +24,10 @@ import { SearchComponent } from './search/search.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { InsightsComponent } from './insights/insights.component';
 import { CategorieComponent } from './categorie/categorie.component';
+
 import {NgChartsModule} from "ng2-charts";
+
+import {MatDividerModule} from '@angular/material/divider';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -93,7 +96,9 @@ const customNotifierOptions: NotifierOptions = {
     MatButtonModule,
     FlexLayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
-    NgChartsModule
+    NgChartsModule,
+    MatDividerModule
+
 
   ],
   providers: [],

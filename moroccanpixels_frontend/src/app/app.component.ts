@@ -10,7 +10,7 @@ import { ImageService } from './services/image.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'moroccanpixels_frontend';
+  title = 'moroccanpixels_frontend';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
   constructor(private _authService:AuthenticationService,private _router:Router,private _route:ActivatedRoute,private _imageService : ImageService){
   }
 
@@ -32,5 +32,8 @@ export class AppComponent implements OnInit {
 
   onSearch(query:string){
     this._imageService.search(query);
+  }
+  url(){
+    return this._authService.serverUrl();
   }
 }
