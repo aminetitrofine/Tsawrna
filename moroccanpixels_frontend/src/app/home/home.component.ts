@@ -11,7 +11,7 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private readonly notifier: NotifierService;
+  private readonly notifier!: NotifierService;
   tiles: any;
   trendImages : Image[][]=[[]];
   firstColImages : Image[]=[];
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    
+
   }
   authenticated(): any {
     return this._authService.authenticated();
