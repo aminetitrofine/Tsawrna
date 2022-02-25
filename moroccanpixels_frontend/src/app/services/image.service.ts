@@ -58,10 +58,4 @@ export class ImageService {
       }
     )
   }
-  downloadImage(id: number) {
-    return this.http.get(`${this.host}/image/${id}/download`,
-      {
-        headers: new HttpHeaders({ Authorization: this.authService.authToken() })
-      })
-  }
 }
