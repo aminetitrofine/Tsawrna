@@ -101,7 +101,7 @@ const customNotifierOptions: NotifierOptions = {
     MatButtonModule,
     FlexLayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
-    NgbModule
+    NgbModule,
     NgChartsModule,
     MatDividerModule
   ],
