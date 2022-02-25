@@ -17,18 +17,20 @@ import com.moroccanpixels.moroccanpixels.utils.ImageUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ImageService {
@@ -64,6 +66,9 @@ public class ImageService {
         image.setType(ImageType.fromContentType(file.getContentType()));
         //setting owner
         String username = authenticationFacade.getAuthenticatedUsername();
+        if(username.equals("anonymousUser")){
+            throw new IllegalStateException("user must be authenticated.");
+        }
         User owner = userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User doesnt exist"));
         image.setOwner(owner);
         //setting other parameters
@@ -82,20 +87,32 @@ public class ImageService {
     }
 
     public Set<ImageResponseDto> listImages() {
-        return EntityToDto.imageEntityToDto(imageRepository.findAll());
+        return imageRepository.findAll().stream().map(this::getImage).collect(Collectors.toSet());
     }
 
     @Transactional
     public ImageResponseDto getImage(Long imageId) {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(() -> new ResourceNotFoundException("image with id " + imageId + " not found."));
+        ImageResponseDto responseDto = EntityToDto.imageEntityToDto(image);
         String authenticatedUsername = authenticationFacade.getAuthenticatedUsername();
         if (!authenticatedUsername.equals("anonymousUser")) {
             User user = userRepository.findByUsername(authenticatedUsername)
                     .orElseThrow(() -> new IllegalStateException(String.format("user with username %s doesn't exist.", authenticatedUsername)));
             image.addViewedByUser(user);
+            responseDto.setSaved(image.getSavedBy().contains(user));
         }
-        return EntityToDto.imageEntityToDto(image);
+        return responseDto;
+    }
+    public ImageResponseDto getImage(Image image) {
+        String authenticatedUsername = authenticationFacade.getAuthenticatedUsername();
+        ImageResponseDto responseDto = EntityToDto.imageEntityToDto(image);
+        if (!authenticatedUsername.equals("anonymousUser")) {
+            User user = userRepository.findByUsername(authenticatedUsername)
+                    .orElseThrow(() -> new IllegalStateException(String.format("user with username %s doesn't exist.", authenticatedUsername)));
+            responseDto.setSaved(image.getSavedBy().contains(user));
+        }
+        return responseDto;
     }
 
     @Transactional
@@ -128,6 +145,9 @@ public class ImageService {
         String file1Name = imageId + "." + image.getType().value();
         //verifying ownership
         String username = authenticationFacade.getAuthenticatedUsername();
+        if(username.equals("anonymousUser")){
+            throw new IllegalStateException("user must be authenticated.");
+        }
         if (!username.equals(image.getOwner().getUsername()))
             throw new IllegalStateException("You can't update this image, you are not the owner");
 
@@ -170,38 +190,63 @@ public class ImageService {
 
     @Transactional
     public void saveImage(Long imageId) {
-        String username = authenticationFacade.getAuthentication().getName();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalStateException("user " + username + " not found"));
-        Image image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new IllegalStateException("image with id " + imageId + "not found"));
-        user.addSavedImage(image);
+        String username = authenticationFacade.getAuthenticatedUsername();
+        if (!username.equals("anonymousUser")) {
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new IllegalStateException("user " + username + " not found"));
+            Image image = imageRepository.findById(imageId)
+                    .orElseThrow(() -> new IllegalStateException("image with id " + imageId + "not found"));
+            user.addSavedImage(image);
+        }else{
+            throw new IllegalStateException("You must be authenticated.");
+        }
+
     }
 
     @Transactional
     public void unsaveImage(Long imageId) {
-        String username = authenticationFacade.getAuthentication().getName();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalStateException("user " + username + " not found"));
-        Image image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new ResourceNotFoundException("image with id " + imageId + "not found"));
-        user.removeSavedImage(image);
+        String username = authenticationFacade.getAuthenticatedUsername();
+        if (!username.equals("anonymousUser")) {
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new IllegalStateException("user " + username + " not found"));
+            Image image = imageRepository.findById(imageId)
+                    .orElseThrow(() -> new ResourceNotFoundException("image with id " + imageId + "not found"));
+            user.removeSavedImage(image);
+        }else{
+            throw new IllegalStateException("You must be authenticated.");
+        }
     }
 
     public Set<ImageResponseDto> getUserImages(String username) {
-        return EntityToDto.imageEntityToDto(imageRepository.findByOwnerUsername(username));
+        return imageRepository.findByOwnerUsername(username).stream().map(this::getImage).collect(Collectors.toSet());
     }
 
     public Set<ImageResponseDto> searchImages(String q) {
 
         //search in image description
-        Set<ImageResponseDto> response = EntityToDto.imageEntityToDto(imageRepository.findByDescriptionContainingIgnoreCase(q));
+        Set<ImageResponseDto> response = imageRepository.findByDescriptionContainingIgnoreCase(q).stream()
+                .map(this::getImage).collect(Collectors.toSet());
         //search in keywords
         keywordRepository.findByNameContainsIgnoreCase(q).forEach(
                 (keyword) -> {
-                    response.addAll(EntityToDto.imageEntityToDto(imageRepository.findByKeywordsContaining(keyword)));
+                    response.addAll(imageRepository.findByKeywordsContaining(keyword).stream().map(this::getImage).collect(Collectors.toSet()));
                 }
         );
         return response;
+    }
+
+    public ResponseEntity<InputStreamResource> downloadImage(Long imageId) throws FileNotFoundException {
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new ResourceNotFoundException("image with id " + imageId + " not found."));
+        File file = new File(imageConfig.getDirectory() + image.getLocalPath());
+        InputStream in = new FileInputStream(file);
+
+        InputStreamResource resource = new InputStreamResource(in);
+
+        return ResponseEntity.ok()
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-disposition", "attachment; filename="+ file.getName())
+                .body(resource);
     }
 }

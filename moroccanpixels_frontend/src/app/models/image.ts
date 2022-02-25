@@ -9,4 +9,5 @@ export interface Image {
     saveCount : number;
     type : string;
     keywords : string[];
+    saved : boolean;
 }

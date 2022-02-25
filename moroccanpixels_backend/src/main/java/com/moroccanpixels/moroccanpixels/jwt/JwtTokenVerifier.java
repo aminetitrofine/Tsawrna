@@ -49,11 +49,14 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             authorizationHeader = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
         else
             authorizationHeader=request.getHeader("Authorization");
+        if(authorizationHeader.contains("%20")) authorizationHeader = URLDecoder.decode(authorizationHeader,StandardCharsets.UTF_8);
+        
         if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(tokenPrefix)){
             filterChain.doFilter(request,response);
             return;
         }
         String token = authorizationHeader.replace(tokenPrefix, "");
+        System.out.println(token);
         try{
             Jws<Claims> claimsJws = Jwts.parserBuilder()
                     .setSigningKey(Keys.hmacShaKeyFor(key.getBytes()))

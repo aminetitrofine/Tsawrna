@@ -104,8 +104,6 @@ const customNotifierOptions: NotifierOptions = {
     NgbModule
     NgChartsModule,
     MatDividerModule
-
-
   ],
   providers: [],
   bootstrap: [AppComponent]

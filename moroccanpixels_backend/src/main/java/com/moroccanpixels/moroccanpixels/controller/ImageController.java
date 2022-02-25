@@ -4,9 +4,13 @@ import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
 import com.moroccanpixels.moroccanpixels.dto.ImageRequestDto;
 import com.moroccanpixels.moroccanpixels.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
 
@@ -79,5 +83,10 @@ public class ImageController {
     @GetMapping("search")
     public Set<ImageResponseDto> searchImages(@RequestParam("q") String q){
         return imageService.searchImages(q);
+    }
+
+    @RequestMapping(path = "image/{imageId}/download", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> downloadImage(@PathVariable Long imageId) throws FileNotFoundException {
+        return imageService.downloadImage(imageId);
     }
 }

@@ -11,10 +11,11 @@
           <span class="owner-name">{{img.owner}}</span>
           <div class="save-download">
             <span>
-              <mat-icon (click)="onClick()" class="save-icon icon" style="color:white;">favorite_border</mat-icon>
+              <mat-icon *ngIf="img.saved;else notSavedButton" (click)="unsaveImage(img)" class="save-icon icon" style="color:white;">favorite</mat-icon>
+              <ng-template #notSavedButton><mat-icon (click)="saveImage(img)" class="unsave-icon icon" style="color:white;">favorite_border</mat-icon></ng-template>
             </span>
             <span>
-              <mat-icon class="download-icon icon" style="color:white;">get_app</mat-icon>
+              <mat-icon class="download-icon icon" style="color:white;" (click)="downloadImage(img)">get_app</mat-icon>
             </span>
           </div>
   

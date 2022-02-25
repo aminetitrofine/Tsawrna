@@ -1,5 +1,5 @@
 .owner-badge {
-    display: none;
+    display: flex;
     position: absolute;
     bottom: 0;
     left: 0;
