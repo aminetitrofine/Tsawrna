@@ -7,6 +7,7 @@ import com.moroccanpixels.moroccanpixels.dto.ImageResponseDto;
 import com.moroccanpixels.moroccanpixels.mapper.EntityToDto;
 import com.moroccanpixels.moroccanpixels.model.ImageType;
 import com.moroccanpixels.moroccanpixels.model.StatusType;
+import com.moroccanpixels.moroccanpixels.model.entity.Category;
 import com.moroccanpixels.moroccanpixels.model.entity.Image;
 import com.moroccanpixels.moroccanpixels.model.entity.Keyword;
 import com.moroccanpixels.moroccanpixels.model.entity.User;
@@ -57,8 +58,8 @@ public class ImageServiceTest {
     void shouldListImages() {
         //given
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description1",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
-        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),"description2",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description1",0, new Category(), 0, 0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),"description2",0, new Category(), 0, 0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
 
         List<Image> imageList = new ArrayList<Image>();
         imageList.add(image1); imageList.add(image2);
@@ -77,7 +78,7 @@ public class ImageServiceTest {
     @Test
     void shouldGetImage() {
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description", 0, new Category(), 0, 0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
         String authenticatedUsername = user.getUsername();
 
         when(imageRepository.findById(5L)).thenReturn(Optional.of(image));
@@ -94,7 +95,7 @@ public class ImageServiceTest {
     @Disabled
     void shouldViewImage() throws IOException {
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
 
         when(imageRepository.findById(5L)).thenReturn(Optional.of(image));
 
@@ -111,7 +112,7 @@ public class ImageServiceTest {
     @Test
     void shouldDeleteImage() {
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
         when(imageRepository.findById(1L)).thenReturn(Optional.of(image));
         String directory = "my_directory";
         when(imageConfig.getDirectory()).thenReturn(directory);
@@ -131,7 +132,7 @@ public class ImageServiceTest {
     @Disabled
     void shouldUpdateImage() {
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
         when(imageRepository.findById(1L)).thenReturn(Optional.of(image));
         String file1Name = image.getId() + "." + image.getType().value();
 
@@ -141,7 +142,7 @@ public class ImageServiceTest {
         assertThat(username).isEqualTo(image.getOwner().getUsername());
 
         //updating description
-        ImageRequestDto imageRequestDto = new ImageRequestDto(null,"description");
+        /*ImageRequestDto imageRequestDto = new ImageRequestDto(null,"description");
         assertThat(imageRequestDto.getDescription()).isNotNull();
         image.setDescription(imageRequestDto.getDescription());
 
@@ -152,7 +153,7 @@ public class ImageServiceTest {
         assertThat(EntityToDto.imageEntityToDto(image)).isEqualTo(imageResponseDto);
 
         //updating image type
-        image.setType(ImageType.fromContentType(file.getContentType()));
+        image.setType(ImageType.fromContentType(file.getContentType()));*/
 
         //to be continued...
 
@@ -162,7 +163,7 @@ public class ImageServiceTest {
     void shouldMapKeywordToImage() {
         //given
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
         Keyword keyword = new Keyword("sea");
 
         //when
@@ -194,7 +195,7 @@ public class ImageServiceTest {
         //given
         String username = "username";
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
 
         //when
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
@@ -211,7 +212,7 @@ public class ImageServiceTest {
         //given
         String username = "username";
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),"description",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
         //when
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
         when(imageRepository.findById(1L)).thenReturn(Optional.of(image));
@@ -224,8 +225,8 @@ public class ImageServiceTest {
     void shouldGetUserImages() {
         //given
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description1",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
-        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),"description2",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"description1",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),"description2",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
 
         List<Image> imageList = new ArrayList<Image>();
         imageList.add(image1); imageList.add(image2);
@@ -249,8 +250,8 @@ public class ImageServiceTest {
         keywordSet.add(keyword);
 
         User user = new User("username","user@gmail.com","first name","last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
-        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"a picture of the sky",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
-        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),"description2",0,0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), keywordSet);
+        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),"a picture of the sky",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),"description2",0,new Category(),0,0, ImageType.PNG, new HashSet<>(), new HashSet<>(), keywordSet);
 
         List<Image> imageListFromDescription = new ArrayList<Image>();
         imageListFromDescription.add(image1);
