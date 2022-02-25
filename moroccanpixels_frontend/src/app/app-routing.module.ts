@@ -11,6 +11,7 @@ import {GalleryComponent} from "./gallery/gallery.component";
 import { SearchComponent } from './search/search.component';
 import {InsightsComponent} from "./insights/insights.component";
 import {CategorieComponent} from "./categorie/categorie.component";
+import {SettingsComponent} from "./settings/settings.component";
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path:'insights', component: InsightsComponent},
   {path:'categories', component: CategorieComponent},
   {path:'insights', component: InsightsComponent},
-  {path:'search/:q', component: SearchComponent}
+  {path:'search/:q', component: SearchComponent},
+  {path:'settings', component: SettingsComponent}
 
 ];
 

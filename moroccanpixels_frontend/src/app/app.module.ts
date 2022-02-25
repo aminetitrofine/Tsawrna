@@ -24,6 +24,8 @@ import { SearchComponent } from './search/search.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { InsightsComponent } from './insights/insights.component';
 import { CategorieComponent } from './categorie/categorie.component';
+import { SettingsComponent } from './settings/settings.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -78,6 +80,7 @@ const customNotifierOptions: NotifierOptions = {
     SearchComponent,
     InsightsComponent,
     CategorieComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,8 @@ const customNotifierOptions: NotifierOptions = {
     MatGridListModule,
     MatButtonModule,
     FlexLayoutModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    NgbModule
 
   ],
   providers: [],
