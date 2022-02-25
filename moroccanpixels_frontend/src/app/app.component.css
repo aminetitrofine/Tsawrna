@@ -83,6 +83,17 @@ ul{
   background-color: #ffffff;
 }
 
+.profile-picture{
+  width : 40px;
+  max-width : 100%;
+  height : 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.user-menu{
+  display: flex;
+}
+
 /*responsive*/
 @media(max-width: 767px){
   .footer-col{

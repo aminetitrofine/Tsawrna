@@ -27,6 +27,11 @@ import { CategorieComponent } from './categorie/categorie.component';
 import { SettingsComponent } from './settings/settings.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import {NgChartsModule} from "ng2-charts";
+
+import {MatDividerModule} from '@angular/material/divider';
+import { ListImagesComponent } from './list-images/list-images.component';
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -81,6 +86,7 @@ const customNotifierOptions: NotifierOptions = {
     InsightsComponent,
     CategorieComponent,
     SettingsComponent,
+    ListImagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +102,9 @@ const customNotifierOptions: NotifierOptions = {
     FlexLayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
     NgbModule
+    NgChartsModule,
+    MatDividerModule
+
 
   ],
   providers: [],
