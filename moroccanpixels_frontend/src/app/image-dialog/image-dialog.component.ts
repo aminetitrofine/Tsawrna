@@ -38,4 +38,7 @@ export class ImageDialogComponent implements OnInit {
   downloadImage(img:Image){
     this._document.location.href = `${this._authService.serverUrl()}/image/${img.id}/download`
   }
+  authenticatedUsername() {
+    return this._authService.authenticatedUsername();
+  }
 }

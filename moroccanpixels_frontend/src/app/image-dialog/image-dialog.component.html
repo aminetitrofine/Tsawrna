@@ -1,5 +1,9 @@
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography" >
   <img class="img" [src]="url()+img.filePath">
+  <!-- <span style="display: flex;">
+    <img src="{{url()+'/'+authenticatedUsername()+'/profile-picture/view'}}" class="owner-image icon "
+      style="color:white;">
+  </span> -->
   <p>{{img.description}}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
