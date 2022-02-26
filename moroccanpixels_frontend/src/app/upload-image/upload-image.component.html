@@ -1,4 +1,27 @@
+<mat-divider class="divider"></mat-divider>
 <p>Upload Images</p>
+<mat-divider class="divider"></mat-divider>
 
-<input #file type="file" (change)="onSelected($event)"/>
-<button mat-raised-button color="warn" (click)="onUpload()">Upload</button>
+<div class="upload">
+  <div class="card" style="width: 18rem;">
+    <p><i class="material-icons" style="font-size: 10rem">image</i>
+    <div class="card-body">
+      <h5 class="card-title">Upload an image here</h5>
+
+
+    </div>
+  </div>
+
+
+  <div class="file-input">
+    <input type="file" id="file" class="file">
+    <label for="file">
+      <p class="file-name"></p>
+    </label>
+  </div>
+
+
+</div>
+<button mat-raised-button color="alert" (click)="onUpload()" style="margin-left: 45%;width:10%;margin-top:2%;margin-bottom:5%;color: #ffffff">
+  <i class="material-icons" style="color: #ffffff;font-size:1.2rem;margin-right: 6%">upload</i>Upload</button>
+
