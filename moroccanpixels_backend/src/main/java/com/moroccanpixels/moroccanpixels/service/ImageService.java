@@ -23,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.*;
@@ -218,18 +217,18 @@ public class ImageService {
     }
 
     public Set<ImageResponseDto> getUserImages(String username) {
-        return imageRepository.findByOwnerUsername(username).stream().map(this::getImage).collect(Collectors.toSet());
+        return imageRepository.findByOwnerUsernameOrderByLastModified(username).stream().map(this::getImage).collect(Collectors.toSet());
     }
 
     public Set<ImageResponseDto> searchImages(String q) {
 
         //search in image description
-        Set<ImageResponseDto> response = imageRepository.findByDescriptionContainingIgnoreCase(q).stream()
+        Set<ImageResponseDto> response = imageRepository.findByDescriptionContainingIgnoreCaseOrderByLastModified(q).stream()
                 .map(this::getImage).collect(Collectors.toSet());
         //search in keywords
         keywordRepository.findByNameContainsIgnoreCase(q).forEach(
                 (keyword) -> {
-                    response.addAll(imageRepository.findByKeywordsContaining(keyword).stream().map(this::getImage).collect(Collectors.toSet()));
+                    response.addAll(imageRepository.findByKeywordsContainingOrderByLastModified(keyword).stream().map(this::getImage).collect(Collectors.toSet()));
                 }
         );
         return response;

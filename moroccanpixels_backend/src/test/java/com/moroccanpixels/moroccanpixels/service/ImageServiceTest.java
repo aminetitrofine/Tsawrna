@@ -166,7 +166,7 @@ public class ImageServiceTest {
         imageResponseDtoSet.add(EntityToDto.imageEntityToDto(image2));
 
         //when
-        when(imageRepository.findByOwnerUsername(user.getUsername())).thenReturn(imageList);
+        when(imageRepository.findByOwnerUsernameOrderByLastModified(user.getUsername())).thenReturn(imageList);
 
         //then
         assertThat(EntityToDto.imageEntityToDto(imageList)).isEqualTo(imageResponseDtoSet);
@@ -189,7 +189,7 @@ public class ImageServiceTest {
         List<Image> imageListFromKeyword = new ArrayList<>();
         imageListFromKeyword.add(image2);
 
-        when(imageRepository.findByDescriptionContainingIgnoreCase(keyword.getName())).thenReturn(imageListFromDescription);
-        when(imageRepository.findByKeywordsContaining(keyword)).thenReturn(imageListFromKeyword);
+        when(imageRepository.findByDescriptionContainingIgnoreCaseOrderByLastModified(keyword.getName())).thenReturn(imageListFromDescription);
+        when(imageRepository.findByKeywordsContainingOrderByLastModified(keyword)).thenReturn(imageListFromKeyword);
     }
 }

@@ -6,11 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public interface ImageRepository extends JpaRepository<Image,Long> {
-    List<Image> findByOwnerUsername(String username);
-    List<Image> findByDescriptionContainingIgnoreCase(String q);
-    List<Image> findByKeywordsContaining(Keyword keyword);
+    List<Image> findByOwnerUsernameOrderByLastModified(String username);
+    List<Image> findByDescriptionContainingIgnoreCaseOrderByLastModified(String q);
+    List<Image> findByKeywordsContainingOrderByLastModified(Keyword keyword);
 }
