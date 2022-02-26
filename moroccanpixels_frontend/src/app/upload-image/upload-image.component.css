@@ -1,0 +1,44 @@
+p{
+  color: #9E0921;
+  font-size: 1.5rem;
+  font-family: Roboto;
+  font-weight: bold;
+  margin: 20px 0px;
+  text-align: center;
+  width:100%;
+  position: relative;
+
+}
+
+h5{
+  color: #1a202c;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: bold;
+  margin: 20px 0px;
+  text-align: center;
+  width:100%;
+  position: relative;
+}
+
+i{
+  color: #9E0921;
+  margin: 20px 0px;
+  text-align: center;
+  cursor: pointer;
+
+}
+
+.upload
+{
+  margin-left: 40%;
+}
+
+input{
+
+}
+
+
+.mat-raised-button{
+  background-color:#9E0921;
+}
