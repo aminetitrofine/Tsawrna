@@ -1,6 +1,25 @@
 <mat-dialog-content class="mat-typography">
-  <img class="img" [src]="url()+img.filePath">
-  <p>{{img.description}}</p>
+
+    <div class="row">
+      <div class="col-sm-7">
+        <img class="img" [src]="url()+img.filePath">
+      </div>
+      <div class="col-sm-5">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-subtitle mb-2 text-muted" style="font-size: 1rem;font-family: Roboto">
+              <i class="material-icons" style="position: relative;top:7px">info</i>Informations
+            </h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h6 class="card-subtitle mb-2 text-muted" style="font-family: Roboto;font-size: 0.85rem">
+              Imported on 26/02/2022
+            </h6>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button ><mat-icon class="download-icon icon"  (click)="downloadImage(img)">get_app</mat-icon>

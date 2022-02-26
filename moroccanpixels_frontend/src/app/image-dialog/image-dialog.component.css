@@ -1,9 +1,16 @@
 .img{
     max-height: 350px;
+  width: 100%;
+  border-radius: 7px;
 }
 
 .icon {
     margin: auto 4px;
     width: 100%;
     color: black;
+}
+
+.right-content{
+  margin-left: 70%;
+  margin-top:5%;
 }
