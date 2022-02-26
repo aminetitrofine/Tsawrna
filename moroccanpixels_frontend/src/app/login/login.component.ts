@@ -21,7 +21,7 @@ export class LoginComponent{
         if (authToken != null) {
           this._cookieService.set('Authorization', authToken, 15, "/", undefined, true, "Strict");
         }
-
+        this.notifier.notify('success','Login successful');
         this._authService.setAuthenticated();
         this._router.navigate(['']);
       },
