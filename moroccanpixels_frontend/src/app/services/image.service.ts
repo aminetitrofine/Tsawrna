@@ -58,4 +58,7 @@ export class ImageService {
       }
     )
   }
+  deleteImage(id:number){
+    return this.http.delete(`${this.host}/image/${id}`);
+  }
 }

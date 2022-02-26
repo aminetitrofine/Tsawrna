@@ -22,31 +22,15 @@ export class AuthenticationService {
     return token;
   }
 
-  public login(user: User): void {
+  public login(user: User) {
     console.log(user)
-    this._httpClient.post(`${this.url}` + '/login', user, { observe: "response" , responseType:'text'}).subscribe({
-      next: (resp) => {
-        let authToken = resp.headers.get('Authorization')
-        if (authToken != null) {
-          this._cookieService.set('Authorization', authToken, 15, "/", undefined, true, "Strict");
-        }
-
-        this.setAuthenticated();
-      },
-      error: (error) => {
-      }
-    })
+    return this._httpClient.post(`${this.url}` + '/login', user, { observe: "response" , responseType:'text'});
   }
 
 
   public signup(userForm: any) {
     console.log(userForm);
-    this._httpClient.post(`${this.url}` + '/signup', userForm).subscribe({
-      next: () => {
-        alert("signup successful")
-      },
-      error: () => alert("there is a problem")
-    });
+    return this._httpClient.post(`${this.url}` + '/signup', userForm);
   }
   public signOut(): void {
     this._cookieService.delete('Authorization');

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormControl,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
@@ -9,7 +11,9 @@ import {AuthenticationService} from "../services/authentication.service";
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService,private fb :FormBuilder ) { }
+  constructor(private authService: AuthenticationService,
+    private fb :FormBuilder,private notifierService: NotifierService,
+    private _router:Router) { }
 
   signUpForm = this.fb.group({
     firstName : ['',Validators.required],
@@ -28,7 +32,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup(){
-    this.authService.signup(this.signUpForm.value);
+    this.authService.signup(this.signUpForm.value).subscribe({
+      next: () => {
+        this.notifierService.notify('success','Sign up successful');
+        this._router.navigate(['']);
+      },
+      error: () => this.notifierService.notify('error','Sign up failed')
+    });;
   }
 
   firstName(){

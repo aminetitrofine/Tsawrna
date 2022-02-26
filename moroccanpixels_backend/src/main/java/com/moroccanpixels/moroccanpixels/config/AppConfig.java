@@ -52,6 +52,7 @@ public class AppConfig {
                     ApplicationUserRole.ADMIN,
                     StatusType.CONFIRMED
             );
+            hamza.setId(1L);
             User amine = new User(
                     "amine",
                     "aminetitro@gmail.com",
@@ -61,6 +62,7 @@ public class AppConfig {
                     ApplicationUserRole.CONTRIBUTOR,
                     StatusType.ARCHIVED
             );
+            amine.setId(2L);
             Category building = new Category(
             );
             building.setName("Building");
