@@ -56,7 +56,37 @@
                  {{userSettings.email}}
                 </div>
               <div class="col-sm-2 text-secondary">
-                <button type="button" class="btn btn-outline-danger">Change</button>
+                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">Change</button>
+              </div>
+              <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Change email</h4>
+
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <form #f="ngForm" (ngSubmit)="onChangeEmail(f.value)">
+                        <label class="control-label">New email</label>
+                        <input type="text" ngModel class="form-control"/>
+
+                      </form>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button class="btn btn-primary" type="submit">Confirm</button>
+                    </div>
+
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -81,9 +111,7 @@
 
                   {{userSettings.id}}
                 </div>
-              <div class="col-sm-2 text-secondary">
-                <button type="button" class="btn btn-outline-danger">Change</button>
-              </div>
+
             </div>
             <hr>
             <div class="row">
@@ -93,9 +121,7 @@
               <div class="col-sm-7 text-secondary">
                   {{userSettings.username}}
                 </div>
-              <div class="col-sm-2 text-secondary">
-                <button type="button" class="btn btn-outline-danger">Change</button>
-              </div>
+
 
             </div>
             <hr>
@@ -104,7 +130,8 @@
                 <h5 class="mb-0">Address</h5>
               </div>
               <div class="col-sm-7 text-secondary">
-                  aaaaaa
+                Lot Ain el Ati Bloc 4 N 16
+                Beni-Mellal, Beni Mellal-khenifra, Morocco
                 </div>
               <div class="col-sm-2 text-secondary">
                 <button type="button" class="btn btn-outline-danger">Change</button>

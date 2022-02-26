@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class MoroccanpixelsApplicationTests {
 
 	@Test
+
 	void contextLoads() {
 	}
 

@@ -1,10 +1,11 @@
-.categories-title{
-  font-family: "Courier New";
-  font-weight: normal;
-  font-size: 36px;
+h1 {
+  margin: 40px 0px;
+  text-align: center;
+  width:100%;
   position: relative;
-  left: 60px;
-  top: 25px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #9E0921;
 }
 
 .card {
