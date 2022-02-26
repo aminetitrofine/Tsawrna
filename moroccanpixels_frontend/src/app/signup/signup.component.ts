@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
         this.notifierService.notify('success','Sign up successful');
         this._router.navigate(['']);
       },
-      error: () => this.notifierService.notify('success','Sign up successful')
+      error: () => this.notifierService.notify('error','Sign up failed')
     });;
   }
 
