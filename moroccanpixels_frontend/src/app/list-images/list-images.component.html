@@ -2,8 +2,34 @@
     <div *ngFor="let colImages of images" fxFlex="31%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap
       fxLayoutGap="15px" fxLayoutAlign="top">
       <div *ngFor="let img of colImages;let i=index" [id]="i" style="position: relative;">
+        <a data-toggle="modal" data-target="#myModal">
         <img class="img" src="{{url()+img.filePath}}" style="max-width:100%;
           max-height:100%;" (mouseover)="showOwner($event)" (mouseout)="hideOwner($event)">
+        </a>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <img class="img" src="{{url()+img.filePath}}" style="max-width:100%;
+          max-height:100%;" (mouseover)="showOwner($event)" (mouseout)="hideOwner($event)">
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
         <div class="owner-badge">
           <span>
             <img src="{{url()+'/'+authenticatedUsername()+'/profile-picture/view'}}" class="owner-image icon " style="color:white;">
@@ -18,7 +44,7 @@
               <mat-icon class="download-icon icon" style="color:white;" (click)="downloadImage(img)">get_app</mat-icon>
             </span>
           </div>
-  
+
         </div>
       </div>
     </div>
