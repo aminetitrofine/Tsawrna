@@ -52,6 +52,7 @@ public class EntityToDto {
         dto.setStatus(user.getStatus().name());
         dto.setImages(user.getImages().stream().map(Image::getPath).collect(Collectors.toSet()));
         dto.setSavedImages(user.getSavedImages().stream().map(Image::getPath).collect(Collectors.toSet()));
+        dto.setProfilePictureUrl(String.format("/%s/profile-picture/view",user.getUsername()));
         return dto;
     }
     public static List<UserResponseDto> userToUserResponseDto(Collection<User> users){
