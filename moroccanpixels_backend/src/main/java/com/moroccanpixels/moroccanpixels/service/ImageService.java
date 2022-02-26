@@ -217,18 +217,18 @@ public class ImageService {
     }
 
     public Set<ImageResponseDto> getUserImages(String username) {
-        return imageRepository.findByOwnerUsernameOrderByLastModified(username).stream().map(this::getImage).collect(Collectors.toSet());
+        return imageRepository.findByOwnerUsernameOrderByLastModifiedDesc(username).stream().map(this::getImage).collect(Collectors.toSet());
     }
 
     public Set<ImageResponseDto> searchImages(String q) {
 
         //search in image description
-        Set<ImageResponseDto> response = imageRepository.findByDescriptionContainingIgnoreCaseOrderByLastModified(q).stream()
+        Set<ImageResponseDto> response = imageRepository.findByDescriptionContainingIgnoreCaseOrderByLastModifiedDesc(q).stream()
                 .map(this::getImage).collect(Collectors.toSet());
         //search in keywords
         keywordRepository.findByNameContainsIgnoreCase(q).forEach(
                 (keyword) -> {
-                    response.addAll(imageRepository.findByKeywordsContainingOrderByLastModified(keyword).stream().map(this::getImage).collect(Collectors.toSet()));
+                    response.addAll(imageRepository.findByKeywordsContainingOrderByLastModifiedDesc(keyword).stream().map(this::getImage).collect(Collectors.toSet()));
                 }
         );
         return response;

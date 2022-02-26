@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ImageRepository extends JpaRepository<Image,Long> {
-    List<Image> findByOwnerUsernameOrderByLastModified(String username);
-    List<Image> findByDescriptionContainingIgnoreCaseOrderByLastModified(String q);
-    List<Image> findByKeywordsContainingOrderByLastModified(Keyword keyword);
+    List<Image> findByOwnerUsernameOrderByLastModifiedDesc(String username);
+    List<Image> findByDescriptionContainingIgnoreCaseOrderByLastModifiedDesc(String q);
+    List<Image> findByKeywordsContainingOrderByLastModifiedDesc(Keyword keyword);
 }
