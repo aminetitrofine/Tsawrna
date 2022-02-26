@@ -46,6 +46,16 @@ public class UserService {
         this.imageConfig = imageConfig;
     }
 
+    public UserResponseDto getUser() {
+        String username = authenticationFacade.getAuthenticatedUsername();
+        if(!username.equals("anonymousUser")){
+            User user = userRepository.findByUsername(username)
+                .orElseThrow(()->new IllegalStateException(String.format("user %s not found",username)));
+            return EntityToDto.userToUserResponseDto(user);
+        }
+        throw new IllegalStateException("user must be authenticated");
+    }
+
     public List<UserResponseDto> getUsers() {
         return EntityToDto.userToUserResponseDto(userRepository.findAll());
     }
