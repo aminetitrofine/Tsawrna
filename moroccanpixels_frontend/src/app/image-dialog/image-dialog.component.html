@@ -24,8 +24,11 @@
 <mat-dialog-actions align="end">
   <button mat-button ><mat-icon class="download-icon icon"  (click)="downloadImage(img)">get_app</mat-icon>
   </button>
-  <button mat-button cdkFocusInitial>
+  <button mat-button>
       <mat-icon *ngIf="img.saved;else notSavedButton" (click)="unsaveImage(img)" class="save-icon icon">favorite</mat-icon>
+  </button>
+  <button mat-button (click)="deleteImage(img)" >
+    <mat-icon class="icon" *ngIf="img.owner==authenticatedUsername()">delete</mat-icon>
   </button>
   <ng-template #notSavedButton><mat-icon (click)="saveImage(img)" class="unsave-icon icon" >favorite_border</mat-icon></ng-template>
 </mat-dialog-actions>
