@@ -1,51 +1,34 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="15px" fxLayoutAlign="center" style="margin:50px 0;">
-    <div *ngFor="let colImages of images" fxFlex="31%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap
-      fxLayoutGap="15px" fxLayoutAlign="top">
-      <div *ngFor="let img of colImages;let i=index" [id]="i" style="position: relative;">
-        <a data-toggle="modal" data-target="#myModal">
+  <div *ngFor="let colImages of images;let i=index;" fxFlex="31%" fxLayout="column" fxLayout.xs="row" fxLayoutWrap fxLayoutGap="15px"
+    fxLayoutAlign="top">
+    <div *ngFor="let img of colImages;let j=index" style="position: relative;">
+      <a style="cursor: pointer;" (click)="openImageDialog(img)">
         <img class="img" src="{{url()+img.filePath}}" style="max-width:100%;
           max-height:100%;" (mouseover)="showOwner($event)" (mouseout)="hideOwner($event)">
-        </a>
-        <div class="modal" id="myModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body">
-                <img class="img" src="{{url()+img.filePath}}" style="max-width:100%;
-          max-height:100%;" (mouseover)="showOwner($event)" (mouseout)="hideOwner($event)">
-              </div>
-
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="owner-badge">
+      </a>
+      <div class="owner-badge">
+        <span>
+          
+          <img src="{{url()+'/'+authenticatedUsername()+'/profile-picture/view'}}" class="owner-image icon "
+            style="color:white;">
+          
+        </span>
+        <span class="owner-name">{{img.owner}}</span>
+        <div class="save-download">
           <span>
-            <img src="{{url()+'/'+authenticatedUsername()+'/profile-picture/view'}}" class="owner-image icon " style="color:white;">
+            <mat-icon *ngIf="img.saved;else notSavedButton" (click)="unsaveImage(img)" class="save-icon icon"
+              style="color:white;">favorite</mat-icon>
+            <ng-template #notSavedButton>
+              <mat-icon (click)="saveImage(img)" class="unsave-icon icon" style="color:white;">favorite_border
+              </mat-icon>
+            </ng-template>
           </span>
-          <span class="owner-name">{{img.owner}}</span>
-          <div class="save-download">
-            <span>
-              <mat-icon *ngIf="img.saved;else notSavedButton" (click)="unsaveImage(img)" class="save-icon icon" style="color:white;">favorite</mat-icon>
-              <ng-template #notSavedButton><mat-icon (click)="saveImage(img)" class="unsave-icon icon" style="color:white;">favorite_border</mat-icon></ng-template>
-            </span>
-            <span>
-              <mat-icon class="download-icon icon" style="color:white;" (click)="downloadImage(img)">get_app</mat-icon>
-            </span>
-          </div>
-
+          <span>
+            <mat-icon class="download-icon icon" style="color:white;" (click)="downloadImage(img)">get_app</mat-icon>
+          </span>
         </div>
+
       </div>
     </div>
   </div>
+</div>
