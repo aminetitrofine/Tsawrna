@@ -43,6 +43,8 @@ public class Image {
     @Transient
     private int viewCount;
 
+
+
     @Transient
     private int saveCount;
 
@@ -73,6 +75,21 @@ public class Image {
     )
     private Set<Keyword> keywords =new HashSet<>();
 
+    public Image(Long id, User owner, String path, Instant uploadedAt, Instant lastModified, String description, int downloadCount, int viewCount, int saveCount, ImageType type, Set<User> savedBy, Set<User> viewedBy, Set<Keyword> keywords) {
+        this.id = id;
+        this.owner = owner;
+        this.path = path;
+        this.uploadedAt = uploadedAt;
+        this.lastModified = lastModified;
+        this.description = description;
+        this.downloadCount = downloadCount;
+        this.viewCount = viewCount;
+        this.saveCount = saveCount;
+        this.type = type;
+        this.savedBy = savedBy;
+        this.viewedBy = viewedBy;
+        this.keywords = keywords;
+    }
     public String getPath() {
         return "/image/"+this.id+"/view";
     }

@@ -21,4 +21,5 @@ public class ImageResponseDto {
     private int saveCount;
     private ImageType type;
     private Set<String> keywords;
+    private boolean saved;
 }

@@ -18,7 +18,8 @@ export class AuthenticationService {
     return this.url;
   }
   authToken() {
-    return this._cookieService.get("Authorization");
+    let token = this._cookieService.get("Authorization");
+    return token;
   }
 
   public login(user: User): void {

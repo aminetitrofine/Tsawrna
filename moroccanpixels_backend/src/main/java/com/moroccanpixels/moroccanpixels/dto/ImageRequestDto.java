@@ -6,9 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ImageRequestDto {
-
     private MultipartFile file;
     private String description;
-
 }

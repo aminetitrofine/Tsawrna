@@ -1,7 +1,9 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
 import {Image} from '../models/image'
 import { AuthenticationService } from '../services/authentication.service';
 import { ImageService } from '../services/image.service';
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-list-images',
   templateUrl: './list-images.component.html',
@@ -11,7 +13,7 @@ export class ListImagesComponent implements OnInit {
 
   @Input() images !: Image[][];
 
-  constructor(private _renderer:Renderer2,private _authService: AuthenticationService,private _imageService : ImageService) { }
+  constructor(private _renderer:Renderer2,private _authService: AuthenticationService,private _imageService : ImageService,@Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
   }
@@ -27,8 +29,22 @@ export class ListImagesComponent implements OnInit {
     this._renderer.setStyle(element,'display','none');
   }
 
-  onClick(){
-    alert('clicked');
+  unsaveImage(img:Image){
+    this._imageService.unsaveImage(img.id).subscribe({
+      next : ()=>{
+        img.saved = false;
+      }
+    })
+  }
+  saveImage(img:Image){
+    this._imageService.saveImage(img.id).subscribe({
+      next : ()=>{
+        img.saved = true;
+      }
+    })
+  }
+  downloadImage(img:Image){
+    this._document.location.href = `${this._authService.serverUrl()}/image/${img.id}/download`
   }
   authenticatedUsername() {
     return this._authService.authenticatedUsername();

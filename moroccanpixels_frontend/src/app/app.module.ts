@@ -24,6 +24,8 @@ import { SearchComponent } from './search/search.component';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { InsightsComponent } from './insights/insights.component';
 import { CategorieComponent } from './categorie/categorie.component';
+import { SettingsComponent } from './settings/settings.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {NgChartsModule} from "ng2-charts";
 
@@ -83,6 +85,7 @@ const customNotifierOptions: NotifierOptions = {
     SearchComponent,
     InsightsComponent,
     CategorieComponent,
+    SettingsComponent,
     ListImagesComponent,
   ],
   imports: [
@@ -98,10 +101,9 @@ const customNotifierOptions: NotifierOptions = {
     MatButtonModule,
     FlexLayoutModule,
     NotifierModule.withConfig(customNotifierOptions),
+    NgbModule,
     NgChartsModule,
     MatDividerModule
-
-
   ],
   providers: [],
   bootstrap: [AppComponent]
