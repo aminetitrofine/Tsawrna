@@ -30,9 +30,14 @@ public class UserController {
     public Map<String,String> authenticatedUser(){
         return userService.getAuthenticatedUser();
     }
-    @GetMapping(path ="user")
+    @GetMapping(path ="users")
     public List<UserResponseDto> getUsers(){
         return userService.getUsers();
+    }
+
+    @GetMapping(path ="user")
+    public UserResponseDto getUser(){
+        return userService.getUser();
     }
 
     @PostMapping(path = {"user"},headers={"target=adminCreateUser"})

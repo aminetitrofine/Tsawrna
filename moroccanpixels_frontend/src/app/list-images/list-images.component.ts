@@ -4,6 +4,8 @@ import {Image} from '../models/image'
 import { AuthenticationService } from '../services/authentication.service';
 import { ImageService } from '../services/image.service';
 import { DOCUMENT } from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
+import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 @Component({
   selector: 'app-list-images',
   templateUrl: './list-images.component.html',
@@ -13,7 +15,9 @@ export class ListImagesComponent implements OnInit {
 
   @Input() images !: Image[][];
 
-  constructor(private _renderer:Renderer2,private _authService: AuthenticationService,private _imageService : ImageService,@Inject(DOCUMENT) private _document: Document) { }
+  constructor(private _renderer:Renderer2,private _authService: AuthenticationService,
+    private _imageService : ImageService,@Inject(DOCUMENT) private _document: Document,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -51,5 +55,15 @@ export class ListImagesComponent implements OnInit {
   }
   url(){
     return this._authService.serverUrl();
+  }
+
+  openImageDialog(img:Image){
+    const dialogRef = this.dialog.open(ImageDialogComponent,{
+      data : img
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

@@ -7,9 +7,9 @@
           <div class="card-body">
 
             <div class="d-flex flex-column align-items-center text-center">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+              <img [src]="url+userSettings.profilePictureUrl" alt="Admin" class="rounded-circle profile-picture" width="150">
               <div class="mt-3">
-                <h4>John Doe</h4>
+                <h4>{{userSettings.firstName+" "+userSettings.lastName}}</h4>
                 <p class="text-secondary mb-1">Full Stack Developer</p>
                 <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
                 <button class="btn btn-primary" style="background-color: #9E0921;border-color:#9E0921">Follow</button>
@@ -53,7 +53,7 @@
 
               </div>
               <div class="col-sm-7 text-secondary">
-                  johndoe@gmail.com
+                 {{userSettings.email}}
                 </div>
               <div class="col-sm-2 text-secondary">
                 <button class="btn btn-lg btn-outline-primary" >Launch demo modal</button>
@@ -79,7 +79,7 @@
               </div>
               <div class="col-sm-7 text-secondary">
 
-                  123456
+                  {{userSettings.id}}
                 </div>
               <div class="col-sm-2 text-secondary">
                 <button type="button" class="btn btn-outline-danger">Change</button>
@@ -91,7 +91,7 @@
                 <h5 class="mb-0">Username</h5>
               </div>
               <div class="col-sm-7 text-secondary">
-                  john.doe
+                  {{userSettings.username}}
                 </div>
               <div class="col-sm-2 text-secondary">
                 <button type="button" class="btn btn-outline-danger">Change</button>

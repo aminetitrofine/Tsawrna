@@ -30,7 +30,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgChartsModule} from "ng2-charts";
 
 import {MatDividerModule} from '@angular/material/divider';
+import {MatDialogModule} from '@angular/material/dialog';
 import { ListImagesComponent } from './list-images/list-images.component';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -87,6 +90,7 @@ const customNotifierOptions: NotifierOptions = {
     CategorieComponent,
     SettingsComponent,
     ListImagesComponent,
+    ImageDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +107,8 @@ const customNotifierOptions: NotifierOptions = {
     NotifierModule.withConfig(customNotifierOptions),
     NgbModule,
     NgChartsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

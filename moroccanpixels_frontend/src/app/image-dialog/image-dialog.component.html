@@ -1,0 +1,12 @@
+<mat-dialog-content class="mat-typography">
+  <img class="img" [src]="url()+img.filePath">
+  <p>{{img.description}}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button ><mat-icon class="download-icon icon"  (click)="downloadImage(img)">get_app</mat-icon>
+  </button>
+  <button mat-button cdkFocusInitial>
+      <mat-icon *ngIf="img.saved;else notSavedButton" (click)="unsaveImage(img)" class="save-icon icon">favorite</mat-icon>
+  </button>
+  <ng-template #notSavedButton><mat-icon (click)="saveImage(img)" class="unsave-icon icon" >favorite_border</mat-icon></ng-template>
+</mat-dialog-actions>
