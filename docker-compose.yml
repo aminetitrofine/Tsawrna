@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+  ui:
+    container_name: moroccanpixels_frontend
+    image: moroccanpixels_frontend
+    build: 
+        context: ./moroccanpixels_frontend/
+    ports: 
+        - 4200:80
+  app:
+    container_name: moroccanpixels_backend
+    image: moroccanpixels_backend
+    build:
+      context: ./moroccanpixels_backend/
+    ports:
+      - 8080:8080
+    environment:
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/moroccanpixels
+    depends_on:
+      - db
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=moroccanpixels
