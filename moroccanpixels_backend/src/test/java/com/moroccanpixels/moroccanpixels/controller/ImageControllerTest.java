@@ -87,4 +87,57 @@ class ImageControllerTest {
         ImageController imageController = new ImageController(imageService);
         imageController.mapKeywordToImage(image.getId(), keyword.getName());
     }
+
+    @Test
+    void shouldSaveImage() {
+        User user = new User("username","user@gmail.com","first name",
+                "last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),
+                "description",0,new Category(),0,0,
+                ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+
+        imageService.saveImage(image.getId());
+        verify(imageService).saveImage(image.getId());
+
+        ImageController imageController = new ImageController(imageService);
+        imageController.saveImage(image.getId());
+    }
+
+    @Test
+    void shouldUnsaveImage() {
+        User user = new User("username","user@gmail.com","first name",
+                "last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
+        Image image = new Image(1L,user,"image_path", Instant.now(),Instant.now(),
+                "description",0,new Category(),0,0,
+                ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+
+        imageService.unsaveImage(image.getId());
+        verify(imageService).unsaveImage(image.getId());
+
+        ImageController imageController = new ImageController(imageService);
+        imageController.unsaveImage(image.getId());
+    }
+
+    @Test
+    void shouldGetUserImages() {
+        User user = new User("username","user@gmail.com","first name",
+                "last name","secret", ApplicationUserRole.CONTRIBUTOR, StatusType.CONFIRMED);
+        Image image1 = new Image(5L,user,"my_path", Instant.now(),Instant.now(),
+                "description1",0,new Category(),0,0,
+                ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+        Image image2 = new Image(6L,user,"my_path", Instant.now(),Instant.now(),
+                "description2",0,new Category(),0,0,
+                ImageType.PNG, new HashSet<>(), new HashSet<>(), new HashSet<>());
+
+        List<Image> imageList = new ArrayList<>();
+        imageList.add(image1); imageList.add(image2);
+
+        Set<ImageResponseDto> imageResponseDtoSet = new HashSet<>();
+        imageResponseDtoSet.add(EntityToDto.imageEntityToDto(image1));
+        imageResponseDtoSet.add(EntityToDto.imageEntityToDto(image2));
+
+        when(imageService.getUserImages(user.getUsername())).thenReturn(imageResponseDtoSet);
+        ImageController imageController = new ImageController(imageService);
+        assertEquals(imageResponseDtoSet,imageController.getUserImages(user.getUsername()));;
+    }
 }
